@@ -62,3 +62,36 @@ car1.finalPrice = car1.basePrice + globalBasePrice;
 car2.finalPrice = car2.basePrice + globalBasePrice;
 console.log(car1);
 console.log(car2);
+
+
+
+/**
+ * --------------------Iteración #3: Operadores------------------
+ */
+//1.1
+console.log(10*5);
+let product = 10 * 5;
+console.log("La multiplicación de 10 por 5 es: " + product);
+
+//1.2
+console.log(10/2);
+let division = 10 / 2;
+console.log("La división de 10 por 2 es: " + division);
+
+
+//1.3
+console.log(15%9);
+let rest = 15 % 9;
+console.log("El resto de dividir 15 por 9 es: " + rest);
+
+//1.4
+let p = 10;
+let j = 5;
+let o = p + j;
+console.log(o);
+
+//1.5
+let c = 10;
+let m = 5;
+let i = 10 * 5;
+console.log(i);
