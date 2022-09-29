@@ -95,3 +95,35 @@ let c = 10;
 let m = 5;
 let i = 10 * 5;
 console.log(i);
+
+
+
+/**
+ * --------------------Iteración #4: Arrays------------------
+ */
+ const avengers = ["HULK", "SPIDERMAN", "BLACK PANTHER"];
+
+//1.1
+let hulk = avengers[0];
+console.log(hulk);
+
+//1.2
+avengers[0] = "IRONMAN";
+console.log(avengers);
+
+//1.3
+console.log("El número de Avengers en el array son: " + avengers.length);
+
+//1.4
+const rickAndMortyCharacters = ["Rick", "Beth", "Jerry"];
+
+rickAndMortyCharacters.push("Morty", "Summer");
+console.log(rickAndMortyCharacters);
+
+console.log(rickAndMortyCharacters[rickAndMortyCharacters.length - 1]);
+
+//1.5
+const rickAndMortyCharacters2 = ["Rick", "Beth", "Jerry", "Morty", "Summer", "Lapiz Lopez"];
+
+rickAndMortyCharacters2.pop();
+console.log(rickAndMortyCharacters2);
