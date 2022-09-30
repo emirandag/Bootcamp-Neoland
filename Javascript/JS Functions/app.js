@@ -28,10 +28,10 @@ sum(10, 8);
  */
   const numbers = [1, 2, 3, 5, 45, 37, 58];
 
-  function sumAll(array) {
+  function sumAll(numbers) {
     let total = 0;  
-    for (let i = 0; i < array.length; i++) {
-        total += array[i];     
+    for (let i = 0; i < numbers.length; i++) {
+        total += numbers[i];     
     }
     console.log("El total de la suma es: " + total);
   }
