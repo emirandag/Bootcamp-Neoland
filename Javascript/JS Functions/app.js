@@ -28,12 +28,13 @@ sum(10, 8);
  */
   const numbers = [1, 2, 3, 5, 45, 37, 58];
 
-  let total = 0;  
   function sumAll(array) {
+    let total = 0;  
     for (let i = 0; i < array.length; i++) {
         total += array[i];     
     }
-    console.log(total);
+    console.log("El total de la suma es: " + total);
   }
 
   sumAll(numbers);
+
