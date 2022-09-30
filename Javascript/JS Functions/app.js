@@ -38,3 +38,24 @@ sum(10, 8);
 
   sumAll(numbers);
 
+
+
+/**
+* --------------------Iteración #4: Calcular el promedio------------------
+*/
+const numbers2 = [12, 21, 38, 5, 45, 37, 6];
+
+function average(numbers2) {
+  let total = 0;
+
+  for (let i = 0; i < numbers2.length; i++) {
+    total += numbers2[i];  
+  }
+
+  let promedio = total / numbers.length;
+
+  console.log("El promedio es: " + promedio);
+}
+
+
+average(numbers2);
