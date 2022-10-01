@@ -33,14 +33,14 @@ const alumns = [
 
 for (const key in alumns) {
     
-    const element = alumns[key];
+    const alumno = alumns[key];
 
-    if ((element.T1 && element.T2) == true || (element.T1 && element.T3) == true || (element.T2 && element.T3)) {
-        element.isApproved = true;
-        console.log(element);
+    if ((alumno.T1 && alumno.T2) == true || (alumno.T1 && alumno.T3) == true || (alumno.T2 && alumno.T3)) {
+        alumno.isApproved = true;
+        console.log(alumno);
     } else {
-        element.isApproved = false;
-        console.log(element);
+        alumno.isApproved = false;
+        console.log(alumno);
     }
 }
 
