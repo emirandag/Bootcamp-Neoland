@@ -106,10 +106,45 @@ console.log("-----Iteración #5: Calcular promedio de strings-----");
     console.log("Suma Numbers: " + number);
     console.log("Suma Strings: " + string);
 
-    
-
-
-
  }
 
  averageWord(mixedElements);
+
+
+
+/**
+* --------------------Iteración #6: Valores únicos------------------
+*/
+console.log("-----Iteración #6: Valores únicos-----");
+
+const duplicates = [
+  'sushi',
+  'pizza',
+  'burger',
+  'potatoe',
+  'pasta',
+  'ice-cream',
+  'pizza',
+  'chicken',
+  'onion rings',
+  'pasta',
+  'soda'
+];
+
+function removeDuplicates(duplicates) {
+
+  let valores = duplicates.filter((element, index) => {
+    console.log("Elemento: " + element + " - Index: " + index);
+
+    console.log(duplicates.indexOf(element));
+
+    if (duplicates.indexOf(element) === index) {
+      return element;
+    }
+  });
+
+  console.log(valores);
+  
+}
+
+removeDuplicates(duplicates);
