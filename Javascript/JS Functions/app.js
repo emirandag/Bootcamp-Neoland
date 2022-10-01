@@ -148,3 +148,39 @@ function removeDuplicates(duplicates) {
 }
 
 removeDuplicates(duplicates);
+
+
+
+/**
+ * --------------------Iteración #7: Buscador de nombres------------------
+ */
+ console.log("-----Iteración #7: Buscador de nombres-----");
+
+ const nameFinder = [
+  'Peter',
+  'Steve',
+  'Tony',
+  'Natasha',
+  'Clint',
+  'Logan',
+  'Xabier',
+  'Bruce',
+  'Peggy',
+  'Jessica',
+  'Marc'
+];
+function finderName(nameFinder, name) {
+
+  let found = nameFinder.includes(name);
+
+  if (found) {
+    console.log("El elemento " + name + " es " + found + " con la posición " + nameFinder.indexOf(name));
+  } else {
+    console.log(found + "- No existe");
+  }
+
+}
+
+finderName(nameFinder, "Logan");
+finderName(nameFinder, "Eduardo");
+finderName(nameFinder, "Jessi");
