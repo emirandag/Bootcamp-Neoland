@@ -16,16 +16,35 @@ sum(10, 8);
 /**
  * --------------------Iteración #2: Buscar la palabra más larga------------------
  */
- const avengers = ['Hulk', 'Thor', 'IronMan', 'Captain A.', 'Spiderman', 'Captain M.'];
- function findLongestWord(param) {
+console.log("-----Iteración #2: Buscar la palabra más larga-----");
+const avengers = ['Hulk', 'Thor', 'IronMan', 'Captain A.', 'Spiderman', 'Captain M.'];
 
- }
+function findLongestWord(avengers) {
 
+  let word = 0;
 
+  for (let i = 0; i < avengers.length; i++) {
+    const item = avengers[i];
+    console.log("Avenger: "+ item + " - " + item.length + " letras");
+
+    word = Math.max(item.length);
+  }
+
+  console.log(word);
+
+  const firstLongestWord = avengers.find(element => element.length == word);
+
+  console.log("La primera palabra más larga es: " + firstLongestWord);
+  
+  
+}
+
+findLongestWord(avengers);
 
  /**
  * --------------------Iteración #3: Calcular la suma------------------
  */
+  console.log("-----Iteración #3: Calcular la suma-----");
   const numbers = [1, 2, 3, 5, 45, 37, 58];
 
   function sumAll(numbers) {
@@ -43,6 +62,7 @@ sum(10, 8);
 /**
 * --------------------Iteración #4: Calcular el promedio------------------
 */
+console.log("-----Iteración #4: Calcular el promedio-----");
 const numbers2 = [12, 21, 38, 5, 45, 37, 6];
 
 function average(numbers2) {
@@ -59,3 +79,37 @@ function average(numbers2) {
 
 
 average(numbers2);
+
+
+
+/**
+ * --------------------Iteración #5: Calcular promedio de strings------------------
+ */
+console.log("-----Iteración #5: Calcular promedio de strings-----");
+ const mixedElements = [6, 1, 'Rayo', 1, 'vallecano', '10', 'upgrade', 8, 'hub'];
+ function averageWord(mixedElements) {
+   
+    let number = 0;
+    let string = 0;
+    
+    for (let i = 0; i < mixedElements.length; i++) {
+        const element = mixedElements[i];     
+        if (element === Number(element)) {
+            console.log("Number: " + element);
+            number += element;
+        } else {
+            console.log("String: " + element);
+            string += element.length;
+        }
+    }
+
+    console.log("Suma Numbers: " + number);
+    console.log("Suma Strings: " + string);
+
+    
+
+
+
+ }
+
+ averageWord(mixedElements);
