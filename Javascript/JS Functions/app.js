@@ -176,7 +176,7 @@ function finderName(nameFinder, name) {
   if (found) {
     console.log("El elemento " + name + " es " + found + " con la posición " + nameFinder.indexOf(name));
   } else {
-    console.log(found + "- No existe");
+    console.log(found + "- No existe " + name);
   }
 
 }
@@ -184,3 +184,51 @@ function finderName(nameFinder, name) {
 finderName(nameFinder, "Logan");
 finderName(nameFinder, "Eduardo");
 finderName(nameFinder, "Jessi");
+
+
+
+/**
+ * --------------------Iteration #8: Contador de repeticiones------------------
+*/
+console.log("-----Iteration #8: Contador de repeticiones-----");
+const counterWords = [
+  'code',
+  'repeat',
+  'eat',
+  'sleep',
+  'code',
+  'enjoy',
+  'sleep',
+  'code',
+  'enjoy',
+  'upgrade',
+  'code'
+];
+function repeatCounter(counterWords) {
+  
+  let count = [];
+
+  // let repetidos = counterWords.filter((element) => {
+
+  //   console.log(element);
+
+  //   if (counterWords.includes(element)) {
+  //     count++
+  //     console.log(count);
+  //   } else {
+      
+  //   }
+  // });
+
+  counterWords.forEach(element => {
+    
+    console.log(element);
+    count[element] = (count[element] || 0 ) + 1;
+
+  });
+
+  console.log(count);
+
+}
+
+repeatCounter(counterWords);
