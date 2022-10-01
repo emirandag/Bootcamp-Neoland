@@ -14,7 +14,7 @@ for (let i = 0; i < products.length; i++) {
     
 }
 
-console.log("-----FIN I#1------");
+console.log("-----FIN I#1------\n");
 
 
 /**
@@ -30,7 +30,8 @@ const alumns = [
 		{name: 'Raquel Benito', T1: true, T2: true, T3: true}
 ]
 
-
+//Con for in
+console.log("---Con for in---");
 for (const key in alumns) {
     
     const alumno = alumns[key];
@@ -44,4 +45,31 @@ for (const key in alumns) {
     }
 }
 
-console.log("-----FIN I#2------");
+//Con foreach
+console.log("---Con foreach");
+alumns.forEach(alumno => {
+    if ((alumno.T1 && alumno.T2) == true || (alumno.T1 && alumno.T3) == true || (alumno.T2 && alumno.T3)) {
+        alumno.isApproved = true;
+        console.log(alumno);
+    } else {
+        alumno.isApproved = false;
+        console.log(alumno);
+    }
+});
+
+console.log("-----FIN I#2------\n");
+
+
+
+/**
+ * --------------------Iteración #3: Probando For...of------------------
+ */
+console.log("-----Iteración #3: Probando For...of-----");
+
+const placesToTravel = ['Japon', 'Venecia', 'Murcia', 'Santander', 'Filipinas', 'Madagascar'];
+
+for (const place of placesToTravel) {
+    console.log(place);
+}
+
+console.log("-----FIN I#3------\n");
