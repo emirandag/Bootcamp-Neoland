@@ -94,3 +94,29 @@ for (const key in alien) {
 }
 
  console.log("-----FIN I#4------\n");
+
+
+
+ /**
+ * --------------------Iteración #5: Probando For------------------
+ */
+console.log("-----Iteración #5: Probando For-----");
+
+const placesToTravel2 = [{id: 5, name: 'Japan'}, {id: 11, name: 'Venecia'}, {id: 23, name: 'Murcia'}, {id: 40, name: 'Santander'}, {id: 44, name: 'Filipinas'}, {id: 59, name: 'Madagascar'}];
+
+const placesWithoutDeleted = [];
+
+let index11 = placesToTravel2.findIndex(element => element.id === 11);
+let index40 = placesToTravel2.findIndex(element => element.id === 40);
+
+for (let index = 0; index < placesToTravel2.length; index++) {
+
+    if (placesToTravel2[index]!== placesToTravel2[index11] && placesToTravel2[index]!== placesToTravel2[index40]) {
+        placesWithoutDeleted.push(placesToTravel2[index]);
+    }
+
+} 
+
+console.log(placesWithoutDeleted);
+
+console.log("-----FIN I#5------\n");
