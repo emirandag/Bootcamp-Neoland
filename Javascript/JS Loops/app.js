@@ -119,4 +119,20 @@ for (let index = 0; index < placesToTravel2.length; index++) {
 
 console.log(placesWithoutDeleted);
 
+
+//2ª opción
+const placesWithoutDeleted2 = [];
+
+for (let index = 0; index < placesToTravel2.length; index++) {
+    const place = placesToTravel2[index];
+
+    if (place.id !== 11 && place.id !== 40) {
+        placesWithoutDeleted2.push(place);
+    } 
+}
+
+console.log(placesWithoutDeleted2);
+
 console.log("-----FIN I#5------\n");
+
+
