@@ -175,3 +175,25 @@ favorites.forEach((element => {
 console.log(countFavorites);
 
 console.log("-----FIN I#3------\n");
+
+
+
+/**
+* --------------------Iteración #3: Mix Fors------------------
+*/
+console.log("-----Iteración #4: Mix Fors-----");
+
+const animales = ['elefante', 'lobo', 'hipopotamo', 'gato']
+
+let textAnimals = 'El elefante es el animal terrestre de mayor tamaño. El gato es un animal considerado mascota. El lobo era el gran cazador de los bosques de Europa. El hipopotamo es uno de los animales vivos más pesados.'
+let textModificated = textAnimals
+const findArrayIndex = (animales, textModificated) => {
+    
+    animales.forEach((animal, index) => {return textModificated = textModificated.replaceAll(animal, index) });
+
+    console.log(textModificated);
+}
+
+findArrayIndex(animales, textModificated)
+
+console.log("-----FIN I#4------\n");
