@@ -216,3 +216,57 @@ const resultRollDice = rollDice(6)
 console.log(resultRollDice)
 
 console.log("-----FIN I#5------\n")
+
+
+
+/**
+* --------------------Iteración #6: Función swap------------------
+*/
+console.log("-----Iteración #6: Función swap-----")
+
+const players = ['Mesirve', 'Cristiano Romualdo', 'Fernando Muralla', 'Ronalguiño']
+
+console.log(players);
+
+const swap = (players, indexOne, indexTwo) => {
+
+    if ((indexOne < 0 || indexTwo < 0) && ((indexOne > players.length - 1) || indexTwo > players.length - 1)) {
+        
+        return `Ninguno de los dos índices son de algún elemento del array`
+
+    } else if ((indexOne < 0) || (indexOne > (players.length - 1))) {
+
+        return `El primer índice: ${indexOne} no pertenece a ningún valor del array`
+        
+    } else if ((indexTwo < 0) || (indexTwo > (players.length - 1))) {
+
+        return `El segundo índice: ${indexTwo} no pertenece a ningún valor del array`
+
+    } else {
+
+        const copyPlayers = players
+
+        //console.log(copyPlayers[indexOne], copyPlayers[indexTwo])
+    
+        let elementOne = copyPlayers[indexOne]
+        let elementTwo = copyPlayers[indexTwo]
+    
+        let firstIndex = copyPlayers.indexOf(copyPlayers[indexOne])
+        let secondIndex = copyPlayers.indexOf(copyPlayers[indexTwo])
+    
+        //console.log(firstIndex, secondIndex);
+    
+        copyPlayers.splice(firstIndex, 1, elementTwo)
+        copyPlayers.splice(secondIndex, 1, elementOne)
+    
+        //console.log(copyPlayers)
+    
+        return copyPlayers 
+    }
+}
+
+const playersReplaces = swap(players, 2, 6)
+
+console.log(playersReplaces);
+
+console.log("-----FIN I#6------\n")
