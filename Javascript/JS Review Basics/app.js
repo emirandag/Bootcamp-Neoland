@@ -197,3 +197,22 @@ const findArrayIndex = (animales, textModificated) => {
 findArrayIndex(animales, textModificated)
 
 console.log("-----FIN I#4------\n");
+
+
+
+/**
+* --------------------Iteración #5: Función rollDice------------------
+*/
+console.log("-----Iteración #5: Función rollDice-----")
+
+const rollDice = (diceFaces) => {
+
+    //console.log(Math.ceil(Math.random() * diceFaces))
+    return Math.ceil(Math.random() * diceFaces)
+}
+
+const resultRollDice = rollDice(6)
+
+console.log(resultRollDice)
+
+console.log("-----FIN I#5------\n")
