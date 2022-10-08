@@ -118,8 +118,65 @@ console.log(copyColors)
 copyColors.splice(2, 1)
 console.log(copyColors)
 
-
-
-
-
 console.log("-----FIN I#3------\n")
+
+
+
+/**
+* --------------------Iteración #4: Map------------------
+*/
+console.log("-----Iteración #4: Map-----")
+
+
+//4.1
+const users = [
+	{id: 1, name: 'Abel'},
+	{id:2, name: 'Julia'},
+	{id:3, name: 'Pedro'},
+	{id:4, name: 'Amanda'}
+];
+
+const mappedUsers = users.map((user) => { return user.name })
+
+console.log(mappedUsers);
+
+
+//4.2
+const users2 = [
+	{id: 1, name: 'Abel'},
+	{id:2, name: 'Julia'},
+	{id:3, name: 'Pedro'},
+	{id:4, name: 'Amanda'}
+];
+
+const changeNamesStartWithA = users2.map((user) => {
+
+    let userStartWithA = user.name.startsWith('A')
+    //console.log(userStarWithA);
+    if (userStartWithA) {
+        return user.name.replaceAll(user.name, 'Anacleto')
+    } else {
+        return user.name
+    }
+    
+})
+
+console.log(changeNamesStartWithA);
+
+
+//4.3
+const cities = [
+	{isVisited:true, name: 'Tokyo'}, 
+	{isVisited:false, name: 'Madagascar'},
+	{isVisited:true, name: 'Amsterdam'}, 
+	{isVisited:false, name: 'Seul'}
+];
+
+const citiesVisited = cities.map((city) => city.isVisited ? `${city.name} (Visitado)` : city.name)
+
+console.log(citiesVisited)
+
+console.log("-----FIN I#4------\n")
+
+
+
