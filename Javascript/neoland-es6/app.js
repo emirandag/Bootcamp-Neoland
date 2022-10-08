@@ -24,3 +24,39 @@ const result3 = sumNumbers(20, 15)
 console.log(result3)
 
 console.log("-----FIN I#1------\n");
+
+
+
+/**
+* --------------------Iteración #2: Destructuring------------------
+*/
+console.log("-----Iteración #2: Destructuring-----")
+
+//2.1
+const game = {title: 'The last us 2', gender: ['action', 'zombie', 'survival'], year: 2020}
+
+const {title, gender, year} = game
+console.log(`Título del juego: ${title}`)    
+console.log(`Genéros: ${gender}`)    
+console.log(`Año del juego: ${year}`)
+
+//2.2
+const fruits = ['Banana', 'Strawberry', 'Orange']
+
+const [fruit1, fruit2, fruit3] = fruits
+console.log(fruit1)
+console.log(fruit2)
+console.log(fruit3)
+
+//2.3
+const animalFunction = () => {
+    return {name: 'Bengal Tiger', race: 'Tiger'}
+}
+
+
+const {name, race} = animalFunction()
+console.log(name)
+console.log(race)
+
+
+console.log("-----FIN I#2------\n")
