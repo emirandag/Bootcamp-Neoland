@@ -70,9 +70,56 @@ console.log(year1)
 console.log(year2)
 console.log(year3)
 
-
-
-
-
-
 console.log("-----FIN I#2------\n")
+
+
+
+/**
+* --------------------Iteración #3: Spread Operator------------------
+*/
+console.log("-----Iteración #3: Spread Operator-----")
+
+//3.1
+const pointsList = [32, 54, 21, 64, 75, 43]
+
+const copyPointsList = [...pointsList]
+console.log(copyPointsList)
+
+
+//3.2
+const toy = {name: 'Bus laiyiar', date: '20-30-1995', color: 'multicolor'};
+
+const copyToy = {...toy}
+console.log(copyToy)
+
+
+//3.3
+const pointsList1 = [32, 54, 21, 64, 75, 43];
+const pointsLis2 = [54,87,99,65,32];
+
+const pointsList3 = [...pointsList1, ...pointsLis2]
+console.log(pointsList3)
+
+
+//3.4
+const toy2 = {name: 'Bus laiyiar', date: '20-30-1995', color: 'multicolor'};
+const toyUpdate = {lights: 'rgb', power: ['Volar like a dragon', 'MoonWalk']}
+
+const newToy = {...toy2, ...toyUpdate}
+console.log(newToy)
+
+
+//3.5
+const colors = ['rojo', 'azul', 'amarillo', 'verde', 'naranja'];
+
+const copyColors = [...colors]
+console.log(copyColors)
+
+copyColors.splice(2, 1)
+console.log(copyColors)
+
+
+
+
+
+console.log("-----FIN I#3------\n")
