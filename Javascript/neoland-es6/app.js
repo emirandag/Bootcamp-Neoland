@@ -53,10 +53,26 @@ const animalFunction = () => {
     return {name: 'Bengal Tiger', race: 'Tiger'}
 }
 
-
 const {name, race} = animalFunction()
 console.log(name)
 console.log(race)
+
+
+//2.4
+const car = {nameCar: 'Mazda 6', itv: [2015, 2011, 2020] }
+
+const {nameCar, itv} = car
+console.log(nameCar)
+console.log(itv)
+
+const [year1, year2, year3] = itv
+console.log(year1)
+console.log(year2)
+console.log(year3)
+
+
+
+
 
 
 console.log("-----FIN I#2------\n")
