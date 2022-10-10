@@ -180,3 +180,130 @@ console.log("-----FIN I#4------\n")
 
 
 
+/**
+* --------------------Iteración #5: Filter------------------
+*/
+console.log("-----Iteración #5: Filter-----")
+
+//5.1
+const ages = [22, 14, 24, 55, 65, 21, 12, 13, 90];
+
+const agesGreaterEighteen = ages.filter((age) => { if(age > 18) return age })
+
+console.log(agesGreaterEighteen);
+
+
+//5.2
+const ages2 = [22, 14, 24, 55, 65, 21, 12, 13, 90];
+
+const evenAges = ages2.filter((age) => age % 2 === 0 )
+
+console.log(evenAges);
+
+
+//5.3
+const streamers = [
+	{name: 'Rubius', age: 32, gameMorePlayed: 'Minecraft'},
+	{name: 'Ibai', age: 25, gameMorePlayed: 'League of Legends'}, 
+	{name: 'Reven', age: 43, gameMorePlayed: 'League of Legends'},
+	{name: 'AuronPlay', age: 33, gameMorePlayed: 'Among Us'}
+];
+
+const streamersGameMorePlayed = streamers.filter((streamer) => { 
+    if (streamer.gameMorePlayed === 'League of Legends') return streamer
+})
+
+console.log(streamersGameMorePlayed);
+
+
+//5.4
+const streamers2 = [
+	{name: 'Rubius', age: 32, gameMorePlayed: 'Minecraft'},
+	{name: 'Ibai', age: 25, gameMorePlayed: 'League of Legends'},
+	{name: 'Reven', age: 43, gameMorePlayed: 'League of Legends'},
+	{name: 'AuronPlay', age: 33, gameMorePlayed: 'Among Us'}
+];
+
+const streamersIncludedU = streamers2.filter((streamer) => {
+
+    if (streamer.name.includes('u')) {
+        return streamer
+    } 
+
+})
+
+console.log(streamersIncludedU)
+
+
+//5.5
+const filteredStreamers = streamers2.filter((streamer) => {
+
+    if (streamer.gameMorePlayed.includes('Legends') && streamer.age > 35) {
+
+        return streamer.gameMorePlayed = streamer.gameMorePlayed.toUpperCase()
+        
+    }
+
+})
+
+console.log(filteredStreamers)
+
+console.log("-----FIN I#5------\n")
+
+
+
+/**
+* --------------------Iteración #6: Find------------------
+*/
+console.log("-----Iteración #6: Find-----")
+
+//6.1
+const numbers = [32, 21, 63, 95, 100, 67, 43];
+
+const numberFound = numbers.find(number => number === 100)
+
+console.log(`El número encontrado es: ${numberFound}`);
+
+
+//6.2
+const movies = [
+	{title: 'Madagascar', stars: 4.5, date: 2015},
+	{title: 'Origen', stars: 5, date: 2010},
+	{title: 'Your Name', stars: 5, date: 2016}
+];
+
+const movieFound = movies.find(movie => movie.date === 2010)
+
+console.log(`La película encontrada es:`, movieFound)
+
+
+//6.3
+const aliens = [
+	{name: 'Zalamero', planet: 'Eden', age: 4029},
+	{name: 'Paktu', planet: 'Andromeda', age: 32},
+	{name: 'Cucushumushu', planet: 'Marte', age: 503021}
+];
+const mutations = [
+	{name: 'Porompompero', description: 'Hace que el alien pueda adquirir la habilidad de tocar el tambor'},
+	{name: 'Fly me to the moon', description: 'Permite volar, solo y exclusivamente a la luna'},
+	{name: 'Andando que es gerundio', description: 'Invoca a un señor mayor como Personal Trainer'}
+];
+
+const alienFound = aliens.find(alien => alien.name === 'Cucushumushu')
+const mutationFound = mutations.find(mutation => mutation.name === 'Porompompero')
+
+//console.log(alienFound);
+//console.log(mutationFound);
+
+const alienWithMutation = {...alienFound, mutation: {...mutationFound}}
+console.log(`El alien con mutación es:`, alienWithMutation)
+
+
+//Segunda opción
+const alienWithMutationSO = {...aliens.find(alien => alien.name === 'Cucushumushu'), mutation: {...mutations.find(mutation => mutation.name === 'Porompompero')}}
+
+console.log(`El alien con mutación es:`, alienWithMutationSO)
+
+console.log("-----FIN I#6------\n")
+
+
