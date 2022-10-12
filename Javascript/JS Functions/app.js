@@ -208,21 +208,8 @@ function repeatCounter(counterWords) {
   
   let count = [];
 
-  // let repetidos = counterWords.filter((element) => {
-
-  //   console.log(element);
-
-  //   if (counterWords.includes(element)) {
-  //     count++
-  //     console.log(count);
-  //   } else {
-      
-  //   }
-  // });
-
-  counterWords.forEach(element => {
+  counterWords.forEach((element) => {
     
-    console.log(element);
     count[element] = (count[element] || 0 ) + 1;
 
   });

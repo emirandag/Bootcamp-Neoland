@@ -307,3 +307,41 @@ console.log(`El alien con mutación es:`, alienWithMutationSO)
 console.log("-----FIN I#6------\n")
 
 
+
+/**
+* --------------------Iteración #7: Reduce------------------
+*/
+console.log("-----Iteración #7: Reduce-----")
+
+//7.1
+const exams = [
+    {name: 'Yuyu Cabeza Crack', score: 5}, 
+    {name: 'Maria Aranda Jimenez', score: 1}, 
+    {name: 'Cristóbal Martínez Lorenzo', score: 6}, 
+    {name: 'Mercedez Regrera Brito', score: 7},
+    {name: 'Pamela Anderson', score: 3},
+    {name: 'Enrique Perez Lijó', score: 6},
+    {name: 'Pedro Benitez Pacheco', score: 8},
+    {name: 'Ayumi Hamasaki', score: 4},
+    {name: 'Robert Kiyosaki', score: 2},
+    {name: 'Keanu Reeves', score: 10}
+];
+
+const sumScoresExams = exams.reduce((acc, exam) => acc + exam.score, 0)
+
+console.log(`La suma de las notas de los exámenes es: ${sumScoresExams}`)
+
+
+//7.2
+const sumApprovedExams = exams.reduce((acc, exam) => exam.score >= 5 ? acc + exam.score : acc, 0)
+
+console.log(`La suma de los exámenes aprobados es: ${sumApprovedExams}`)
+
+
+//7.3
+const sumExams = exams.reduce((acc, exam) => acc+exam.score,0)
+
+let middleScoresExams = sumExams/exams.length
+console.log(`La media de las notas es ${middleScoresExams}`);
+
+console.log("-----FIN I#7------\n")
