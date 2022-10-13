@@ -11,7 +11,7 @@ let body = document.querySelector('body');
 let newDiv = document.createElement('div')
 console.log(newDiv)
 
-let insertDiv = body.appendChild(newDiv)
+let insertDiv = body.appendChild(newDiv) // Body tomado en la línea 7
 console.log(insertDiv)
 
 
@@ -19,7 +19,7 @@ console.log(insertDiv)
 let newDiv2 = document.createElement('div')
 console.log(newDiv2)
 
-let insertDiv2 = body.appendChild(newDiv2)
+let insertDiv2 = body.appendChild(newDiv2) // Body tomado de la línea 7
 console.log(insertDiv2)
 
 let newP = document.createElement('p')
@@ -32,7 +32,7 @@ console.log(insertP)
 //2.3
 let newDiv3 = document.createElement('div')
 
-let insertDiv3 = body.appendChild(newDiv3)
+let insertDiv3 = body.appendChild(newDiv3); // Body tomado de la línea 7
 
 for (let index = 0; index < 6; index++) {
     
@@ -50,7 +50,7 @@ let newP3 = document.createElement('p')
 let textP = document.createTextNode('Soy dinámico!')
 
 newP3.appendChild(textP)
-body.appendChild(newP3)
+body.appendChild(newP3) // Body tomado en la línea 7
 
 
 //2.5
@@ -78,7 +78,7 @@ for (const app of apps) {
     newUl.appendChild(newLi);
 }
 
-body.appendChild(newUl);
+body.appendChild(newUl); // Body tomado en la línea 7
 
 
 //2.7
