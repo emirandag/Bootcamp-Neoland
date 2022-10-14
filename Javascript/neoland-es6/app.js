@@ -118,6 +118,20 @@ console.log(copyColors)
 copyColors.splice(2, 1)
 console.log(copyColors)
 
+
+//Ahora recorriendo array
+const copyColors2 = [...colors]
+
+const copyColors3 = [];
+
+copyColors2.forEach((color, index) => {
+    if (!(index === copyColors2.indexOf('amarillo'))) {
+        copyColors3.push(color)
+    }
+});
+
+console.log(copyColors3);
+
 console.log("-----FIN I#3------\n")
 
 
