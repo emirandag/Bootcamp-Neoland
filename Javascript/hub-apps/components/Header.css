@@ -1,0 +1,44 @@
+nav > .btn {
+    background-color: aquamarine;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+nav > .btn:hover {
+    background-color: rgb(4, 218, 143);
+}
+
+#header {
+    padding: 3rem;
+    width: 100%;
+}
+
+#header > nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40rem;
+}
+
+#header > nav > #search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+#header > nav > #search > #btn-find-pokemon {
+    background-color: aquamarine;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#header > nav > #search > #input-find-pokemon {
+    padding: 8px 10px;
+    text-align: left;
+  }
