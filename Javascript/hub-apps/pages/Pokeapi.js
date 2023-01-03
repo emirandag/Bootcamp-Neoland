@@ -1,4 +1,5 @@
-import { Search } from '../components/Search'
+
+import { Input } from '../components/Input/Input'
 import './Pokeapi.css'
 
 
@@ -8,28 +9,24 @@ export const Pokeapi = async () => {
     getPokemons.innerHTML = "Please wait..."
     const getPokeapi = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=150')
     const result = await getPokeapi.json()
-    //console.log(result.results);
+
     listAllPokemons(result.results)
-    //printNamePokemon(result.results);
+
 }
 
 
 const listAllPokemons = async(pokemons) => {
-
 
     let allPokemons = []
     for (const pokemon of pokemons) {
 
         const dataPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
         const dataPokemonJson = await dataPokemon.json()
-        allPokemons.push(dataPokemonJson)
-        
+        allPokemons.push(dataPokemonJson)    
     }
 
-    //console.log(allPokemons);
     const mappedAllPokemons = allPokemons.map(pokemon => {
         const pokemonTypes = pokemon.types.map(type => type.type.name)
-        //console.log(pokemonTypes);
         const otropokemon = {
             id: pokemon.id,
             name : pokemon.name,
@@ -39,8 +36,6 @@ const listAllPokemons = async(pokemons) => {
         
         return otropokemon
     })
-
-    //console.log(mappedAllPokemons);
     
     showPokemons(mappedAllPokemons)
 
@@ -53,19 +48,27 @@ const showPokemons = (pokemons) => {
 }
 
 const printPokemons = (pokemons) => {
-    
-    //console.log(pokemons);
 
-    // for (const pokemon of pokemons) {
-    //     //console.log(pokemon);
-    // }
     const getPokemons = document.querySelector('#container')
-    Search()
 
     getPokemons.innerHTML = ""
-
+    getPokemons.innerHTML = `
+    <div id="pokedex">
+        <div class="card-header">
+            <h2>Buscar pokemon</h2>
+            ${Input("find-pokemon")}
+            
+        </div>
+        <div id='pokemon-body' class='card-body'>
+        
+        </div>
+    </div>
+    `
+    //<img src="images/icons-types/${pokemon.type}.png" alt=${pokemon.type} />
+    const cardPoke = document.querySelector('#pokemon-body')
+    
     for (const pokemon of pokemons) {
-        getPokemons.innerHTML += `
+        cardPoke.innerHTML += `
         <div class="card-pokemon">
             <div class="card-top">
                 <h5>${pokemon.id}</h5>
@@ -77,7 +80,7 @@ const printPokemons = (pokemons) => {
             </div>
             <div class="card-bottom">
             </div>
-        </div>           
+        </div>        
     `
     }
 
@@ -174,8 +177,8 @@ const printNamePokemon = async (pokemons) => {
 
 const listenerPokemon = (pokemons) => {
 
-    const getNamePokemon = document.querySelector('#input-find-pokemon')
-    const getBtnPokemon = document.querySelector('#btn-find-pokemon')
+    const getNamePokemon = document.querySelector('#find-pokemon-input')
+    //const getBtnPokemon = document.querySelector('#btn-find-pokemon')
 
     getNamePokemon.addEventListener('input', () => {
         //console.log(getNamePokemon.value);
@@ -194,7 +197,7 @@ const listenerPokemon = (pokemons) => {
 const findPokemon = (name, pokemons) => {
     //console.log(pokemons);
     //console.log(name);
-    const getCharacter = document.querySelector('#container')
+    const getCharacter = document.querySelector('#pokemon-body')
     getCharacter.innerHTML = ""
     for (const element of pokemons) {
         

@@ -1,0 +1,15 @@
+.btn {
+    padding: 0.5rem 2rem;
+    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+}
+
+/*
+#login-btn {
+    padding: 0.5rem 2rem;
+    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+}
+*/

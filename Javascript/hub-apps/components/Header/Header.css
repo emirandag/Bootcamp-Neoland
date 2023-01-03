@@ -8,7 +8,7 @@ nav > .btn {
     justify-content: flex-end;
 }
 
-nav > .btn:hover {
+#id-nav > .btn:hover {
     background-color: rgb(4, 218, 143);
 }
 
@@ -17,28 +17,42 @@ nav > .btn:hover {
     width: 100%;
 }
 
-#header > nav {
+#header > #id-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40rem;
 }
 
+#header > #id-nav > .nav-right {
+    display: flex;
+    gap: 3rem;
+}
+/*
 #header > nav > #search {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
 }
-
+*/
+/*
 #header > nav > #search > #btn-find-pokemon {
     background-color: aquamarine;
     border: none;
     padding: 10px;
     border-radius: 5px;
 }
+*/
 
+/*
 #header > nav > #search > #input-find-pokemon {
     padding: 8px 10px;
     text-align: left;
   }
+*/
+  .search-hidden {
+    display: none;
+  }
+
+  

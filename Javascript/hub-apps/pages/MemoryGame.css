@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.card-box {
+    margin: 100px;
+    width: 200px;
+    height: 250px;
+    position: relative;
+    perspective: 1000px;
+  }
+  
+  /*
+  .card-box:hover .card {
+      transform: rotateY(-180deg);
+  }
+  */
+  
+  .card {
+    transform-style: preserve-3d;
+    transition: all 0.8s linear;
+  }
+  
+  .card-face {
+
+    background-color: aliceblue;
+    
+    position: absolute;
+    
+    /*
+    width: 200px;
+    height: 250px;
+    */
+  }
+  
+ 
+  .card-face {
+    transform: rotateY(-180deg);
+    backface-visibility: hidden;
+    /*
+    border: 1px solid white;
+    background-color: red;
+    
+    width: 200px;
+    height: 250px;
+    */
+  }
+ 
