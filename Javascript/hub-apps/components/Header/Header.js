@@ -1,10 +1,6 @@
 import { Login } from "../../pages/Login";
 import { Button } from "../Button/Button";
 import "./Header.css";
-//import { Search } from "./Search";
-
-
-
 
 
 export const Header = () => {
@@ -19,7 +15,7 @@ export const Header = () => {
                 <button id="color-mode" class="btn">Color Mode</button>
                 <div id="search">
                     🏠
-                    ${Button("Logout")}
+                    ${Button("logout","Logout")}
                 </div>
             </div>
         </nav>
@@ -27,13 +23,7 @@ export const Header = () => {
     const bar = document.querySelector('#search')
 
     localStorage.getItem('user') ? bar.classList.toggle('search-show') : bar.classList.toggle('search-hidden')
-    /*
-    if (localStorage.getItem('user')) {
-        
-        bar.classList.toggle('search-show')
-        
-    }
-    */
+
     actionBtnColor()
     logout()
 }
@@ -41,11 +31,9 @@ export const Header = () => {
 
 const actionBtnColor = () => {
     const btnColor = document.querySelector('#color-mode')
-    //console.log(btnColor);
-
+ 
     btnColor.addEventListener('click', () => {
         
-        //console.log(randomColor());
         document.body.style.backgroundColor = randomColor()
     })
 }
@@ -65,9 +53,7 @@ const logout = () => {
     const menu = document.querySelector('#search')
 
     btnLogout.addEventListener('click', () => {
-        //Header()
-        //
-        //menu.classList.toggle('search-show')
+ 
         localStorage.removeItem('user')
         menu.classList.toggle('search-hidden')
         Login()

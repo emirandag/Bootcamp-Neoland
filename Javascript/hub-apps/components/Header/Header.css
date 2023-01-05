@@ -28,31 +28,9 @@ nav > .btn {
     display: flex;
     gap: 3rem;
 }
-/*
-#header > nav > #search {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-}
-*/
-/*
-#header > nav > #search > #btn-find-pokemon {
-    background-color: aquamarine;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-}
-*/
 
-/*
-#header > nav > #search > #input-find-pokemon {
-    padding: 8px 10px;
-    text-align: left;
-  }
-*/
-  .search-hidden {
+.search-hidden {
     display: none;
-  }
+}
 
   

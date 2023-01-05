@@ -1,8 +1,8 @@
 import './Button.css' 
 
-export const Button = (name) => {
+export const Button = (id, value) => {
 
-    const newButton = `<button id="${name.toLowerCase()}-btn" class="btn">${name}</button>`
+    const newButton = `<button id="${id}-btn" class="btn">${value}</button>`
     return newButton
     
 }

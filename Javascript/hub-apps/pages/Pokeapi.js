@@ -1,4 +1,5 @@
 
+import { Button } from '../components/Button/Button'
 import { Input } from '../components/Input/Input'
 import './Pokeapi.css'
 
@@ -27,11 +28,18 @@ const listAllPokemons = async(pokemons) => {
 
     const mappedAllPokemons = allPokemons.map(pokemon => {
         const pokemonTypes = pokemon.types.map(type => type.type.name)
+        const pokemonAbilites = pokemon.abilities.map(type => type.ability.name)
+        console.log(pokemon.sprites.other["official-artwork"]);
         const otropokemon = {
             id: pokemon.id,
             name : pokemon.name,
-            type: pokemonTypes[0],
-            image: pokemon.sprites.front_default
+            type: pokemonTypes,
+            image: pokemon.sprites.other["official-artwork"].front_default,
+            imageBig: pokemon.sprites.other.dream_world.front_default,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            base_experience: pokemon.base_experience,
+            abilities: pokemonAbilites
         }
         
         return otropokemon
@@ -55,211 +63,186 @@ const printPokemons = (pokemons) => {
     getPokemons.innerHTML = `
     <div id="pokedex">
         <div class="card-header">
-            <h2>Buscar pokemon</h2>
-            ${Input("find-pokemon")}
+            <div class="card-header-data">
+            <h2>Buscar pokemón</h2>
+            ${Input("find-pokemon", "Escribe el nombre o tipo")}
+            </div>
+            <div class="card-header-data">
+            <h2>Buscar por tipo</h2>
+            <select id="find-pokemon-type">
+                <option value="bug">Bug</option>
+                <option value="dark">Dark</option>
+                <option value="dragon">Dragon</option>
+                <option value="electric">Electric</option>
+                <option value="fairy">Fairy</option>
+                <option value="fighting">Fighting</option>
+                <option value="fire">Fire</option>
+                <option value="flying">Flying</option>
+                <option value="ghost">Ghost</option>
+                <option value="grass">Grass</option>
+                <option value="ground">Ground</option>
+                <option value="ice">Ice</option>
+                <option value="normal">Normal</option>
+                <option value="poison">Poison</option>
+                <option value="psychic">Psychic</option>
+                <option value="rock">Rock</option>
+                <option value="steel">Steel</option>
+                <option value="water">Water</option>
+            </select>
             
+            </div>
         </div>
         <div id='pokemon-body' class='card-body'>
         
         </div>
     </div>
     `
-    //<img src="images/icons-types/${pokemon.type}.png" alt=${pokemon.type} />
-    const cardPoke = document.querySelector('#pokemon-body')
     
     for (const pokemon of pokemons) {
-        cardPoke.innerHTML += `
-        <div class="card-pokemon">
-            <div class="card-top">
-                <h5>${pokemon.id}</h5>
-                <img src="images/icons-types/${pokemon.type}.png" alt=${pokemon.type} />
-            </div>
-            <div class="card-center">
-                <h4>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h4>
-                <img src=${pokemon.image} />
-            </div>
-            <div class="card-bottom">
-            </div>
-        </div>        
-    `
+        pokemonCard(pokemon)
     }
 
+    
+    pokemonShow(pokemons)
     listenerPokemon(pokemons)
 } 
-
-
-/*
-const printNamePokemon = async (pokemons) => {
-    //const getPokemons = 
-    const getPokemons = document.querySelector('#container')
-    Search()
-    //getPokemons.innerHTML = "Please wait..."
-    getPokemons.innerHTML = ""
-
-    //const newArrayPokemon
-
-    //console.log(pokemons);
-    
-    for (const pokemon of pokemons) {
-        //console.log(pokemon.name[0]);
-        //console.log(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-        const dataPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-        const dataPokemonJson = await dataPokemon.json()
-        //console.log(dataPokemonJson);
-        // for (const type of dataPokemonJson.types) {
-        //     console.log(type.type.name);
-        // }
-
-        
-        //console.log(dataPokemonJson.name);
-
-        const pokemonTypes = dataPokemonJson.types.map(type => type.type.name)
-
-        const allPokemons = {
-            id: dataPokemonJson.id,
-            name: pokemon.name,
-            type: pokemonTypes[0],
-            image: dataPokemonJson.sprites.front_default
-        }
-
-        //console.log(allPokemons);
-        // const allPokemons = dataPokemonJson.map((pokemon) => {
-        //     pokemon = {
-        //         id: dataPokemonJson.id,
-        //         name: pokemon.name,
-        //         type: pokemonTypes,
-
-        //     } 
-        //     return pokemon
-        // })
-        // console.log(allPokemons);
-        // getPokemons.innerHTML += `
-        //     <div class="card-pokemon">
-        //         <div class="card-top">
-        //             <h5>${dataPokemonJson.id}</h5>
-        //             <img src="images/icons-types/${pokemonTypes[0]}.png" alt=${pokemonTypes[0]} />
-        //         </div>
-        //         <div class="card-center">
-        //             <h4>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h4>
-        //             <img src=${dataPokemonJson.sprites.front_default} />
-        //         </div>
-        //         <div class="card-bottom">
-        //         </div>
-        //     </div>           
-        // `
-        getPokemons.innerHTML += `
-        <div class="card-pokemon">
-            <div class="card-top">
-                <h5>${allPokemons.id}</h5>
-                <img src="images/icons-types/${allPokemons.type}.png" alt=${allPokemons.type} />
-            </div>
-            <div class="card-center">
-                <h4>${allPokemons.name.charAt(0).toUpperCase()+allPokemons.name.slice(1)}</h4>
-                <img src=${allPokemons.image} />
-            </div>
-            <div class="card-bottom">
-            </div>
-        </div>           
-    `
-       
-    }
-    
-    listenerPokemon()
-    
-}
-
-*/
-
-
-
 
 
 
 const listenerPokemon = (pokemons) => {
 
     const getNamePokemon = document.querySelector('#find-pokemon-input')
-    //const getBtnPokemon = document.querySelector('#btn-find-pokemon')
+    const getBtnPokemonType = document.querySelector('#find-pokemon-type')
 
     getNamePokemon.addEventListener('input', () => {
-        //console.log(getNamePokemon.value);
         const namePokemon = getNamePokemon.value.toLowerCase()
         findPokemon(namePokemon, pokemons)
     })
 
-//     getBtnPokemon.addEventListener('click', () => {
-//         //console.log(getNamePokemon.value)
-//         const namePokemon = getNamePokemon.value.toLowerCase()
-//         findPokemonLocal(namePokemon)
-//     })
+
+    getBtnPokemonType.addEventListener('click', () => {
+        findTypePokemon(getBtnPokemonType.value, pokemons)
+    })
+    
 }
 
 
 const findPokemon = (name, pokemons) => {
-    //console.log(pokemons);
-    //console.log(name);
-    const getCharacter = document.querySelector('#pokemon-body')
-    getCharacter.innerHTML = ""
-    for (const element of pokemons) {
-        
-        //console.log(element.name.includes("p"))
-        //
-            if (element.name.includes(name) || element.type.includes(name)) {
-                
 
-                getCharacter.innerHTML += `
-                <div class="card-pokemon">
-                <div class="card-top">
-                    <h5>${element.id}</h5>
-                    <img src="images/icons-types/${element.type}.png" alt=${element.type} />
-                </div>
-                <div class="card-center">
-                    <h4>${element.name.charAt(0).toUpperCase()+element.name.slice(1)}</h4>
-                    <img src=${element.image} />
-                </div>
-                <div class="card-bottom">
-                </div>
-            </div>           
-        `
+    document.querySelector('#pokemon-body').innerHTML = ""
+    
+    for (const pokemon of pokemons) {
+        
+            if (pokemon.name.includes(name) || pokemon.type.includes(name)) {
+                
+                pokemonCard(pokemon)
+                
             } 
     }
+    pokemonShow(pokemons)
     
 }
 
-// const findPokemon = async (namePokemon) => {
-    
-//     const getFoundPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
-//     const getFoundPokemonJson = await getFoundPokemon.json()
-//     console.log(getFoundPokemonJson);
-//     printCharacter(getFoundPokemonJson)
-// }
 
-// const printCharacter = (character) => {
-//     const getCharacter = document.querySelector('#container')
+const findTypePokemon = (type, pokemons) => {
 
-//     console.log(character);
+    document.querySelector('#pokemon-body').innerHTML = ""
 
-//     getCharacter.innerHTML = ""
+    for (const pokemon of pokemons) {
 
-//     const energyType = character.types.map(type => type.type.name)
-//     getCharacter.innerHTML = `
-//     <div class="card-pokemon">
-//         <div class="card-top">
-//             <h5>${character.id}</h5>
-//             <img src="images/icons-types/${energyType[0]}.png" alt=${energyType[0]} />
-//         </div>
-//         <div class="card-center">
-//             <h4>${character.name.charAt(0).toUpperCase()+character.name.slice(1)}</h4>
-//             <img src=${character.sprites.front_default} />
-//         </div>
-//         <div class="card-bottom">
-//         </div>
-//     </div>  
-//     `
-// }
+        if (pokemon.type.includes(type)) {
 
+            pokemonCard(pokemon)
+        }
+    }
 
-const findTypePokemon = () => {
-
+    pokemonShow(pokemons)
 }
 
 
+const pokemonCard = (pokemon) => {
+    const getCharacter = document.querySelector('#pokemon-body')
+
+    getCharacter.innerHTML += `
+    <div id="${pokemon.id}" class="card-pokemon ${pokemon.type[0]}">
+        <div class="card-top">
+            <h5>${pokemon.id}</h5>
+            <div class="card-types">
+            ${pokemon.type.length > 1 ? `<img src="images/icons-types/${pokemon.type[0]}.png" alt=${pokemon.type[0]} /><img src="images/icons-types/${pokemon.type[1]}.png" alt=${pokemon.type[1]} />` : `<img src="images/icons-types/${pokemon.type[0]}.png" alt=${pokemon.type[0]} />`}
+            </div>
+            </div>
+        <div class="card-center">
+            <h4>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h4>
+            <img src=${pokemon.image} alt="${pokemon.name}" />
+        </div>
+        <div class="card-bottom">
+        </div>
+    </div>        
+`
+}
+
+const pokemonShow = (pokemons) => {
+    const valores = document.querySelectorAll('.card-pokemon')
+
+
+    for (const valor of valores) {
+        valor.addEventListener('click', (ev) =>{
+            console.log(valor.id);
+            pokemons.map(pokemon => {
+                
+                if (pokemon.id.toString() === valor.id) {
+                    console.log(pokemon.name);
+                    modalPokemon(pokemon)
+                    //return pokemon
+                }
+            })
+            
+        })
+        
+    
+    }
+}
+
+const modalPokemon = (pokemon) => {
+    const getCharacter = document.querySelector('#container')
+
+    getCharacter.innerHTML = ""
+    getCharacter.innerHTML = `
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-left">
+                    <div class="modal-header">
+                       
+                    </div>
+                    <div class="modal-body">
+                        <img src=${pokemon.imageBig} />
+                    </div>
+                    <div class="modal-footer">
+                        <h2>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h2>
+                    </div>
+                </div>
+                <div class="modal-right">
+                    <div class="modal-header">
+                        ${Button("close-modal", "Cerrar    ✖")}
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>ID:</strong> ${pokemon.id}</p>
+                        <p><strong>Type:</strong> ${pokemon.type.join("  ")}</p>
+                        <p><strong>Height:</strong> ${pokemon.height}</p>
+                        <p><strong>Weight:</strong> ${pokemon.weight}</p>
+                        <p><strong>Base Experience:</strong> ${pokemon.base_experience}</p>
+                        <p><strong>Abilities:</strong> ${pokemon.abilities.join("  ")}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <h2>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h2>
+                    </div>
+                </div> 
+            </div>
+        </div>   
+    `
+
+    const closeModal = document.querySelector('#close-modal-btn')
+    closeModal.addEventListener('click', () => {
+        Pokeapi()
+    })
+}

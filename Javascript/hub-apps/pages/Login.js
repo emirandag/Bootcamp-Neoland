@@ -12,9 +12,8 @@ export const Login = () => {
 
             <div class="form">
                 <h3>Introduce tu nombre</h3>
-                ${Input("Login")}
-                <p id="msg" hidden>Este campo no puede estar vacio</p>
-                ${Button("Login")}
+                ${Input("login", "Nombre")}
+                ${Button("login","Login")}
             </div>
         </div>
     `;
@@ -31,7 +30,8 @@ const actionLogin = () => {
 
         if (inputName.value === "") {
             inputName.style.border = '1px solid red'
-            msg.hidden = false
+            //msg.hidden = false
+            inputName.placeholder = `❌ ¡No puede estar vacio!`
         } else {
             localStorage.setItem("user", inputName.value)
             Dashboard(inputName.value)
