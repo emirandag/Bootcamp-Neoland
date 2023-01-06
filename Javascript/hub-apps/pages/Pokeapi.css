@@ -102,9 +102,34 @@
 
 .modal {
     display: flex;
+    flex-direction: column;
+    /*
     align-items: center;
     justify-content: center;
-    width: 100%;
+    */
+    border: 15px solid #88061c;
+    
+    font-family: 'Press Start 2P', cursive;
+    color: black;
+    background-color: #dd0b2d;
+    text-align: center;
+    
+}
+
+.modal > .modal-button {
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+    
+    padding: 3px;
+    gap: 0rem;
+}
+
+.modal-button > button {
+    font-size: 25px;
+    background-color: #dd0b2d;
+    border: none;
+    padding: 0 5px;
 }
 
 .modal-content {
@@ -112,94 +137,87 @@
     align-items: center;
     justify-content: center;
     gap: 3rem;
-    border: 15px solid #88061c;
-    border-radius: 5px;
-    width: 80%;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 10px;
-    background-color: #dd0b2d;
-    color: black;
-    margin: 10px;
+    margin: 0 40px;
 }
 
 .modal-content > .modal-left {
     display: flex;
     flex-direction: column;
+    /*
     align-items: center;
     justify-content: center;
+    */
     gap: 2rem;
-    width: 100%;
-}
+    flex: 50%;
+    /*width: 100%;*/
+    padding: 20px;
+    /*margin: 30px;*/
 
-.modal-content > .modal-left > .modal-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.modal-content > .modal-left > .modal-body > img {
-    width: 80%;
-    border: 25px solid #f0baba;
-    border-radius: 10px;
-    padding: 30px;
-    background-color: #ffffff;
-}
-
-.modal-content > .modal-left > .modal-footer {
-    width: 50%;
-    border: 1px solid #f0baba;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #ffffff;
-    text-align: left;
-    margin-bottom: 30px;
 }
 
 .modal-content > .modal-right {
+    /*width: 90%;*/
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    text-align: left;
+    gap: 1rem;
+    flex: 50%;
+    background-color: rgb(194, 255, 235);
+    border: 3px solid white;
+    padding: 20px;
+    /*margin: 30px;*/
+    margin: 0 30px;
+    
+}
+
+
+.modal-left > .modal-header {
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    background-color: aquamarine;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 30px;
+    height: 30px;
+    margin-left: 50px;
+}
+
+.modal-left > .modal-body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    width: 100%;
 }
 
-.modal-content > .modal-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
-}
-
-.modal-content > .modal-body > .modal-left {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.modal-content > .modal-body > .modal-left > img{
-    width: 90%;
-    border: 25px solid #f0baba;
-    border-radius: 10px;
-    padding: 30px;
-    background-color: #ffffff;
-}
-
-.modal-content > .modal-body > .modal-right {
-    width: 90%;
+.modal-right > .modal-body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 1rem;
-    border: 3px solid white;
-    padding: 10px;
-    margin-right: 20px;
-    background-color: rgb(194, 255, 235);
+    gap: 2rem;
+    text-align: left;
+    
 }
+
+.modal-body > img{
+    width: 300px;
+    border: 25px solid #f0baba;
+    border-radius: 10px;
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+.modal-body > h2 {
+    background-color: rgb(194, 255, 235);
+    border: 3px solid white;
+    padding: 20px;
+}
+
+
 
 .modal-content > .modal-footer {
     display: flex;
@@ -208,6 +226,13 @@
     width: 100%;
     margin: 10px;
 }
+
+@media (max-width: 800px) {
+    .modal-content {
+      flex-direction: column;
+    }
+  }
+
 
 .electric {
     background-image: url("images/textures/electric_texture.png");

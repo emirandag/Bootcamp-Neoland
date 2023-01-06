@@ -208,35 +208,40 @@ const modalPokemon = (pokemon) => {
 
     getCharacter.innerHTML = ""
     getCharacter.innerHTML = `
-        <div id="myModal" class="modal">
+        <div id="myModal" class="modal"> 
+            <div class="modal-button"> 
+                <button id="close-modal-btn">✖</button> 
+            </div>
             <div class="modal-content">
+                
                 <div class="modal-left">
                     <div class="modal-header">
-                       
+
                     </div>
                     <div class="modal-body">
                         <img src=${pokemon.imageBig} />
+                        <h2>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h2>
                     </div>
                     <div class="modal-footer">
-                        <h2>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h2>
+
                     </div>
                 </div>
                 <div class="modal-right">
                     <div class="modal-header">
-                        ${Button("close-modal", "Cerrar    ✖")}
+
                     </div>
                     <div class="modal-body">
                         <p><strong>ID:</strong> ${pokemon.id}</p>
-                        <p><strong>Type:</strong> ${pokemon.type.join("  ")}</p>
+                        <p><strong>Type:</strong> ${pokemon.type.join(", ")}</p>
                         <p><strong>Height:</strong> ${pokemon.height}</p>
                         <p><strong>Weight:</strong> ${pokemon.weight}</p>
                         <p><strong>Base Experience:</strong> ${pokemon.base_experience}</p>
-                        <p><strong>Abilities:</strong> ${pokemon.abilities.join("  ")}</p>
+                        <p><strong>Abilities:</strong> ${pokemon.abilities.join(", ")}</p>
                     </div>
                     <div class="modal-footer">
-                        <h2>${pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)}</h2>
+
                     </div>
-                </div> 
+                </div>  
             </div>
         </div>   
     `
