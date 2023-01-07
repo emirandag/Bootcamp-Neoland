@@ -1,5 +1,5 @@
-import { Header } from "../components/Header/Header"
-import { Login } from "./Login"
+import { Header } from "../../components/Header/Header"
+import { Login } from "../Login/Login"
 
 import './Home.css'
 

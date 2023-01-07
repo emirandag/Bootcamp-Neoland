@@ -18,7 +18,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-*/
+*/ 
 
 * {
   margin: 0;
@@ -31,40 +31,3 @@ body {
   color: #eeeeee;
   font-family: 'Lato', sans-serif;
 }
-
-/*
-#container > div{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 200px;
-  width: 100%;
-}
-
-
-
-#container > div > h1, h2 {
-  margin: 50px;
-  text-align: center;
-}
-
-
-#container > div > .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-
-#container > div > .form > input{
-  padding: 8px 10px;
-  text-align: left;
-}
-
-
-
-
-*/

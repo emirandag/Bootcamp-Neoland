@@ -1,20 +1,20 @@
-import { Header } from "../components/Header/Header"
-import { MemoryGame } from "./MemoryGame"
-import { Pokeapi } from "./Pokeapi"
-import { Tresenraya } from "./Tresenraya"
-import { WhakaTopo } from "./WhakaTopo"
+import { Header } from "../../components/Header/Header"
+import { MemoryGame } from "../MemoryGame/MemoryGame"
+import { Pokeapi } from "../Pokeapi/Pokeapi"
+import { Tresenraya } from "../Tresenraya/Tresenraya"
+import { WhakaTopo } from "../WhakaTopo/WhakaTopo"
 
 import './Dashboard.css'
 
 
 
-export const Dashboard = (name) => {
+export const Dashboard = () => {
     document.querySelector('#container').innerHTML = `
 
         <div id="dashboard">
-            <h2>Bienvenido  ${name} </h2>
+            <h2>Bienvenido  ${localStorage.getItem('user') ? localStorage.getItem('user') : "usuario"} </h2>
             <div id="games">
-                <div id="3enraya" class="btn-games">3 en Raya</div>
+                <div class="btn-games"><img id="3enraya" src="images/games/3enraya.png" /></div>
                 <div class="btn-games"><img id="whakatopo" src="images/games/mole.png" /></div>
                 <div id="memorygame" class="btn-games">Memory Game</div>
                 <div id="hangman" class="btn-games">HangMan</div>

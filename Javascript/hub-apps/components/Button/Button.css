@@ -3,6 +3,12 @@
     background-color: aqua;
     border: none;
     border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+
+.btn:hover{
+    scale: 1.1;
+    background-color: rgb(57, 196, 196);
 }
 
 /*

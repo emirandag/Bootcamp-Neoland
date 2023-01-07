@@ -1,5 +1,6 @@
-import { Login } from "../../pages/Login";
+import { Login } from "../../pages/Login/Login";
 import { Button } from "../Button/Button";
+import { Dashboard } from "../../pages/Dashboard/Dashboard";
 import "./Header.css";
 
 
@@ -12,25 +13,29 @@ export const Header = () => {
             
             <div class="nav-left"></div>
             <div class="nav-right">
-                <button id="color-mode" class="btn">Color Mode</button>
+                ${Button("color-mode","Color-Mode")}
                 <div id="search">
-                    🏠
+                    <img id="home" src="images/home.png" /> 
                     ${Button("logout","Logout")}
                 </div>
             </div>
         </nav>
     `
-    const bar = document.querySelector('#search')
+    const menu = document.querySelector('#search')
 
-    localStorage.getItem('user') ? bar.classList.toggle('search-show') : bar.classList.toggle('search-hidden')
+    localStorage.getItem('user') ? menu.classList.toggle('search-show') : menu.classList.toggle('search-hidden')
 
+    
+    
+    
+    
     actionBtnColor()
     logout()
 }
 
 
 const actionBtnColor = () => {
-    const btnColor = document.querySelector('#color-mode')
+    const btnColor = document.querySelector('#color-mode-btn')
  
     btnColor.addEventListener('click', () => {
         
@@ -50,13 +55,15 @@ const randomColor = () => {
 
 const logout = () => {
     const btnLogout = document.querySelector('#logout-btn')
-    const menu = document.querySelector('#search')
 
     btnLogout.addEventListener('click', () => {
- 
         localStorage.removeItem('user')
-        menu.classList.toggle('search-hidden')
         Login()
+    })
+
+    const home = document.querySelector('#home')
+    home.addEventListener('click', () => {
+        Dashboard()
     })
 }
 

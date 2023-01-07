@@ -1,15 +1,7 @@
-nav > .btn {
-    background-color: aquamarine;
-    border: none;
-    padding: 10px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-#id-nav > .btn:hover {
-    background-color: rgb(4, 218, 143);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #header {
@@ -29,8 +21,24 @@ nav > .btn {
     gap: 3rem;
 }
 
+
+.search-show {
+    display: flex;
+    gap: 1rem;
+}
+
 .search-hidden {
     display: none;
 }
 
+#home {
+    width: 30px;
+    color: aliceblue;
+    transition: 0.2s ease-in-out;
+}
+
+#home:hover {
+    scale: 1.2;
+}
   
+
