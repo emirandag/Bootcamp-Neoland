@@ -2,15 +2,17 @@
     padding: 0.5rem 2rem;
     background-color: aqua;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: 0.2s ease-in-out;
     text-align: center;
     font-size: medium;
+    
 }
 
 .btn:hover{
     scale: 1.1;
     background-color: rgb(57, 196, 196);
+    cursor: pointer;
 }
 
 /*

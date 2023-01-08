@@ -15,8 +15,10 @@ export const WhakaTopo = () => {
             </div>
         </div>
     `
+    const resetButton = document.querySelector('#reset-topo-btn')
+    resetButton.setAttribute('disabled', 'true')
     printBoard()
-    actionGame()
+    
 }
 
 const printBoard = () => {
@@ -26,6 +28,7 @@ const printBoard = () => {
         boardId.innerHTML += `<div id="${index}" class="whaka-game"></div>`
 
     }
+    actionGame()
 }
 
 const actionGame = () => {
@@ -101,14 +104,14 @@ const positionTopo = () => {
     
 }
 
-const countPoints = () => {
-
-}
-
 const resetGame = () => {
     const resetButton = document.querySelector('#reset-topo-btn')
     resetButton.removeAttribute('disabled')
-    resetButton.addEventListener('click', (event) => {
-        WhakaTopo()
+    resetButton.addEventListener('click', () => {
+        resetButton.setAttribute('disabled', 'true')
+        document.querySelector('#score').innerHTML = `Puntos: 0`
+        document.querySelector('#board').innerHTML = ""
+        printBoard()
+        
     })
 }
