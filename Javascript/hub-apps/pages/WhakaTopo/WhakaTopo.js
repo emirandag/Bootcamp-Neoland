@@ -1,17 +1,19 @@
+import { Button } from '../../components/Button/Button'
 import './WhakaTopo.css'
 
 export const WhakaTopo = () => {
     const container =  document.querySelector('#container')
 
     container.innerHTML = `
-        <div class="grid-header">
-            <h2 id="score">Puntos: 0</h2>
-            <h2 id="time">Tiempo restante: 30</h2>
-            <button id="reset-game" class="btn" disabled>Reiniciar</button>
+        <div class="whaka-content">
+            <div class="whaka-header">
+                <h2 id="score">Puntos: 0</h2>
+                <h2 id="time">Tiempo restante: 30</h2>
+                ${Button("reset-topo", "Reiniciar")}
+            </div>
+            <div id="board" class="whaka-body">
+            </div>
         </div>
-        <div id="board" class="grid-body">
-        </div>
-
     `
     printBoard()
     actionGame()
@@ -21,7 +23,7 @@ const printBoard = () => {
     const boardId = document.querySelector('#board')
 
     for (let index = 0; index < 16; index++) {
-        boardId.innerHTML += `<div id="${index}" class="grid-game"></div>`
+        boardId.innerHTML += `<div id="${index}" class="whaka-game"></div>`
 
     }
 }
@@ -36,6 +38,7 @@ const actionGame = () => {
 
 const countdown = () => {
     const timeId = document.querySelector('#time')
+    //const scoreId = 
     let totalTime = 30
 
     const gameTime = setInterval(() => {
@@ -51,10 +54,10 @@ const countdown = () => {
 }
 
 const positionTopo = () => {
-    const cuadros = document.querySelectorAll('.grid-game')
+    const cuadros = document.querySelectorAll('.whaka-game')
     const scoreId = document.querySelector('#score')
     const timeId = document.querySelector('#time')
-    
+    let sumPoints = 0
     let position;
     
     const moveTopo = setInterval(() => {
@@ -63,20 +66,21 @@ const positionTopo = () => {
             cuadro.innerHTML = "" 
         }
         position = Math.floor(Math.random() * cuadros.length);
-        
-        //console.log(position);
-        //console.log(cuadros[position])
+
         cuadros[position].innerHTML = `<img src="images/games/topo.png" />`
         console.log('Posición: '+position);
 
         if (timeId.textContent === "Tiempo restante: 0") {
             clearInterval(moveTopo)
             timeId.textContent = `Tiempo agotado. Reinicia el juego`
+            for (const cuadro of cuadros) {
+                cuadro.classList.toggle('whaka-disabled')
+            }
         }
-    }, 2000);
+    }, 1000);
     
 
-    let sumPoints = 0
+    
     
     cuadros.forEach((cuadro, index) => {
 
@@ -88,11 +92,11 @@ const positionTopo = () => {
             if (index === position) {
                 
                 sumPoints++
-                //console.log("Al final: " + position);
-                console.log("Puntos: "+sumPoints);
+
                 scoreId.textContent = `Puntos: ${sumPoints}`
             }
         })
+        
     });
     
 }
@@ -102,10 +106,9 @@ const countPoints = () => {
 }
 
 const resetGame = () => {
-    const resetButton = document.querySelector('#reset-game')
+    const resetButton = document.querySelector('#reset-topo-btn')
     resetButton.removeAttribute('disabled')
     resetButton.addEventListener('click', (event) => {
         WhakaTopo()
     })
-    //return resetButton
 }

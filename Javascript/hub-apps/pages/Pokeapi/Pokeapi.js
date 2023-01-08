@@ -4,32 +4,80 @@ import { Input } from '../../components/Input/Input'
 import './Pokeapi.css'
 
 
-export const Pokeapi = async () => {
-    const getPokemons = document.querySelector('#container')
-    getPokemons.innerHTML = ""
-    getPokemons.innerHTML = "Please wait..."
-    const getPokeapi = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=150')
-    const result = await getPokeapi.json()
+export const Pokeapi = () => {
 
-    listAllPokemons(result.results)
+    templatePokemons()
+    loadPokemonApi()
 
 }
 
+const templatePokemons = () => {
+    const getPokemons = document.querySelector('#container')
+    getPokemons.innerHTML = ""
+    getPokemons.innerHTML = `
+        <div id="pokedex">
+            <div class="card-header">
+                <div class="card-header-data">
+                    <h2>Mostrar 150 primeros</h2>
+                    ${Button("all-pokemons", "Mostrar")}
+                </div>
+                <div class="card-header-data">
+                    <h2>Buscar pokemón</h2>
+                    ${Input("find-pokemon", "Escribe el nombre o tipo")}
+                </div>
+                <div class="card-header-data">
+                    <h2>Buscar por tipo</h2>
+                    <select id="find-pokemon-type">
+                        <option value="bug">Bug</option>
+                        <option value="dark">Dark</option>
+                        <option value="dragon">Dragon</option>
+                        <option value="electric">Electric</option>
+                        <option value="fairy">Fairy</option>
+                        <option value="fighting">Fighting</option>
+                        <option value="fire">Fire</option>
+                        <option value="flying">Flying</option>
+                        <option value="ghost">Ghost</option>
+                        <option value="grass">Grass</option>
+                        <option value="ground">Ground</option>
+                        <option value="ice">Ice</option>
+                        <option value="normal">Normal</option>
+                        <option value="poison">Poison</option>
+                        <option value="psychic">Psychic</option>
+                        <option value="rock">Rock</option>
+                        <option value="steel">Steel</option>
+                        <option value="water">Water</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-load"></div>
+            <div id='pokemon-body' class='card-body'>
 
-const listAllPokemons = async(pokemons) => {
+            </div>
+        </div>
+    `
+}
+
+const loadPokemonApi = async () => {
+    const loadPokemons = document.querySelector('.card-load')
+    loadPokemons.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
 
     let allPokemons = []
-    for (const pokemon of pokemons) {
-
-        const dataPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-        const dataPokemonJson = await dataPokemon.json()
-        allPokemons.push(dataPokemonJson)    
+    
+    for (let index = 1; index < 151; index++) {
+        const getPokeapi = await fetch(`https://pokeapi.co/api/v2/pokemon/${index}`)
+        const result = await getPokeapi.json()
+        allPokemons.push(result)  
     }
+    listAllPokemons(allPokemons)
+}
+
+
+const listAllPokemons = async(allPokemons) => {
 
     const mappedAllPokemons = allPokemons.map(pokemon => {
         const pokemonTypes = pokemon.types.map(type => type.type.name)
         const pokemonAbilites = pokemon.abilities.map(type => type.ability.name)
-        console.log(pokemon.sprites.other["official-artwork"]);
+        //console.log(pokemon.sprites.other["official-artwork"]);
         const otropokemon = {
             id: pokemon.id,
             name : pokemon.name,
@@ -45,58 +93,14 @@ const listAllPokemons = async(pokemons) => {
         return otropokemon
     })
     
-    showPokemons(mappedAllPokemons)
-
+    printPokemons(mappedAllPokemons)
 
 }
 
-const showPokemons = (pokemons) => {
-    const newPokemons = pokemons
-    printPokemons(newPokemons)
-}
 
 const printPokemons = (pokemons) => {
 
-    const getPokemons = document.querySelector('#container')
-
-    getPokemons.innerHTML = ""
-    getPokemons.innerHTML = `
-    <div id="pokedex">
-        <div class="card-header">
-            <div class="card-header-data">
-            <h2>Buscar pokemón</h2>
-            ${Input("find-pokemon", "Escribe el nombre o tipo")}
-            </div>
-            <div class="card-header-data">
-            <h2>Buscar por tipo</h2>
-            <select id="find-pokemon-type">
-                <option value="bug">Bug</option>
-                <option value="dark">Dark</option>
-                <option value="dragon">Dragon</option>
-                <option value="electric">Electric</option>
-                <option value="fairy">Fairy</option>
-                <option value="fighting">Fighting</option>
-                <option value="fire">Fire</option>
-                <option value="flying">Flying</option>
-                <option value="ghost">Ghost</option>
-                <option value="grass">Grass</option>
-                <option value="ground">Ground</option>
-                <option value="ice">Ice</option>
-                <option value="normal">Normal</option>
-                <option value="poison">Poison</option>
-                <option value="psychic">Psychic</option>
-                <option value="rock">Rock</option>
-                <option value="steel">Steel</option>
-                <option value="water">Water</option>
-            </select>
-            
-            </div>
-        </div>
-        <div id='pokemon-body' class='card-body'>
-        
-        </div>
-    </div>
-    `
+   document.querySelector('.card-load').innerHTML = ""
     
     for (const pokemon of pokemons) {
         pokemonCard(pokemon)
@@ -113,6 +117,7 @@ const listenerPokemon = (pokemons) => {
 
     const getNamePokemon = document.querySelector('#find-pokemon-input')
     const getBtnPokemonType = document.querySelector('#find-pokemon-type')
+    const actionBtnPk = document.querySelector('#all-pokemons-btn')
 
     getNamePokemon.addEventListener('input', () => {
         const namePokemon = getNamePokemon.value.toLowerCase()
@@ -122,6 +127,12 @@ const listenerPokemon = (pokemons) => {
 
     getBtnPokemonType.addEventListener('click', () => {
         findTypePokemon(getBtnPokemonType.value, pokemons)
+    })
+
+    actionBtnPk.addEventListener('click', () => {
+
+        document.querySelector('#pokemon-body').innerHTML = ""
+        printPokemons(pokemons)
     })
     
 }
@@ -186,14 +197,13 @@ const pokemonShow = (pokemons) => {
 
 
     for (const valor of valores) {
-        valor.addEventListener('click', (ev) =>{
+        valor.addEventListener('click', () =>{
             console.log(valor.id);
             pokemons.map(pokemon => {
                 
                 if (pokemon.id.toString() === valor.id) {
                     console.log(pokemon.name);
                     modalPokemon(pokemon)
-                    //return pokemon
                 }
             })
             

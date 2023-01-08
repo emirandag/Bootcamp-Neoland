@@ -25,7 +25,7 @@
     width: 80%;
 }
 
-#container > #pokedex > .card-header > .card-header-data{
+.card-header-data{
     
     display: flex;
     align-items: center;
@@ -35,17 +35,22 @@
 }
 
 #container > #pokedex > .card-header > .card-header-data > h2{
-    width: 180px;
+    width: 250px;
 }
 
-#container > #pokedex > .card-body {
-    margin: 0 auto;
+.card-body {
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     /*grid-auto-rows:  minmax(50px, auto);*/
+    
     gap: 1rem;
     width: 80%;
     height: 100%;
+}
+
+.card-load {
+    display: flex;
 }
 
 #container > #pokedex > .card-body > .card-pokemon {
@@ -108,12 +113,12 @@
     justify-content: center;
     */
     border: 15px solid #88061c;
-    
+    border-radius: 10px;
     font-family: 'Press Start 2P', cursive;
     color: black;
     background-color: #dd0b2d;
     text-align: center;
-    
+    margin: 30px;
 }
 
 .modal > .modal-button {
@@ -162,13 +167,13 @@
     align-items: flex-start;
     justify-content: start;
     text-align: left;
-    gap: 1rem;
+    gap: 2rem;
     flex: 50%;
     background-color: rgb(194, 255, 235);
     border: 3px solid white;
     padding: 20px;
     /*margin: 30px;*/
-    margin: 0 30px;
+    margin: 30px;
     
 }
 
@@ -305,3 +310,40 @@
 }
 
 
+.lds-ring {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

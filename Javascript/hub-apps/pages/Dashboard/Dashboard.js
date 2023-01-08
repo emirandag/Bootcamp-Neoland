@@ -16,10 +16,10 @@ export const Dashboard = () => {
             <div id="games">
                 <div class="btn-games"><img id="3enraya" src="images/games/3enraya.png" /></div>
                 <div class="btn-games"><img id="whakatopo" src="images/games/mole.png" /></div>
-                <div id="memorygame" class="btn-games">Memory Game</div>
-                <div id="hangman" class="btn-games">HangMan</div>
+                <div class="btn-games"><img id="memorygame" src="images/games/memorygame.png" /></div>
+                <div class="btn-games"><img id="hangman" src="images/games/hangman.png" /></div>
                 <div class="btn-games"><img id="pokeapi" src="images/games/pokeapi.png" /></div>
-                <div id="quizneo" class="btn-games">Quiz-Neo</div>
+                <div class="btn-games"><img id="quizneo" src="images/games/quiz.png" /></div>
             </div>
         </div>
         
@@ -54,7 +54,7 @@ const addListener = (event) => {
             break;
         case "memorygame": 
             console.log('Has clicado en el Memory Game');
-            MemoryGame()
+            //MemoryGame()
             break;
         case "hangman": 
             console.log('Has clicado en el HangMan');
