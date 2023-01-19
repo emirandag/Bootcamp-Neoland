@@ -1,0 +1,30 @@
+
+li {
+    list-style: none;
+    border: none;
+    background-color: #00B5CC;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    /*flex: 0 1 calc(20% - 1em);*/
+    
+    gap: 0.5rem;
+    text-align: center;
+    width: 250px;
+    height: 350px;
+    box-shadow: 0 2px 5px #B2DF28;
+    /*
+    min-width: 18vw;
+    
+    */
+    /*min-height: 100%;*/
+}
+
+li > img {
+    border: 2px solid #B2DF28;
+    border-radius: 5px;
+}
+
+
