@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react"
+import { useDebounce } from "use-debounce"
 
 export const FetchingInput = () => {
 
     const [filter, setFilter] = useState('ditto')
-    const [pokemonCollection, setPokemonCollection] = useState([])
+
+    const [debounceFilter] = useDebounce(filter, 500)
+
+    const [pokemonCollection, setPokemonCollection] = useState([])    
 
     useEffect(() => {
         const getPokemonFiltered = async () => {
@@ -11,7 +15,7 @@ export const FetchingInput = () => {
 
             const pokemonListToJson = await pokemonList.json()
 
-            console.log(pokemonListToJson.name);
+            console.log(pokemonListToJson.sprites.front_shiny);
             return {
                 ...pokemonListToJson,
                 name: pokemonListToJson.name,
@@ -19,21 +23,21 @@ export const FetchingInput = () => {
             }
         }
         getPokemonFiltered().then((pokemon) => setPokemonCollection([pokemon]))
-    }, [filter])
+    }, [debounceFilter])
 
     return (
-        <div>
+        <>
             <input value={filter} onChange={(e) => setFilter(e.target.value)} />
 
             <ul>
-                {pokemonCollection.map((pokemon) => {
+                {pokemonCollection.map((pokemon) => (
                     <li key={pokemon.name}>
                         <h1>{pokemon.name}</h1>
                         <img src={pokemon.image} alt={pokemon.name} />
                     </li>
-                })}
+                ))}
             </ul>
-        </div>
+        </>
     )
 }
 
