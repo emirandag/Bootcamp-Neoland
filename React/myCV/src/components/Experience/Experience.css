@@ -1,0 +1,5 @@
+.experience {
+    display: flex;
+    gap: 1rem;
+    width: 600px;
+}
