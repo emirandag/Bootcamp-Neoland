@@ -1,0 +1,33 @@
+.stopwatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: rgb(51, 51, 51);
+    width: 200px;
+    color: rgb(197, 243, 129);
+    border-radius: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+   
+}
+
+.btn-action > button {
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: 0.8s ease-in-out;
+    border: 4px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(to top, black, grey) border-box;
+}
+
+.btn-action > button:hover {
+    scale: 1.1;
+}
