@@ -1,11 +1,12 @@
+import './Countdown.css'
 import { useEffect, useState } from "react" 
 
 const Countdown = () => {
   const [time, setTime] = useState("");
 
   useEffect(() => {
-    let countDownDate = new Date("August 28, 2021 13:21:00").getTime();
-    let x = setInterval(() => {
+    let countDownDate = new Date("August 28, 2023 13:21:00").getTime();
+    let x = setInterval(() => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
       let now = new Date().getTime();
 
       let distance = countDownDate - now;
@@ -20,7 +21,7 @@ const Countdown = () => {
       setTime(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
 
       if (distance < 0) {
-        clearInterval(x);
+        clearInterval(x);                                                                                                                                                                                                                                                                                                                                                                                                                 
         setTime("COUNTDOWN FINISHED");
       }
     }, 1000);
