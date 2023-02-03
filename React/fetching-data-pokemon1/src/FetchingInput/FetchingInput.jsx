@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDebounce } from "use-debounce"
+import Image from "../components/Image/Image"
+
 
 export const FetchingInput = () => {
 
@@ -33,7 +35,7 @@ export const FetchingInput = () => {
                 {pokemonCollection.map((pokemon) => (
                     <li key={pokemon.name}>
                         <h1>{pokemon.name}</h1>
-                        <img src={pokemon.image} alt={pokemon.name} />
+                        <Image url={pokemon.image} nombre={pokemon.name} />
                     </li>
                 ))}
             </ul>
