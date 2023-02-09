@@ -50,7 +50,7 @@ h3 {
 
 
 
-@media screen and (max-width: 1180px) {
+@media screen and (max-width: 1024px) {
     .left-cv, .right-cv {
         width: 100vw;
     }

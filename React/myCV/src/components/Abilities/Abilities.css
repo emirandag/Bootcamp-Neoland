@@ -9,13 +9,13 @@
 
 .abilities > ul {
     background-color:rgba(255, 255, 255, 0.2);   
-    width: 400px;
+    width: 50%;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
-    padding: 10px;
+    padding: 20px;
 }
 
 .abilities > ul > li{
