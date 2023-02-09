@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 20px;
+    color: rgb(28, 28, 109);
 }
 
 .hero > img {
@@ -25,15 +26,13 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    /*background-color: aliceblue;*/
     border-radius: 15px;
-
     gap: 1rem;
 }
 
 .card a {
     text-decoration: none;
-    color: black;
+    color: rgb(28, 28, 109);
 }
 
 .card-hero > span > img {
@@ -48,7 +47,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
-    width: 240px;
+    width: 280px;
     height: 30px;
     background-color:rgba(255, 255, 255, 0.2);  
 }

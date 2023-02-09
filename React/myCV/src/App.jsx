@@ -37,9 +37,6 @@ function App() {
           )}
           <Language languages={languages} />
         </div>
-
-        
-        {/**<More languages={languages} habilities={habilities} /> */}
       </div>
     </div>
   );

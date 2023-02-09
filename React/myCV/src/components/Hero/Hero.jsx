@@ -33,7 +33,7 @@ const Hero = ({ hero }) => {
             <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
           </span>
           <p>
-            <a href={hero.github}>Github</a>
+            <a href={hero.github}>{hero.github}</a>
           </p>
         </div>
       </div>
