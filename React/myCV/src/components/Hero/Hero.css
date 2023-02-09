@@ -1,14 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&family=Lato:wght@300;400;700&family=Press+Start+2P&family=Roboto+Mono:wght@300;400;700&family=Roboto:wght@300;400;700&family=Ubuntu:wght@400;500;700&display=swap');
+
 .hero {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 20px;
 }
 
 .hero > img {
     width: 200px;
     margin: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
+}
+
+.card > h2 {
+    color: silver;
 }
 
 .card {
@@ -17,7 +25,40 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
     border-radius: 15px;
-    padding: 20px;
+
+    gap: 1rem;
+}
+
+.card a {
+    text-decoration: none;
+    color: black;
+}
+
+.card-hero > span > img {
+    width: 25px;
+    margin-right: 5px;
+    margin: auto;
+    filter: invert(75%);
+}
+
+.card-hero {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 240px;
+    height: 30px;
+    background-color:rgba(255, 255, 255, 0.2);  
+}
+
+.card-hero > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(28, 28, 109);
+    width: 30px;
+    height: 30px;
+    color: silver;
 }

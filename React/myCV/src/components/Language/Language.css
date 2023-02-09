@@ -1,4 +1,4 @@
-.experience-header {
+.language-header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,26 +9,18 @@
     color: rgb(28, 28, 109);
 }
 
-.experience-card {
+.language-card {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 2rem;
+    gap: 5rem;
     width: 100%;
     color: rgb(28, 28, 109);
 }
 
-.experience-card div {
+.language-card div {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-}
-
-.experience-card > div > h4 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 0.5rem;
 }

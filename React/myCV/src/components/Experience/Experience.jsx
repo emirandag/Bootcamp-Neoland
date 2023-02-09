@@ -3,12 +3,18 @@ import './Experience.css'
 const Experience = ({ experience }) => {
   return (
       <>
-      <h3>Experience</h3>
-      <div className="experience card">
+      <div className='experience-header'>
+        <span class="material-icons">work</span>
+        <h3>Experiencia</h3>
+      </div>
+      
+      <div className="experience-card">
           {experience.map((item) => {
             return (
               <div key={JSON.stringify(item)}>
-                <p className='name'>{item.name}</p>
+                <h4 className='name'><span class="material-icons">
+folder_open
+</span>{item.name}</h4>
                 <p>{item.where}</p>
                 <p>{item.date}</p>
                 <p>{item.description}</p>

@@ -3,8 +3,12 @@ import './Language.css'
 const Language = ({ languages }) => {
   return (
     <>
-        <h3>Languages</h3>
-        <div className='language card'>
+        <div className='language-header'>
+            <span class="material-icons">language</span>
+            <h3>Idiomas</h3>
+        </div>
+        
+        <div className='language-card'>
             {languages.map(item => {
                 return (
                     <div key={JSON.stringify.toString(item)}>

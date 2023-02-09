@@ -1,11 +1,17 @@
 .custom-btn {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: aliceblue;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #2962fd;
     margin: 5px;
-    transition: 0.8s ease-in-out;
+    transition: 1s ease-in-out;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    box-shadow: 2px 2px 5px rgb(28, 28, 109);
+    color: silver;
 }
 
 .custom-btn:hover {
     scale: 1.1;
+    background-color: #8d08da;
 }

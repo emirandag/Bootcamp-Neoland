@@ -1,34 +1,64 @@
 .App {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+    width: 100vw;
 }
-/*
-.button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-*/
+
+
+
 h3 {
     display: flex;
     align-items: center;
 }
 
-h3::before, h3::after {
-    content: '';
-    height: 1px;
-    width: 250px;
-    background-color: silver;
-    flex-grow: 1;
+
+
+.left-cv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    background: linear-gradient(#2962fd, #8d08da);
+    width: 40vw;
+    min-height: 100vh;
+    padding: 50px 0;
 }
 
-h3::before{
-    margin-right: 1rem;
+
+
+.right-cv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3rem;
+    width: 60vw;
+    min-height: 100vh;
+    background-color: whitesmoke;
+    padding: 50px 0;
 }
 
-h3::after{
-    margin-left: 1rem;
+.cv-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    width: 80%;
 }
+
+
+
+
+@media screen and (max-width: 1180px) {
+    .left-cv, .right-cv {
+        width: 100vw;
+    }
+
+    .App {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+  }

@@ -6,8 +6,9 @@ export const CV = {
         email: "edulucho88@gmail.com",
         birthDate: "09/11/1988",
         phone: "685925896",
-        image: "https://avatars.githubusercontent.com/u/32069362?v=4",
+        image: "https://media.licdn.com/dms/image/D4D03AQELeJfmiwaxdQ/profile-displayphoto-shrink_200_200/0/1666044234369?e=1681344000&v=beta&t=9Meq1eygTgMs4_-C-yhELoVvDMJ7MQW0EEkjYncxNsY",
         github: "https://github.com/emirandag",
+        linkedin: "www.linkedin.com/in/eduardomirandagoya",
         aboutMe: [
             {
                 info: "Técnico informático con más de 5 años de experiencia"
@@ -22,6 +23,11 @@ export const CV = {
             name: "Bootcamp Full Stack Web Development",
             date:"30/09/2022",
             where: "Neoland S.L."
+        },
+        {
+            name: "Ingeniería Informática",
+            date: "09/2020 - Actualmente",
+            where: "Universidad Oberta de Catalunya"
         },
         {
             name: "Administración de Sistemas informáticos en Red",
@@ -41,6 +47,12 @@ export const CV = {
             date: "12/2016 - 02/2020",
             where: "Fujitsu Technology Solutions",
             description: "Monitorizació y reporte del estadod de servidores. Realización de checklist. Altas de usuarios de Active Directory"
+        }, 
+        {
+            name: "Subgerente Burger King",
+            date: "05/2010 - 12/2016",
+            where: "Grupo Zena",
+            description: "Gestión y control de pedidos. Control de presupuestos. Gestión de personal. Inventario y control de productos en varios restaurantes de la cadena en Barcelona."
         }
     ],
     languages: [
@@ -60,10 +72,10 @@ export const CV = {
             splevel: "Bajo"
         }
     ],
-    habilities: [
-        "",
-        "",
-        ""
+    abilities: [
+        "Trabajo en equipo",
+        "Programación en Javascript",
+        "Atención al usuario"
     ],
     volunteer: []
 }
