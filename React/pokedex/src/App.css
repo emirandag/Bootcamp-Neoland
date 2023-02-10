@@ -1,0 +1,44 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 3rem;
+}
+
+.TitleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.TitleSection input {
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid black;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.TitleSection button {
+  width: 180px;
+  height: 30px;
+  background-color: #008ffc;
+  border: none;
+  border-radius: 8px;
+  transition: 0.8s ease-in-out;
+}
+
+.TitleSection button:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #006cbf;
+}
+
+.DisplaySection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
