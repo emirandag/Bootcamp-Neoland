@@ -9,7 +9,7 @@ const About = ({ hero }) => {
       <div className='about-card'>
         {hero.aboutMe.map(item => {
           return (
-            <div key={JSON.stringify.toString(item)}>
+            <div key={JSON.stringify(item)}>
               <p>{item.info}</p>
             </div>
           )

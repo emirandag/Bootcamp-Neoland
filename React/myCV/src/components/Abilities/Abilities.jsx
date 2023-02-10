@@ -7,7 +7,7 @@ const Abilities = ({ abilities }) => {
       <ul>
         {abilities.map((ability) => {
           return (
-            <li><p>{ability}</p></li>
+            <li key={JSON.stringify(ability)}><p>{ability}</p></li>
           )
         })}
       </ul>

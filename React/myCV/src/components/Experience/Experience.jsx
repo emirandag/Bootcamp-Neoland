@@ -4,7 +4,7 @@ const Experience = ({ experience }) => {
   return (
       <>
       <div className='experience-header'>
-        <span class="material-icons">work</span>
+        <span className="material-icons">work</span>
         <h3>Experiencia</h3>
       </div>
       
@@ -12,7 +12,7 @@ const Experience = ({ experience }) => {
           {experience.map((item) => {
             return (
               <div key={JSON.stringify(item)}>
-                <h4 className='name'><span class="material-icons">
+                <h4 className='name'><span className="material-icons">
 folder_open
 </span>{item.name}</h4>
                 <p>{item.where}</p>

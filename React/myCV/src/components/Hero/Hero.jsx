@@ -9,23 +9,23 @@ const Hero = ({ hero }) => {
           {hero.name} {hero.surname}
         </h2>
         <div className="card-hero">
-          <span class="material-icons">location_pin</span>
+          <span className="material-icons">location_pin</span>
           <p>{hero.city}</p>
         </div>
 
         <div className="card-hero">
-          <span class="material-icons">calendar_today</span>
+          <span className="material-icons">calendar_today</span>
           <p>{hero.birthDate}</p>
         </div>
 
         <div className="card-hero">
-          <span class="material-icons">email</span>
+          <span className="material-icons">email</span>
           <p>
             <a href={`mailto:${hero.email}`}>{hero.email}</a>
           </p>
         </div>
         <div className="card-hero">
-          <span class="material-icons">phone</span>
+          <span className="material-icons">phone</span>
           <p>{hero.phone}</p>
         </div>
         <div className="card-hero">
