@@ -2,6 +2,7 @@ import './App.css';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Figure from './components/Figure/Figure';
 
 const App = () => {
   const today = new Date(Date.now()).toISOString().slice(0, 10);
