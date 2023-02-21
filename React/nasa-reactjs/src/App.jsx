@@ -1,8 +1,9 @@
 import './App.css';
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Figure from './components/Figure/Figure';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   const today = new Date(Date.now()).toISOString().slice(0, 10);
@@ -28,26 +29,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2 className="title">
-        NASA API{' '}
-        <img
-          className="logo"
-          src={'https://api.nasa.gov/assets/img/favicons/favicon-192.png'}
-          alt="LOGO NASA"
-        />
-      </h2>
+      <Header />
       <h1>Astronomy Picture of the Day</h1>
-      <input type="date" id='photo-date' onChange={handleInput} />
-      {
-        date > today ? (
-          <h2>Please choose a previous date</h2>
-        ) : (
-          <Figure data={apod} />
-        )
-      }
-      <div className='standard-dialog center'>
-        <h1 className='dialog-text'>@lethamburn - 2022 - <a href={NASA_URL}>{NASA_URL}</a></h1>
-      </div>
+      <input type="date" id="photo-date" onChange={handleInput} />
+      {date > today ? <h2>Please choose a previous date</h2> : <Figure data={apod} />}
+      <Footer url={NASA_URL} text={NASA_URL} />
     </div>
   );
 };
