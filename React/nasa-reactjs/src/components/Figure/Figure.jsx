@@ -1,8 +1,7 @@
-import React from 'react';
-
+import './Figure.css'
 const Figure = ({ data }) => {
   return (
-    <figure>
+    <figure className='figure'>
       <img src={data.url} alt={data.title} />
       <div className="window">
         <div className="title-bar">
