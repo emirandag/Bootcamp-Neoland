@@ -10,8 +10,9 @@ const App = () => {
   const [apod, setApod] = useState({});
   const [date, setDate] = useState(today);
 
-  const NASA_URL = 'https://api.nasa.gov/';
-  const NASA_API_KEY = 'nm9GuUvsGe1fPmnKk2gqIABqSIUrlm9kThftsGSJ';
+  console.log(import.meta.env.NASA_URL);
+  const NASA_URL = import.meta.env.VITE_NASA_URL
+  const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY
 
   useEffect(() => {
     const getApod = async () => {
