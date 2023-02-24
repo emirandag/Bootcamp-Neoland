@@ -2,15 +2,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
     padding: 40px;
 }
 
 header > h2 {
     font-size: 40px;
     font-family: 'Roboto', sans-serif;
+    color: whitesmoke;
+    text-align: center;
 }
 
 .header > img {
-    width: 60px;
+    width: 40px;
 }
