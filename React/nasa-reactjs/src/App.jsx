@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Figure from './components/Figure/Figure';
+import Input from './components/IU/Input/Input';
 
 const App = () => {
   const today = new Date(Date.now()).toISOString().slice(0, 10);
@@ -32,7 +33,7 @@ const App = () => {
       <Header />
       <main className="main">
         <h1>Astronomy Picture of the Day</h1>
-        <input type="date" id="photo-date" onChange={handleInput} />
+        <Input type="date" handleInput={handleInput} />
         {date > today ? <h2>Please choose a previous date</h2> : <Figure data={apod} />}
       </main>  
       <Footer url={NASA_URL} text={NASA_URL} />

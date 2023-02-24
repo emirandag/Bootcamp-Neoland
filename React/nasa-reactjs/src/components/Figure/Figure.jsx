@@ -1,4 +1,5 @@
 import './Figure.css'
+
 const Figure = ({ data }) => {
   return (
     <figure className='figure'>
@@ -13,7 +14,9 @@ const Figure = ({ data }) => {
           <span>{data.date}</span>
           <span>{data.copyright}</span>
         </div>
-        <div className="window-pane">{data.explanation}</div>
+        <div className="window-pane">
+          <p>{data.explanation}</p>
+        </div>
       </div>
     </figure>
   );
