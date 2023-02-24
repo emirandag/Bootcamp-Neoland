@@ -4,7 +4,7 @@ const Footer = ({ url, text}) => {
   return (
     <footer className="footer">
         <h3>
-            @lethamburn - 2022 - <a href={url}>{text}</a>
+            @emirandag - 2023 - <a href={url}>{text}</a>
         </h3>
     </footer>
   )
