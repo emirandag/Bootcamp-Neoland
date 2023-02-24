@@ -1,0 +1,9 @@
+.footer {
+    display: flex;
+    padding: 40px;
+}
+
+footer a {
+    text-decoration: none;
+}
+

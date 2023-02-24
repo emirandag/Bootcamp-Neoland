@@ -1,7 +1,8 @@
 import './App.css';
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import Figure from './components/Figure/Figure';
 
 const App = () => {
@@ -9,8 +10,8 @@ const App = () => {
   const [apod, setApod] = useState({});
   const [date, setDate] = useState(today);
 
-  const NASA_URL = 'https://api.nasa.gov/';
-  const NASA_API_KEY = 'nm9GuUvsGe1fPmnKk2gqIABqSIUrlm9kThftsGSJ';
+  const NASA_URL = import.meta.env.VITE_NASA_URL
+  const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY
 
   useEffect(() => {
     const getApod = async () => {
@@ -28,26 +29,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2 className="title">
-        NASA API{' '}
-        <img
-          className="logo"
-          src={'https://api.nasa.gov/assets/img/favicons/favicon-192.png'}
-          alt="LOGO NASA"
-        />
-      </h2>
-      <h1>Astronomy Picture of the Day</h1>
-      <input type="date" id='photo-date' onChange={handleInput} />
-      {
-        date > today ? (
-          <h2>Please choose a previous date</h2>
-        ) : (
-          <Figure data={apod} />
-        )
-      }
-      <div className='standard-dialog center'>
-        <h1 className='dialog-text'>@lethamburn - 2022 - <a href={NASA_URL}>{NASA_URL}</a></h1>
-      </div>
+      <Header />
+      <main className="main">
+        <h1>Astronomy Picture of the Day</h1>
+        <input type="date" id="photo-date" onChange={handleInput} />
+        {date > today ? <h2>Please choose a previous date</h2> : <Figure data={apod} />}
+      </main>  
+      <Footer url={NASA_URL} text={NASA_URL} />
     </div>
   );
 };
