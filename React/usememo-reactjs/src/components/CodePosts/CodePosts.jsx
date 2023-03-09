@@ -1,4 +1,5 @@
 import React from 'react'
+import CodePostsRefactor from '../CodePostsRefactor/CodePostsRefactor'
 
 const posts = [
     {
@@ -17,30 +18,9 @@ const posts = [
 
 const CodePosts = () => {
 
-    const orderedPostWithTitle = posts
-      .map((post) => ({
-        ...post,
-        date: new Date(post.date),
-        title: post.slug.split("-").join(" ").toUpperCase(),
-      }))
-      .sort((a, b) => a.date.getTime() - b.date.getTime())
-      .map((post) => ({
-        ...post,
-        date: new Intl.DateTimeFormat("es-ES").format(post.date),
-      }));
-
   return (
     <div>
-        <h1>Post destacados</h1>
-
-        <ul>
-            {orderedPostWithTitle.map((post) => (
-                <li key={post.slug}>
-                    <h3>{post.title}</h3> {post.date}
-                    <hr />
-                </li>
-            ))}
-        </ul>
+        <CodePostsRefactor posts={posts} />
     </div>
   )
 }

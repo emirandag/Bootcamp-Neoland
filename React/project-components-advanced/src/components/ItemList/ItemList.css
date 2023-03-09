@@ -20,6 +20,11 @@ li {
     
     */
     /*min-height: 100%;*/
+    transition: 0.5s ease-in-out;
+}
+
+li:hover {
+    scale: 1.1;
 }
 
 li > img {

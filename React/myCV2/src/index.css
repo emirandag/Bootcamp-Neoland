@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --primary-bg-color: #1FC2F4;
+  --secondary-bg-color: #F8F9FB;
+  --title-font-color: #150E21;
+  --paragraph-font-color: #B8B8B2;
+}
