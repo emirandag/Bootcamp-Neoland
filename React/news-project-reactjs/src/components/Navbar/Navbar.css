@@ -1,0 +1,16 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+}
+
+nav > ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+a:link {
+    text-decoration: none;
+}
