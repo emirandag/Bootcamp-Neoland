@@ -11,20 +11,48 @@ import Sports from './pages/Sports/Sports';
 import Technology from './pages/Technology/Technology';
 import Page404 from './pages/Page404/Page404';
 import Economy from './pages/Economy/Economy';
+import Login from './pages/Login/Login';
+import Protected from './components/Protected/Protected';
+import { AuthProvider } from './contexts/AuthProvider/AuthProvider';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename='/'>
+    <BrowserRouter basename="/">
+      <AuthProvider>
         <Routes>
-          <Route path='/' element={<App />}>
-            <Route index element={<Home />}/>
-            <Route path='/news' element={<News />}/>
-            <Route path='/news/sports' element={<Sports />}/>
-            <Route path='/news/economy' element={<Economy />}/>
-            <Route path='/news/technology' element={<Technology />}/>
-            <Route path='/*' element={<Page404 />}/>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/news/sports"
+              element={
+                <Protected>
+                  <Sports />
+                </Protected>
+              }
+            />
+            <Route
+              path="/news/economy"
+              element={
+                <Protected>
+                  <Economy />
+                </Protected>
+              }
+            />
+            <Route
+              path="/news/technology"
+              element={
+                <Protected>
+                  <Technology />
+                </Protected>
+              }
+            />
+            <Route path="/*" element={<Page404 />} />
           </Route>
         </Routes>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

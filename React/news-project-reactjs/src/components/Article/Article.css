@@ -1,0 +1,22 @@
+.articles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 90%;
+}
+
+.articles > figure {
+    width: 60vw;
+}
+
+.articles img {
+    width: 60vw;
+}
+
+.articles > section  p {
+    text-align: justify;
+    margin: 16px;
+    width: 60vw;
+}
