@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { createContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-const AuthContext = createContext()
+export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate()
@@ -18,7 +18,12 @@ export const AuthProvider = ({ children }) => {
         navigate('/news/sports')
     }
 
-  return <AuthContext.Provider value={{user, login}}>{children}</AuthContext.Provider>
+    const logout = () => {
+        localStorage.removeItem('user')
+        setUser(null)
+    }
+
+  return <AuthContext.Provider value={{user, login, logout}}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

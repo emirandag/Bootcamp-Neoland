@@ -49,6 +49,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </Protected>
               }
             />
+          
             <Route path="/*" element={<Page404 />} />
           </Route>
         </Routes>
