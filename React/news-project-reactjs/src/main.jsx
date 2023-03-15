@@ -14,6 +14,7 @@ import Economy from './pages/Economy/Economy';
 import Login from './pages/Login/Login';
 import Protected from './components/Protected/Protected';
 import { AuthProvider } from './contexts/AuthProvider/AuthProvider';
+import SportDetail from './pages/SportsDetail/SportDetail';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -46,6 +47,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               element={
                 <Protected>
                   <Technology />
+                </Protected>
+              }
+            />
+            <Route
+              path="/news/sports/:id"
+              element={
+                <Protected>
+                  <SportDetail />
                 </Protected>
               }
             />

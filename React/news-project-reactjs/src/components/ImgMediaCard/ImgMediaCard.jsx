@@ -27,7 +27,7 @@ export default function ImgMediaCard({ data }) {
                 </CardContent>
                 <CardActions>
                   {/* <Button size="small">Share</Button> */}
-                  <Button size="small">Learn More</Button>
+                  <Button size="small">Leer Más</Button>
                 </CardActions>
               </Card>
  

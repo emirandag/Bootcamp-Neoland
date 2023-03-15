@@ -6,7 +6,16 @@ const Sports = () => {
   const [requestApi] = useOutletContext()
 
   return (
-    <Article articles={requestApi} />
+    <>
+    {
+      requestApi.map((article) => article.topic === 'sports' && (
+        <Article key={article.id} article={article}/>
+      )
+      )
+    }
+    </>
+    
+    
   )
 };
 

@@ -1,8 +1,18 @@
-import React from 'react'
+import { useOutletContext } from "react-router-dom";
+import Article from '../../components/Article/Article'
 
 const Technology = () => {
+
+  const [requestApi] = useOutletContext()
   return (
-    <div>Technology</div>
+    <>
+    {
+      requestApi.map((article) => article.topic === 'technology' && (
+        <Article key={article.id} article={article}/>
+      )
+      )
+    }
+    </>
   )
 }
 

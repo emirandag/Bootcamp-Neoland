@@ -8,7 +8,11 @@ const App = () => {
   const requestApi = useRequest(URL_API)
   return (
     <div className="App">
+      <header>
+        <h1>NEWS</h1>
       <Navbar />
+      </header>
+      
       <Outlet context={[requestApi]} />
     </div>
   )
