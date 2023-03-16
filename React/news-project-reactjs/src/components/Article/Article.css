@@ -4,19 +4,23 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    width: 90%;
+    width: 50vw;
+}
+
+.articles > h2 {
+    width: 50vw;
 }
 
 .articles > figure {
-    width: 60vw;
+    width: 50vw;
 }
 
 .articles img {
-    width: 60vw;
+    width: 50vw;
 }
 
 .articles > section  p {
     text-align: justify;
     margin: 16px;
-    width: 60vw;
+    width: 50vw;
 }

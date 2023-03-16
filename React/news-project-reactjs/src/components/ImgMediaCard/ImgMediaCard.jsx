@@ -5,9 +5,17 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 export default function ImgMediaCard({ data }) {
-    
+
+  const navigate = useNavigate()
+  const handleClick = (id) => {
+    console.log(id);
+    navigate(`/news/sports/${id}`)
+  }
+
+  
   return (
 
                 <Card>
@@ -27,7 +35,7 @@ export default function ImgMediaCard({ data }) {
                 </CardContent>
                 <CardActions>
                   {/* <Button size="small">Share</Button> */}
-                  <Button size="small">Leer Más</Button>
+                  <Button onClick={() => {handleClick(data.id)}} size="small">Leer Más</Button>
                 </CardActions>
               </Card>
  

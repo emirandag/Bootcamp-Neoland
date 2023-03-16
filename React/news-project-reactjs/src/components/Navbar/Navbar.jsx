@@ -29,11 +29,11 @@ const Navbar = () => {
           <li>
             <NavLink to=""><Button variant="text">Home</Button></NavLink>
           </li>
-          <li>
-            <NavLink to="news"><Button variant="text">Noticias</Button></NavLink>
-          </li>
           {user && (
             <>
+              <li>
+                <NavLink to="news"><Button variant="text">Noticias</Button></NavLink>
+              </li>
               <li>
                 <NavLink to="news/sports"><Button variant="text">Deportes</Button></NavLink>
               </li>

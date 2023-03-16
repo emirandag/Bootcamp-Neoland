@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import Article from '../../components/Article/Article'
+import Card from "../../components/Card/Card";
 
 const Technology = () => {
 
@@ -8,7 +8,7 @@ const Technology = () => {
     <>
     {
       requestApi.map((article) => article.topic === 'technology' && (
-        <Article key={article.id} article={article}/>
+        <Card key={article.id} article={article} />
       )
       )
     }

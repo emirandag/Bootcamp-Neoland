@@ -24,8 +24,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
-            <Route path="/news" element={<News />} />
             <Route path="/login" element={<Login />} />
+
+            <Route
+              path="/news"
+              element={
+                <Protected>
+                  <News />
+                </Protected>
+              }
+            />
             <Route
               path="/news/sports"
               element={
@@ -58,7 +66,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </Protected>
               }
             />
-          
+
             <Route path="/*" element={<Page404 />} />
           </Route>
         </Routes>

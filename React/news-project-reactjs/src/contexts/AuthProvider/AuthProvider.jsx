@@ -6,16 +6,19 @@ import { useNavigate } from "react-router-dom"
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-    const navigate = useNavigate()
+    
     const [user, setUser] = useState(() => {
-        const savedUser = window.localStorage.getItem('user')
-        return savedUser
+        // const savedUser = window.localStorage.getItem('user')
+        // return savedUser
+        const ID = window.localStorage.getItem("user");
+        return ID ? ID : null;
     })
+    const navigate = useNavigate()
 
     const login = (data) => {
         setUser(data)
         localStorage.setItem('user', data)
-        navigate('/news/sports')
+        navigate('/news')
     }
 
     const logout = () => {
