@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@300;400;700&family=Rye&family=Ubuntu:wght@400;500;700&display=swap');
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.App > header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.App > header > h1 {
+    padding: 20px;
+    font-family: 'Rye', cursive;
+    color: '#424242'
+}

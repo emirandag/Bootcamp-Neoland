@@ -1,0 +1,22 @@
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 70vw;
+}
+
+.card > figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 50vw;
+    text-align: center;
+}
+
+
+.card > figure > img {
+    width: 50vw;
+}

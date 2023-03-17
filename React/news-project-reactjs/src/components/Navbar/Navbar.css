@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 10vh;
+    width: 90vw;
+}
+
+.navbar > div {
+    width: 20vw;
+}
+.navbar > nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80vw;
+    color: '#424242';
+    font-size: 18px;
+}
+.login-nav {
+    width: 20vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: black;
+}
+
+
+
+nav > ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+a:link {
+    text-decoration: none;
+}
+
