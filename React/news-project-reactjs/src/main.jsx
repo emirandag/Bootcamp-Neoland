@@ -14,7 +14,9 @@ import Economy from './pages/Economy/Economy';
 import Login from './pages/Login/Login';
 import Protected from './components/Protected/Protected';
 import { AuthProvider } from './contexts/AuthProvider/AuthProvider';
-import SportDetail from './pages/SportsDetail/SportDetail';
+import SportsDetails from './pages/SportsDetails/SportsDetails';
+import EconomyDetails from './pages/EconomyDetails/EconomyDetails';
+import TechnologyDetails from './pages/TechnologyDetails/TechnologyDetails';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -25,7 +27,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
             <Route path="/login" element={<Login />} />
-
             <Route
               path="/news"
               element={
@@ -62,11 +63,26 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               path="/news/sports/:id"
               element={
                 <Protected>
-                  <SportDetail />
+                  <SportsDetails />
                 </Protected>
               }
             />
-
+            <Route
+              path="/news/economy/:id"
+              element={
+                <Protected>
+                  <EconomyDetails />
+                </Protected>
+              }
+            />
+            <Route
+              path="/news/technology/:id"
+              element={
+                <Protected>
+                  <TechnologyDetails />
+                </Protected>
+              }
+            />
             <Route path="/*" element={<Page404 />} />
           </Route>
         </Routes>

@@ -10,10 +10,14 @@ const App = () => {
     <div className="App">
       <header>
         <h1>NEWS</h1>
-      <Navbar />
+        <div className='divider'></div>
+        <Navbar />
       </header>
       
+      <main>
       <Outlet context={[requestApi]} />
+      </main>
+      
     </div>
   )
 }
