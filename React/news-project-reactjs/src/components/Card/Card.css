@@ -6,6 +6,7 @@
     width: 70vw;
 }
 
+
 .card > figure {
     display: flex;
     flex-direction: column;
@@ -19,4 +20,4 @@
 
 .card > figure > img {
     width: 50vw;
-}
+} 

@@ -7,6 +7,7 @@ const News = () => {
   //console.log(requestApi);
   return (
     <div className="container">
+      <h1>Noticias</h1>
       {/* {requestApi.map((data) => (
         <article key={data.id}>
           <h2>{data.title}</h2>

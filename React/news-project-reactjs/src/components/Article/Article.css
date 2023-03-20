@@ -24,3 +24,14 @@
     margin: 16px;
     width: 50vw;
 }
+
+.articles a:visited {
+    color: #1976D2;
+}
+
+.loading {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

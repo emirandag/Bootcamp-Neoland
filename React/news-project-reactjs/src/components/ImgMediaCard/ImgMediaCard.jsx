@@ -10,9 +10,9 @@ import { useNavigate } from 'react-router-dom';
 export default function ImgMediaCard({ data }) {
 
   const navigate = useNavigate()
-  const handleClick = (id) => {
+  const handleClick = (id, topic) => {
     console.log(id);
-    navigate(`/news/sports/${id}`)
+    navigate(`/news/${topic}/${id}`)
   }
 
   
@@ -26,7 +26,7 @@ export default function ImgMediaCard({ data }) {
                   image={data.image_url}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h6" component="div" noWrap>
                     {data.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" noWrap >
@@ -35,7 +35,7 @@ export default function ImgMediaCard({ data }) {
                 </CardContent>
                 <CardActions>
                   {/* <Button size="small">Share</Button> */}
-                  <Button onClick={() => {handleClick(data.id)}} size="small">Leer Más</Button>
+                  <Button onClick={() => {handleClick(data.id, data.topic)}} size="small">Leer Más</Button>
                 </CardActions>
               </Card>
  
