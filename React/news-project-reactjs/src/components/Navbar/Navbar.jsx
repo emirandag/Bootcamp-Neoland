@@ -23,19 +23,11 @@ const Navbar = () => {
     <ThemeProvider theme={theme}>
       <div className="navbar">
         <div>
-        {/* <div className='menu-hamburger'>
-        <MenuIcon color='primary'>
-
-        </MenuIcon>
-        
-        </div> */}
-        <div className='menu-hamburger'>
-        
-        <BasicMenu />
-</div>
+          <div className="menu-hamburger">
+            <BasicMenu />
+          </div>
         </div>
-        
-        
+
         <nav>
           <ul>
             <li>

@@ -1,0 +1,20 @@
+.footer {
+    height: 8vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: grey;
+}
+
+.social-icons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+.social-icons svg {
+    width: 2em;
+    height: 2em;
+}

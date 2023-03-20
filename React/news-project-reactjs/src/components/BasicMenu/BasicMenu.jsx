@@ -3,8 +3,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,7 +25,8 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MenuIcon color='primary' />
+        {/* <MenuIcon color='primary' /> */}
+        <GiHamburgerMenu />
       </Button>
       <Menu
         id="basic-menu"
