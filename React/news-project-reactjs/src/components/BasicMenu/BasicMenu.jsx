@@ -24,8 +24,10 @@ export default function BasicMenu() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{
+          fontSize: '1.5rem',
+        }}
       >
-        {/* <MenuIcon color='primary' /> */}
         <GiHamburgerMenu />
       </Button>
       <Menu
@@ -35,15 +37,34 @@ export default function BasicMenu() {
         onClose={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
+          
         }}
       >
         <MenuItem onClick={handleClose}>
             <NavLink to="">
-                <Button variant="text">Home</Button>
+                <Button variant="text" color='secondary'>Home</Button>
             </NavLink>
         </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>
+        <NavLink to="news">
+                <Button variant="text" color='secondary'>Noticias</Button>
+            </NavLink>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+        <NavLink to="news/sports">
+                <Button variant="text" color='secondary'>Deportes</Button>
+            </NavLink>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+        <NavLink to="news/economy">
+                <Button variant="text" color='secondary'>Economía</Button>
+            </NavLink>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+        <NavLink to="news/technology">
+                <Button variant="text" color='secondary'>Tecnología</Button>
+            </NavLink>
+        </MenuItem>
       </Menu>
     </div>
   );

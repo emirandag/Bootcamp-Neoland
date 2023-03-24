@@ -5,6 +5,18 @@ const Article = ({ article }) => {
   return (
     <>
     {article === undefined ? <div className='loading'><h1>Loading...</h1></div> : (
+      <div className='article'>
+      
+        {article.topic === 'sports' && (
+          <h1>Deportes</h1>
+        )}
+        {article.topic === 'economy' && (
+          <h1>Economía</h1>
+        )}
+        {article.topic === 'technology' && (
+          <h1>Tecnología</h1>
+        )}
+      
       <article className="articles" key={article.id}>
         <h2>{article.title}</h2>
         <figure>
@@ -29,6 +41,8 @@ const Article = ({ article }) => {
           </p>
         </section>
       </article>
+      </div>
+
     )}
     </>
   );

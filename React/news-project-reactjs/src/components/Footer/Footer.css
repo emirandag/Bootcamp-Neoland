@@ -1,10 +1,10 @@
 .footer {
     height: 8vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 4rem;
     background-color: grey;
 }
 
@@ -15,6 +15,56 @@
 
 
 .social-icons svg {
+    display: block;
     width: 2em;
     height: 2em;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* box-shadow: 5px 5px 5px #888888; */
+    border-radius: 5px;
+    border: none;
+    width: 40px;
+    height: 40px;
+    transition: 0.5s ease-in-out;
+
+}
+
+.socials:hover {
+    
+    scale: 1.1;
+}
+
+.github {
+    background-color: whitesmoke;
+   
+}
+
+.github a:visited {
+    color: black;
+    background-color: #888888;
+}
+
+.linkedin {
+    /* color: #0A66C2; */
+    background-color: whitesmoke;
+
+}
+
+.linkedin a:visited {
+    color: #0A66C2;
+    background-color: #888888;
+}
+
+@media only screen and (max-width: 600px) {
+    .footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-height: 12vh;
+    }
 }

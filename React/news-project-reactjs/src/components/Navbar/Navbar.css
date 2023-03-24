@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 7vh;
+    min-height: 7vh;
     width: 90vw;
 }
 
@@ -69,5 +69,5 @@ a:active {
 
 
 .css-17slstj-MuiSvgIcon-root:hover {
-    scale: 0.9;
+    scale: 0.8;
 }

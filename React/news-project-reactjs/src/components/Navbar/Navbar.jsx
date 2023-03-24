@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider/AuthProvider';
 import { Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
 import BasicMenu from '../BasicMenu/BasicMenu';
 const theme = createTheme({
   palette: {
@@ -12,7 +11,7 @@ const theme = createTheme({
       main: '#fff',
     },
     secondary: {
-      main: purple[500],
+      main: '#1565C0',
     },
   },
 });
