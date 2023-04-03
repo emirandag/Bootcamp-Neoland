@@ -2,11 +2,71 @@ import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './App';
+import Login from './pages/Login/Login';
+import MovieDetails from './pages/MovieDetails/MovieDetails';
+import Movies from './pages/Movies/Movies';
+import Page404 from './pages/Page404/Page404';
+import Profile from './pages/Profile/Profile';
+import SerieDetails from './pages/SerieDetails/SerieDetails';
+import Series from './pages/Series/Series';
+
+import Protected from './components/Protected/Protected';
+import ThemeProvider from './context/ThemeProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider>
+    <BrowserRouter basename="/">
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<Login />} />
+          <Route
+            path="/profile"
+            element={
+              <Protected>
+                <Profile />
+              </Protected>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <Protected>
+                <Movies />
+              </Protected>
+            }
+          />
+          <Route
+            path="/series"
+            element={
+              <Protected>
+                <Series />
+              </Protected>
+            }
+          />
+          <Route
+            path="/movies/:id"
+            element={
+              <Protected>
+                <MovieDetails />
+              </Protected>
+            }
+          />
+          <Route
+            path="/series/:id"
+            element={
+              <Protected>
+                <SerieDetails />
+              </Protected>
+            }
+          />
+          <Route path="/*" element={<Page404 />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>,
 );

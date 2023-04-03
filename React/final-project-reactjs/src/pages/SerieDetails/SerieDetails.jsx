@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const SerieDetails = () => {
-  return (
-    <div>SerieDetails</div>
-  )
-}
+  return <div>SerieDetails</div>;
+};
 
-export default SerieDetails
+export default SerieDetails;
