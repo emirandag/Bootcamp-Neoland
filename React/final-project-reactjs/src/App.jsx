@@ -18,15 +18,9 @@ const App = () => {
   useEffect(() => {
     (async () => {
       setMovies(await getMovies());
-    })();
-  }, []);
-  useEffect(() => {
-    (async () => {
       setSeries(await getSeries());
     })();
   }, []);
-
-
 
 
   return (
