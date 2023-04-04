@@ -15,7 +15,6 @@ const Movies = () => {
 const [movies] = useOutletContext()
 
 
-console.log(movies);
 
   return (
     <>

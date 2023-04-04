@@ -11,7 +11,9 @@ const Series = () => {
 //       setSeries(await getSeries());
 //     })();
 //   }, []);
-const [series] = useOutletContext()
+const [, series] = useOutletContext()
+
+console.log(series);
   return (
     <>
       <h1>Series</h1>
