@@ -15,11 +15,13 @@ import Series from './pages/Series/Series';
 
 import Protected from './components/Protected/Protected';
 import ThemeProvider from './context/ThemeProvider';
+import { AuthProvider } from './context/AuthProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
     <BrowserRouter basename="/">
+      <AuthProvider>
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Login />} />
@@ -66,6 +68,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/*" element={<Page404 />} />
         </Route>
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
