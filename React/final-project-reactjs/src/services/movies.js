@@ -4,7 +4,7 @@ export const getMovies = async () =>  {
 
     const optionsRequest = {
         method: "GET",
-        url: import.meta.env.VITE_APP_MOVIES_URL,
+        url: 'https://api.themoviedb.org/3/discover/movie',
         params: {
             api_key: import.meta.env.VITE_TMDB_API_KEY
         }
