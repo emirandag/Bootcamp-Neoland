@@ -20,4 +20,21 @@
   --dark-bg-header-footer: #00c8e0;
   --dark-bg-hover: #292929;
   --dark-text-hover: #7ddfee;
+
+  
+  /*
+    Botones
+  */
+
+  --light-bg-btn-primary: #015699;
+  --light-text-btn-primary: #ffffff;
+  --light-bg-btn-secondary: transparent;
+  --light-text-btn-secondary: #ffffff;
+  --light-border-btn-secondary: #ffffff;
+
+  --dark-bg-btn-primary: #00c8e0;
+  --dark-text-btn-primary: #121212;
+  --dark-bg-btn-secondary: transparent;
+  --dark-text-btn-secondary: #00c8e0;
+  --dark-border-btn-secondary: #00c8e0;
 }

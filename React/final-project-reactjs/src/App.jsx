@@ -1,34 +1,23 @@
 import './App.css';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { ThemeContext } from './context/ThemeProvider';
-import { getMovies } from './services/movies';
-import { getSeries } from './services/series';
+import useRequest from './hooks/useRequest';
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
 
-
-  const [movies, setMovies] = useState([]);
-  const [series, setSeries] = useState([]);
-  useEffect(() => {
-    (async () => {
-      setMovies(await getMovies());
-      setSeries(await getSeries());
-    })();
-  }, []);
-
+  const data = useRequest()
 
   return (
     <div className={`App color-${theme}`}>
       <Header />
       <main className="main">
-        {/* <Outlet /> */}
-        <Outlet context={[movies, series]} />
+        <Outlet context={[data.movies, data.series]} />
       </main>
       <Footer />
     </div>

@@ -7,16 +7,17 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    // const savedUser = window.localStorage.getItem('user')
-    // return savedUser
+
     const ID = window.localStorage.getItem('user');
     return ID ? ID : null;
   });
   const navigate = useNavigate();
 
   const login = (data) => {
+    console.log(data.user);
     setUser(data);
-    localStorage.setItem('user', data);
+
+    localStorage.setItem(Object.keys(data), data.user);
     navigate('/profile');
   };
 

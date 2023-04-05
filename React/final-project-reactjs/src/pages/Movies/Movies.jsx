@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
-import { getMovies } from '../../services/movies';
 
 const Movies = () => {
-//   const [movies, setMovies] = useState([]);
-
-//   useEffect(() => {
-//     (async () => {
-//       setMovies(await getMovies());
-//     })();
-//   }, []);
 
 const [movies] = useOutletContext()
-
-
 
   return (
     <>

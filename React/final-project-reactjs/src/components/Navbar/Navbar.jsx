@@ -24,10 +24,14 @@ const Navbar = () => {
           </ul>
         </nav>
       )}
-
-      <div className="nav-buttons">
-        <button>Logout</button>
+    {
+        user && (
+<div className="nav-buttons">
+        <button onClick={() => logout()}>Logout</button>
       </div>
+        )
+    }
+      
     </div>
   );
 };

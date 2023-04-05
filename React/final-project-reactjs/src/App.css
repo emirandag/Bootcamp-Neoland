@@ -57,6 +57,28 @@
     border: 1px solid var(--dark-bg-header-footer)
 }
 
+.color-light .footer {
+    background-color: var(--light-bg-footer);
+    color: var(--light-text-header-footer);
+}
+.color-dark .footer {
+    background-color: transparent;
+    color: var(--dark-bg-header-footer);
+    border-top: 1px solid var(--dark-bg-header-footer);
+}
+.color-light .footer button {
+    background-color: var(--light-bg-btn-primary);
+    color: var(--light-text-btn-primary);
+}
+.color-dark .footer button {
+    /* background-color: transparent;
+    color: var(--dark-bg-header-footer);
+    border: 1px solid var(--dark-bg-header-footer); */
+    background-color: var(--dark-bg-btn-primary);
+    color: var(--dark-text-btn-primary);
+    /* border: 1px solid var(--dark-bg-header-footer); */
+}
+
 .main {
     display: flex;
     flex-direction: column;
@@ -65,6 +87,14 @@
     gap: 2rem;
 }
 
+.color-light .main button {
+    background-color: var(--light-bg-btn-primary);
+    color: var(--light-text-btn-primary);
+}
+.color-dark .main button {
+    background-color: var(--dark-bg-btn-primary);
+    color: var(--dark-text-btn-primary);
+}
 .cards-container {
     display: flex;
     flex-wrap: wrap;
