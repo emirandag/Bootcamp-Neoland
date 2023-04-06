@@ -1,10 +1,27 @@
-import React, { useEffect, useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 
+
 const Movies = () => {
 
-const [movies] = useOutletContext()
+const [movies, series, page, nextPage, previousPage ] = useOutletContext()
+const [addUser, setAddUser] = useState({})
+
+
+
+    const handleClick = (id) => {
+
+    
+        setAddUser({id:id})
+    
+        console.log(addUser);
+    
+}
+
+
+
 
   return (
     <>
@@ -19,9 +36,23 @@ const [movies] = useOutletContext()
               image={movie.poster_path}
               name={movie.title}
               date={movie.release_date}
+              actionClick={() => handleClick(movie.id)}
             />
           ))
         )}
+      </div>
+      <div className='btn-pages'>
+   
+
+      {
+        page !== 1 && (<button onClick={previousPage}>Anterior</button>)
+      }
+    {
+        page !== movies.total_pages && (<button onClick={nextPage}>Siguiente</button>)
+    }
+    
+
+
       </div>
     </>
   );

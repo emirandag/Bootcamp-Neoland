@@ -4,23 +4,31 @@ import { getMovies } from "../services/movies"
 import { getSeries } from "../services/series";
 
 const useRequest = () => {
-
-const [movies, setMovies] = useState([]);
-const [series, setSeries] = useState([]);
-
+    const [movies, setMovies] = useState([]);
+    const [series, setSeries] = useState([]);
+    const [page, setPage] = useState(1);
+  
     const getData = async () => {
-        const dataMovies = await getMovies()
-        const dataSeries = await getSeries()
-        setMovies(dataMovies)
-        setSeries(dataSeries)
-    }
-
+      const dataMovies = await getMovies(page);
+      const dataSeries = await getSeries(page);
+  
+      setMovies(dataMovies);
+      setSeries(dataSeries);
+    };
+  
     useEffect(() => {
-        getData()
-    }, [])
+      getData();
+    }, [page]);
+  
+    const nextPage = () => {
+      setPage(page => page + 1);
+    };
+  
+    const previousPage = () => {
+      setPage(page => page - 1);
+    };
+  
+    return { movies, series, page, nextPage, previousPage };
+  };
 
-    return {movies, series}
-}
-
-
-export default useRequest
+  export default useRequest

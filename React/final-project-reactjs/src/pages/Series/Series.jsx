@@ -4,14 +4,8 @@ import Card from '../../components/Card/Card';
 import { getSeries } from '../../services/series';
 
 const Series = () => {
-//   const [series, setSeries] = useState([]);
 
-//   useEffect(() => {
-//     (async () => {
-//       setSeries(await getSeries());
-//     })();
-//   }, []);
-const [, series] = useOutletContext()
+const [movies, series, page, nextPage, previousPage ] = useOutletContext()
 
 console.log(series);
   return (
@@ -30,6 +24,19 @@ console.log(series);
             />
           ))
         )}
+      </div>
+      <div className='btn-pages'>
+   
+
+      {
+        page !== 1 && (<button onClick={previousPage}>Anterior</button>)
+      }
+    {
+        page !== movies.total_pages && (<button onClick={nextPage}>Siguiente</button>)
+    }
+    
+
+
       </div>
     </>
   );

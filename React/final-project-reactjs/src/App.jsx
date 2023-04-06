@@ -11,13 +11,13 @@ import useRequest from './hooks/useRequest';
 const App = () => {
   const { theme } = useContext(ThemeContext);
 
-  const data = useRequest()
+  const { movies, series, page, nextPage, previousPage }= useRequest()
 
   return (
     <div className={`App color-${theme}`}>
       <Header />
       <main className="main">
-        <Outlet context={[data.movies, data.series]} />
+        <Outlet context={[movies, series, page, nextPage, previousPage ]} />
       </main>
       <Footer />
     </div>

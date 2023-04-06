@@ -102,3 +102,17 @@
     gap: 3rem;
     width: 90%;
 }
+
+.btn-pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 50%;
+}
+
+.btn-pages button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
