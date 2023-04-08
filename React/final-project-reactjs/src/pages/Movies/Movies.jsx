@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 
@@ -7,6 +8,9 @@ const Movies = () => {
   //const [addFavoritesUser, setAddFavoritesUser] = useState([])
 
   const user = localStorage.getItem('user');
+
+  //const [search, setSearch] = useState("")
+  const [filteredMovies, setFilteredMovies] = useState([])
 
   const handleClick = (id, title, poster, date) => {
     const favorites = JSON.parse(localStorage.getItem(`${user}-Favorites`));
@@ -23,28 +27,61 @@ const Movies = () => {
     //localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
   };
 
+
+  const handleSearch = (value) => {
+    console.log(value);
+    //setSearch(value)
+    const filteredMovies = movies.results.filter((movie) => movie.title.toLowerCase().includes(value.toLowerCase()))
+    console.log(filteredMovies);
+
+    setFilteredMovies(filteredMovies)
+
+  }
+
   // useEffect(() => {
   //     localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
   // }, [addFavoritesUser])
 
   return (
     <>
+            {console.log(filteredMovies)}
       <h1>Películas</h1>
+      
+      <input className='search' onChange={(e) => handleSearch(e.target.value)}/>
+      {/* <button>Buscar</button> */}
+   
+      
       <div className="cards-container">
         {movies.results === undefined ? (
           <h1>Loading...</h1>
-        ) : (
-          movies.results.map((movie) => (
-            <Card
-              key={movie.id}
-              image={movie.poster_path}
-              name={movie.title}
-              date={movie.release_date}
-              actionClick={() =>
-                handleClick(movie.id, movie.title, movie.poster_path, movie.release_date)
-              }
-            />
-          ))
+        ) : ( 
+
+        filteredMovies.length > 0 ? filteredMovies.map((movie) => (
+                <Card
+                  key={movie.id}
+                  image={movie.poster_path}
+                  name={movie.title}
+                  date={movie.release_date}
+                  actionClick={() =>
+                    handleClick(movie.id, movie.title, movie.poster_path, movie.release_date)
+                  }
+                />
+              ))
+            
+            : (
+                movies.results.map((movie) => (
+                    <Card
+                      key={movie.id}
+                      image={movie.poster_path}
+                      name={movie.title}
+                      date={movie.release_date}
+                      actionClick={() =>
+                        handleClick(movie.id, movie.title, movie.poster_path, movie.release_date)
+                      }
+                    />
+                  ))
+            )
+                  
         )}
       </div>
       <div className="btn-pages">
