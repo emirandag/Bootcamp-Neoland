@@ -1,27 +1,31 @@
 
-import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 
-
 const Movies = () => {
+  const [movies, series, page, nextPage, previousPage] = useOutletContext();
+  //const [addFavoritesUser, setAddFavoritesUser] = useState([])
 
-const [movies, series, page, nextPage, previousPage ] = useOutletContext()
-const [addUser, setAddUser] = useState({})
+  const user = localStorage.getItem('user');
 
+  const handleClick = (id, title, poster, date) => {
+    const favorites = JSON.parse(localStorage.getItem(`${user}-Favorites`));
 
+    const newFavorite = { id: id, title: title, poster, date };
 
-    const handleClick = (id) => {
+    if (!favorites.some((favorite) => favorite.id === newFavorite.id)) {
+      const addFavorite = [...favorites, newFavorite];
+      !favorites
+        ? localStorage.setItem(`${user}-Favorites`, JSON.stringify(newFavorite))
+        : localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavorite));
+    }
 
-    
-        setAddUser({id:id})
-    
-        console.log(addUser);
-    
-}
+    //localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
+  };
 
-
-
+  // useEffect(() => {
+  //     localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
+  // }, [addFavoritesUser])
 
   return (
     <>
@@ -36,23 +40,16 @@ const [addUser, setAddUser] = useState({})
               image={movie.poster_path}
               name={movie.title}
               date={movie.release_date}
-              actionClick={() => handleClick(movie.id)}
+              actionClick={() =>
+                handleClick(movie.id, movie.title, movie.poster_path, movie.release_date)
+              }
             />
           ))
         )}
       </div>
-      <div className='btn-pages'>
-   
-
-      {
-        page !== 1 && (<button onClick={previousPage}>Anterior</button>)
-      }
-    {
-        page !== movies.total_pages && (<button onClick={nextPage}>Siguiente</button>)
-    }
-    
-
-
+      <div className="btn-pages">
+        {page !== 1 && <button onClick={previousPage}>Anterior</button>}
+        {page !== movies.total_pages && <button onClick={nextPage}>Siguiente</button>}
       </div>
     </>
   );

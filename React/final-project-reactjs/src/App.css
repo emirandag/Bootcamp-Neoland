@@ -101,6 +101,7 @@
     justify-content: center;
     gap: 3rem;
     width: 90%;
+    text-align: center;
 }
 
 .btn-pages {

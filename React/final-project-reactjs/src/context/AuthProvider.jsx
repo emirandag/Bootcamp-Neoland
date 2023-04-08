@@ -14,10 +14,20 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const login = (data) => {
-    console.log(data.user);
+    //console.log(data.user);
     setUser(data);
 
     localStorage.setItem(Object.keys(data), data.user);
+
+    const favorites = localStorage.getItem(`${data.user}-Favorites`)
+    const userFavorites = JSON.parse(favorites);
+    
+    console.log(favorites);
+    console.log(userFavorites);
+
+    userFavorites === null && localStorage.setItem(`${data.user}-Favorites`, JSON.stringify([])) 
+    
+
     navigate('/profile');
   };
 
