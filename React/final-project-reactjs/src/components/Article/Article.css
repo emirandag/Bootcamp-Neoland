@@ -1,0 +1,40 @@
+.article {
+    display: flex;
+    gap: 2rem;
+    width: 70%;
+}
+
+.article-left img {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.article-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: justify;
+}
+
+
+
+
+
+
+.characters-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    width: 70%;
+}
+
+.characters-card {
+    width: 100px;
+    border-radius: 10px;
+}
+
+.characters-card img {
+    width: 100px;
+    border-radius: 10px;
+}

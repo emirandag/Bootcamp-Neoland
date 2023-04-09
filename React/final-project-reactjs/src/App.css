@@ -47,7 +47,19 @@
 .color-light .main h1 {
     color: var(--light-title-color);
 }
+.color-light .main h2 {
+    color: var(--light-title-color);
+}
+.color-light .main h3 {
+    color: var(--light-title-color);
+}
 .color-dark .main h1 {
+    color: var(--dark-title-color);
+}
+.color-dark .main h2 {
+    color: var(--dark-title-color);
+}
+.color-dark .main h3 {
     color: var(--dark-title-color);
 }
 .color-light .card {

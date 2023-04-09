@@ -8,7 +8,39 @@ export const getMovies = async (page) =>  {
         url: 'https://api.themoviedb.org/3/discover/movie',
         params: {
             api_key: import.meta.env.VITE_TMDB_API_KEY,
-            page: page
+            language: 'es-ES',
+            page: page,
+        }
+    }
+
+    return await useAxios(optionsRequest)
+}
+
+
+export const getMoviesById = async (id) =>  {
+
+    console.log('en services: '+id);
+    const optionsRequest = {
+        method: "GET",
+        url: `https://api.themoviedb.org/3/movie/${id}`,
+        params: {
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+            language: 'es-ES',
+        }
+    }
+
+    return await useAxios(optionsRequest)
+}
+
+
+export const getMovieCharacters = async (id) =>  {
+
+    const optionsRequest = {
+        method: "GET",
+        url: `https://api.themoviedb.org/3/movie/${id}/credits`,
+        params: {
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+            language: 'es-ES',
         }
     }
 

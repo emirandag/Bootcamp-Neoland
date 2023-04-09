@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
-import { getSeries } from '../../services/series';
 
 const Series = () => {
 
@@ -32,7 +31,7 @@ console.log(series);
         page !== 1 && (<button onClick={previousPage}>Anterior</button>)
       }
     {
-        page !== movies.total_pages && (<button onClick={nextPage}>Siguiente</button>)
+        page !== series.total_pages && (<button onClick={nextPage}>Siguiente</button>)
     }
     
 
