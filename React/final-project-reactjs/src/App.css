@@ -35,7 +35,21 @@
 .color-dark header a {
     color: var(--dark-bg-header-footer);
 }
-.color-light header button {
+.color-light header li:hover {
+    background: var(--light-bg-hover);
+    padding: 10px;
+}
+.color-dark header li:hover {
+    background: var(--dark-bg-hover);
+}
+.color-light header a:hover {
+    color: var( --light-text-hover);
+}
+.color-dark header a:hover {
+    color: var(--dark-text-hover);
+}
+
+/* .color-light header button {
     background: transparent;
     color: var(--light-text-header-footer);
     border: 1px solid var(--light-text-header-footer);
@@ -44,7 +58,7 @@
     background: transparent;
     color: var(--dark-bg-header-footer);
     border: 1px solid var(--dark-bg-header-footer);
-}
+} */
 
 .color-light .main h1 {
     color: var(--light-title-color);
@@ -108,14 +122,14 @@
     gap: 2rem;
 }
 
-.color-light .main button {
+/* .color-light .main button {
     background-color: var(--light-bg-btn-primary);
     color: var(--light-text-btn-primary);
-}
-.color-dark .main button {
+} */
+/* .color-dark .main button {
     background-color: var(--dark-bg-btn-primary);
     color: var(--dark-text-btn-primary);
-}
+} */
 .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -133,7 +147,7 @@
     width: 50%;
 }
 
-.btn-pages button {
+/* .btn-pages button {
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -142,7 +156,7 @@
 
 .btn-pages button:hover {
     scale: 1.1;
-}
+} */
 
 .search {
     display: flex;
@@ -158,7 +172,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .header-404 {
@@ -166,10 +180,14 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    text-align: center;
 }
 
 .header-404 h1 {
-    font-size: 96px;
+    font-size: 128px;
+}
+.header-404 h3 {
+    font-size: 32px;
 }
 
 .info-404 {
@@ -184,16 +202,16 @@
     font-size: 26px;
 }
 
-.info-404 button {
+/* .info-404 button {
     border: none;
     border-radius: 5px;
     padding: 8px 20px;
     transition: 0.5s ease-in-out;
-}
+} */
 
-.info-404 button:hover {
+/* .info-404 button:hover {
     scale: 1.1;
-}
+} */
 
 .image-404 {
     width: 70px;

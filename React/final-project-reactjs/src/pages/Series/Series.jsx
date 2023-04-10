@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
+import ButtonStyle from '../../components/UI/ButtonStyle/ButtonStyle';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const Series = () => {
+
+  const { theme } = useContext(ThemeContext);
   const [, series, page, nextPage, previousPage] = useOutletContext();
 
   const user = localStorage.getItem('user');
@@ -74,8 +79,8 @@ const Series = () => {
       </div>
       {!filteredSeries.length > 0 && (
         <div className="btn-pages">
-          {page !== 1 && <button onClick={previousPage}>Anterior</button>}
-          {page !== series.total_pages && <button onClick={nextPage}>Siguiente</button>}
+        {page !== 1 && <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>Anterior</ButtonStyle>}
+        {page !== series.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>Siguiente</ButtonStyle>}
         </div>
       )}
     </>

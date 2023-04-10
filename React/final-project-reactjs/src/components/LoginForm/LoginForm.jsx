@@ -1,8 +1,12 @@
 import './LoginForm.css'
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthProvider';
+import ButtonStyle from '../UI/ButtonStyle/ButtonStyle';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const LoginForm = () => {
+  const { theme } = useContext(ThemeContext);
   const {
     register,
     handleSubmit,
@@ -20,7 +24,7 @@ const LoginForm = () => {
       <input {...register('user', { required: true })} />
       {errors.user && <span>* Este campo es requerido</span>}
       {/* <input type="submit" /> */}
-      <button type="submit">Enviar</button>
+      <ButtonStyle variant='primary' theme={theme} type="submit">Enviar</ButtonStyle>
     </form>
   );
 };

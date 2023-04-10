@@ -2,9 +2,12 @@ import './Navbar.css';
 
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ThemeContext } from '../../context/ThemeProvider';
+import ButtonStyle from '../UI/ButtonStyle/ButtonStyle';
 
 const Navbar = () => {
+  const { theme } = useContext(ThemeContext);
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -15,20 +18,20 @@ const Navbar = () => {
         <nav className={`nav-items ${isOpen && 'open'}`}>
           <ul>
             <li>
-              <NavLink to="profile">Perfil</NavLink>
+              <NavLink to="profile" onClick={() => setIsOpen(!isOpen)}>Perfil</NavLink>
             </li>
             <li>
-              <NavLink to="movies">Películas</NavLink>
+              <NavLink to="movies" onClick={() => setIsOpen(!isOpen)}>Películas</NavLink>
             </li>
             <li>
-              <NavLink to="series">Series</NavLink>
+              <NavLink to="series" onClick={() => setIsOpen(!isOpen)}>Series</NavLink>
             </li>
           </ul>
         </nav>
       )}
       {user && (
         <div className="nav-buttons">
-          <button onClick={() => logout()}>Logout</button>
+          <ButtonStyle variant='secondary' theme={theme} onClick={() => logout()}>Logout</ButtonStyle>
         </div>
       )}
       <div

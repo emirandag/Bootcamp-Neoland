@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
+import ButtonStyle from '../../components/UI/ButtonStyle/ButtonStyle';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const Movies = () => {
+  const { theme } = useContext(ThemeContext);
   const [movies, , page, nextPage, previousPage] = useOutletContext();
   //const [addFavoritesUser, setAddFavoritesUser] = useState([])
 
@@ -91,8 +95,8 @@ const Movies = () => {
       </div>
       {!filteredMovies.length > 0 && (
         <div className="btn-pages">
-        {page !== 1 && <button onClick={previousPage}>Anterior</button>}
-        {page !== movies.total_pages && <button onClick={nextPage}>Siguiente</button>}
+        {page !== 1 && <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>Anterior</ButtonStyle>}
+        {page !== movies.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>Siguiente</ButtonStyle>}
       </div>
       )}
       
