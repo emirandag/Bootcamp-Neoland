@@ -19,7 +19,7 @@ export const getMovies = async (page) =>  {
 
 export const getMoviesById = async (id) =>  {
 
-    console.log('en services: '+id);
+    console.log('en services movies: '+id);
     const optionsRequest = {
         method: "GET",
         url: `https://api.themoviedb.org/3/movie/${id}`,

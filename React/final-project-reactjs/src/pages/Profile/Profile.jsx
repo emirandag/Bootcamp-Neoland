@@ -32,7 +32,7 @@ const Profile = () => {
         <div className="cards-container">
             {
 favorites.length === 0 ? (
-    <h2>No tienes favoritos agregados</h2>
+    <p>No tienes favoritos agregados</p>
   ) : (
     favorites.map((favorite) => (
       <Card

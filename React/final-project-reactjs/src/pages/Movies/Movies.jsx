@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 
 const Movies = () => {
-  const [movies, series, page, nextPage, previousPage] = useOutletContext();
+  const [movies, , page, nextPage, previousPage] = useOutletContext();
   //const [addFavoritesUser, setAddFavoritesUser] = useState([])
 
   const user = localStorage.getItem('user');
@@ -30,9 +30,6 @@ const Movies = () => {
     //localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
     
   };
-
-
-
 
   const handleSearch = (value) => {
     console.log(value);
@@ -68,6 +65,7 @@ const Movies = () => {
           filteredMovies.map((movie) => (
             <Card
               key={movie.id}
+              id={movie.id}
               image={movie.poster_path}
               name={movie.title}
               date={movie.release_date}
