@@ -9,7 +9,7 @@ const Page404 = () => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    console.log('clicado');
+    // console.log('clicado');
     
     navigate('/profile')
   }
@@ -26,7 +26,7 @@ const Page404 = () => {
     </div>
     <div className='info-404'>
       <p>¡La página seleccionada no ha sido encontrada!</p>
-      <ButtonStyle variant='secondary' theme={theme} onClick={() => handleClick()}>Volver al inicio</ButtonStyle>
+      <ButtonStyle variant='primary' theme={theme} onClick={() => handleClick()}>Volver al inicio</ButtonStyle>
     </div>
     
 </div>)
