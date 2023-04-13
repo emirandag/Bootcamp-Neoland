@@ -12,6 +12,10 @@ describe('SocialMedia', () => {
 
   test('links to the correct social media profiles', () => {
     render(
+      /**
+       * https://v5.reactrouter.com/web/guides/testing
+       * Encontrado en la documentación de React Router.
+       */
     <MemoryRouter>
       <SocialMedia />
     </MemoryRouter>

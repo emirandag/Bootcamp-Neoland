@@ -6,7 +6,6 @@ import { MemoryRouter } from 'react-router-dom';
 /**
 * @vitest-environment jsdom
 */
-
 describe('Footer', () => {
   test('should render the correct elements', () => {
     render(

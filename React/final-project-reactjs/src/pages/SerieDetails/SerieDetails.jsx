@@ -5,17 +5,12 @@ import useRequest from '../../hooks/useRequest';
 const SerieDetails = () => {
   const { id } = useParams();
 
-  console.log('id desde seriesDetails -> '+id);
-
   const [, series] = useOutletContext();
-  console.log(series.results);
 
   const foundSeries = series.results?.find((serie) => serie.id === parseInt(id));
 
-//   const { moviesId, moviesCharacters } = useRequest(foundSerie?.id);
-  const { seriesId, seriesCharacters } = useRequest(foundSeries?.id);
-  console.log('serieeeeeeeeeeee: ' + seriesId);
-//   console.log('personajes: ' + moviesCharacters);
+
+  const { seriesId, seriesCharacters } = useRequest(foundSeries?.id, 'serie');
 
   return (
     <>

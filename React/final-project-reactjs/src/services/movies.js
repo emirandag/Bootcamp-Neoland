@@ -19,7 +19,7 @@ export const getMovies = async (page) =>  {
 
 export const getMoviesById = async (id) =>  {
 
-    console.log('en services movies: '+id);
+    if (id !== undefined) {
     const optionsRequest = {
         method: "GET",
         url: `https://api.themoviedb.org/3/movie/${id}`,
@@ -31,10 +31,12 @@ export const getMoviesById = async (id) =>  {
 
     return await useAxios(optionsRequest)
 }
+}
 
 
 export const getMovieCharacters = async (id) =>  {
 
+    if (id !== undefined) {
     const optionsRequest = {
         method: "GET",
         url: `https://api.themoviedb.org/3/movie/${id}/credits`,
@@ -45,4 +47,5 @@ export const getMovieCharacters = async (id) =>  {
     }
 
     return await useAxios(optionsRequest)
+}
 }

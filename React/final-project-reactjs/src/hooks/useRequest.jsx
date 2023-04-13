@@ -3,7 +3,7 @@ import { useState } from "react"
 import { getMovieCharacters, getMovies, getMoviesById } from "../services/movies"
 import { getSerieCharacters, getSeries, getSeriesById } from "../services/series";
 
-const useRequest = (id) => {
+const useRequest = (id, type) => {
     const [movies, setMovies] = useState([]);
     const [series, setSeries] = useState([]);
     const [page, setPage] = useState(1);
@@ -20,24 +20,29 @@ const useRequest = (id) => {
       setSeries(dataSeries);
     };
 
-    const getDataById = async () => {
+    const getMovieDataById = async () => {
       const dataMoviesId = await getMoviesById(id);
-      //const dataSeriesId = await getSeriesById(id);
       const dataCharacterMoviesId = await getMovieCharacters(id);
-      setMoviesId(dataMoviesId)
-      //setSeriesId(dataSeriesId)
-      setMoviesCharacters(dataCharacterMoviesId)
+
+      console.log('Entra al clicar en movies');
+
+      if (type === 'movie') {
+        setMoviesId(dataMoviesId)
+        setMoviesCharacters(dataCharacterMoviesId)
+      } 
+      
     }
 
     const getSerieDataById = async () => {
-      //const dataMoviesId = await getMoviesById(id);
+
       const dataSeriesId = await getSeriesById(id);
       const dataCharacterSeriesId = await getSerieCharacters(id);
-      //const dataCharacterMoviesId = await getMovieCharacters(id);
-      //setMoviesId(dataMoviesId)
+      console.log('Entra al clicar en series');
+      
+      if (type === 'serie') {
       setSeriesId(dataSeriesId)
       setSeriesCharacters(dataCharacterSeriesId)
-      //setMoviesCharacters(dataCharacterMoviesId)
+      } 
     }
   
     useEffect(() => {
@@ -46,16 +51,25 @@ const useRequest = (id) => {
 
 
     useEffect(() => {
-      getDataById();
+      if (type === 'movie') {
+      getMovieDataById();
+      } 
+
+      if (type === 'serie') {
       getSerieDataById();
+      } 
+
     }, [id]);
+
   
     const nextPage = () => {
-      setPage(page => page + 1);
+      console.log('Hace click adelante');
+      setPage(prevpPage => prevpPage + 1);
     };
   
     const previousPage = () => {
-      setPage(page => page - 1);
+      console.log('Hace click atrás');
+      setPage(prevpPage => prevpPage - 1);
     };
   
     return { movies, series, page, nextPage, previousPage, moviesId, seriesId, moviesCharacters, seriesCharacters };

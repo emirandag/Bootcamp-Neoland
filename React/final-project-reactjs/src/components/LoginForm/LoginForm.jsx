@@ -21,8 +21,10 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
-      <input {...register('user', { required: true })} />
+      <input {...register('user', { required: true })} placeholder='Usuario'/>
       {errors.user && <span>* Este campo es requerido</span>}
+      <input type='password' {...register('pass', { required: true })} placeholder='Contraseña' />
+      {errors.pass && <span>* Este campo es requerido</span>}
       {/* <input type="submit" /> */}
       <ButtonStyle variant='primary' theme={theme} type="submit">Enviar</ButtonStyle>
     </form>

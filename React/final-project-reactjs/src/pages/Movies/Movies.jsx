@@ -16,12 +16,12 @@ const Movies = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [noResultFiltered, setNoResultFiltered] = useState(false); //Estado para comprobar la longitud cuando se realice la búsqueda del filtro
 
-
   const handleClick = (id, title, poster, date) => {
+  
     const favorites = JSON.parse(localStorage.getItem(`${user}-Favorites`));
 
 
-    const newFavorite = { id: id, title: title, poster, date };
+    const newFavorite =  { id: id, title: title, poster, date, type: 'movie'};
     
 
     if (!favorites.some((favorite) => favorite.id === newFavorite.id)) {
@@ -31,33 +31,26 @@ const Movies = () => {
         : localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavorite));
     }
      
-    //localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
     
   };
 
   const handleSearch = (value) => {
-    console.log(value);
-    //setSearch(value)
+
     const filteredMovies = movies.results.filter((movie) =>
       movie.title.toLowerCase().includes(value.toLowerCase()),
     );
-    console.log(filteredMovies);
 
     setFilteredMovies(filteredMovies);
     setNoResultFiltered(filteredMovies.length === 0);
   };
 
-  // useEffect(() => {
-  //     localStorage.setItem(`${user}-Favorites`, JSON.stringify(addFavoritesUser))
-  // }, [addFavoritesUser])
+
 
   return (
     <>
-      {/* {console.log(noResultFiltered)} */}
       <h1>Películas</h1>
 
       <input className="search" onChange={(e) => handleSearch(e.target.value)} />
-      {/* <button>Buscar</button> */}
 
       <div className="cards-container">
         {     
@@ -65,7 +58,7 @@ const Movies = () => {
           <h1>Loading...</h1>
         ) : noResultFiltered ? (
             <h2>No hay criterios de búsqueda</h2>
-        ) : filteredMovies.length > 0 ? (
+        ) : filteredMovies.length > 0 && filteredMovies.length < movies.results.length ? (
           filteredMovies.map((movie) => (
             <Card
               key={movie.id}
@@ -93,12 +86,19 @@ const Movies = () => {
           ))
         )}
       </div>
-      {!filteredMovies.length > 0 && (
+      {(!filteredMovies.length > 0 || filteredMovies.length === 20) && (
         <div className="btn-pages">
-        {page !== 1 && <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>Anterior</ButtonStyle>}
-        {page !== movies.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>Siguiente</ButtonStyle>}
+        {page !== 1 ? <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>{`<`}</ButtonStyle> : <ButtonStyle disabled={true} variant='primary' theme={theme} onClick={previousPage}>{`<`}</ButtonStyle>}  
+        <span>{(page-1) !== 0 && page-1}</span>
+        <span className='actualPage'>{page}</span>
+        <span>{page+1}</span>
+        {page !== movies.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>{`>`}</ButtonStyle>}
       </div>
       )}
+      {/* <div className="btn-pages">
+        {page !== 1 && <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>Anterior</ButtonStyle>}
+        {page !== movies.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>Siguiente</ButtonStyle>}
+      </div> */}
       
     </>
   );

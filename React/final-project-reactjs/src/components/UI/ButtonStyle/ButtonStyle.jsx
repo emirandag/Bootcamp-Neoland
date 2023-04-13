@@ -8,7 +8,12 @@ const ButtonStyle = styled.button`
   border-radius: 5px;
   font-size: 16px;
   transition: 0.6s ease-in-out;
-  ${({ variant, theme }) =>
+  ${({ variant, theme, disabled }) =>
+    disabled ? css`
+    background-color: gray;
+    border: 0;
+    `
+    : 
     variant === 'primary' && theme === 'light'
       ? css`
           background-color: #015699;
@@ -68,7 +73,7 @@ const ButtonStyle = styled.button`
             border: 1px solid #7ddfee;
           }
         `
-      : css`
+      :  css`
           background-color: blue;
           color: whitesmoke;
           border: 0;

@@ -9,17 +9,17 @@ const MovieDetails = () => {
 
     const [movies] = useOutletContext() 
 
-    const filteredMovies = movies.results?.find((movie) => movie.id === parseInt(id))
+    const foundSeries = movies.results?.find((movie) => movie.id === parseInt(id))
     //const filteredMovies = movies.results.filter((movie) => console.log('De array:' + typeof movie.id))
 
-    const { moviesId, moviesCharacters } = useRequest(filteredMovies?.id)
+    const { moviesId, moviesCharacters } = useRequest(foundSeries?.id, 'movie')
     // console.log('pelicula: '+moviesId);
     // console.log('personajes: '+moviesCharacters);
 
   
   return (
     <>
-       {moviesId === undefined && filteredMovies === undefined ? <div className='loading'><h1>Loading...</h1></div> : ( 
+       {moviesId === undefined && foundSeries === undefined ? <div className='loading'><h1>Loading...</h1></div> : ( 
             <Article item={moviesId} characters={moviesCharacters} type='movie' />
         )}
     </>

@@ -18,7 +18,7 @@ const Series = () => {
   const handleClick = (id, title, poster, date) => {
     const favorites = JSON.parse(localStorage.getItem(`${user}-Favorites`));
 
-    const newFavorite = { id: id, title: title, poster, date };
+    const newFavorite = { id: id, title: title, poster, date, type: 'serie'};
 
     if (!favorites.some((favorite) => favorite.id === newFavorite.id)) {
       const addFavorite = [...favorites, newFavorite];
@@ -30,13 +30,15 @@ const Series = () => {
 
   const handleSearch = (value) => {
     //console.log(value);
-    console.log(series);
+    // console.log(series);
     const filteredSeries = series.results.filter((serie) =>
       serie.name.toLowerCase().includes(value.toLowerCase()),
     );
-    console.log(filteredSeries);
+    // console.log(filteredSeries);
     setFilteredSeries(filteredSeries);
     setNoResultFiltered(filteredSeries.length === 0);
+
+    // console.log('Estas en la página: '+ page);
   };
 
   return (
@@ -49,7 +51,7 @@ const Series = () => {
           <h1>Loading...</h1>
         ) : noResultFiltered ? (
           <h2>No hay criterios de búsqueda</h2>
-        ) : filteredSeries.length > 0 ? (
+        ) : filteredSeries.length > 0  && filteredSeries.length < series.results.length ? (
           filteredSeries.map((serie) => (
             <Card
               key={serie.id}
@@ -77,11 +79,20 @@ const Series = () => {
           ))
         )}
       </div>
-      {!filteredSeries.length > 0 && (
+      {/* {!filteredSeries.length > 0 && (
         <div className="btn-pages">
         {page !== 1 && <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>Anterior</ButtonStyle>}
         {page !== series.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>Siguiente</ButtonStyle>}
         </div>
+      )} */}
+      {(!filteredSeries.length > 0 || filteredSeries.length === 20) && (
+        <div className="btn-pages">
+        {page !== 1 ? <ButtonStyle variant='primary' theme={theme} onClick={previousPage}>{`<`}</ButtonStyle> : <ButtonStyle disabled={true} variant='primary' theme={theme} onClick={previousPage}>{`<`}</ButtonStyle>}  
+        <span>{(page-1) !== 0 && page-1}</span>
+        <span className='actualPage'>{page}</span>
+        <span>{page+1}</span>
+        {page !== series.total_pages && <ButtonStyle variant='primary' theme={theme} onClick={nextPage}>{`>`}</ButtonStyle>}
+      </div>
       )}
     </>
   );

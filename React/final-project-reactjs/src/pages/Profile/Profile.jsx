@@ -8,9 +8,8 @@ const Profile = () => {
 
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem(`${user}-Favorites`)));
 
-    console.log(favorites);
+    //console.log(favorites);
     const handleClick = (id) => {
-
 
         const removeFavorite = favorites.filter(favorite => favorite.id !== id);
 
@@ -40,8 +39,8 @@ favorites.length === 0 ? (
         image={favorite.poster}
         name={favorite.title}
         date={favorite.date}
+        type={favorite.type}
         actionClick={() => handleClick(favorite.id)}
-        //actionClick={() => handleClick(movie.id, movie.title, movie.poster_path, movie.release_date)}
       />
     ))
   )

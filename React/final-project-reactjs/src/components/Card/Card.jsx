@@ -1,23 +1,24 @@
 import './Card.css'
 import { MdFavorite, MdDeleteForever } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
+import ButtonIcon from '../UI/ButtonIcon/ButtonIcon';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeProvider';
 
 const Card = ({ id, image, name, date, actionClick}) => {
     
+  const { theme } = useContext(ThemeContext);
         const location = useLocation()
         const navigate = useNavigate();
 
-        console.log(location.pathname);
+        //console.log(location.pathname);
 
         const handleCheckId = (id) => {
-          //console.log(id);
-          // if (location.pathname === '/movies') {
-          //   navigate(`/movies/${id}`);
-          // }
-          navigate(`${location.pathname}/${id}`);
-          // if (location.pathname === '/series') {
-          //   navigate(`/series/${id}`);
-          // }
+
+          if (location.pathname !== '/profile') {
+            navigate(`${location.pathname}/${id}`);
+          }
+          
           
         };
 
@@ -28,8 +29,11 @@ const Card = ({ id, image, name, date, actionClick}) => {
             <h3>{name}</h3>
             <h4>{date?.replaceAll("-", "/")}</h4>
             {/* <h4>{date}</h4> */}
-            {
+            {/* {
                location.pathname === '/profile' ? <button className='btn-favorites'  onClick={() => actionClick()}><MdDeleteForever /></button> : <button className='btn-favorites' onClick={() => actionClick()}><MdFavorite /></button>
+            } */}
+            {
+               location.pathname === '/profile' ? <ButtonIcon variant='primary' theme={theme} onClick={() => actionClick()}><MdDeleteForever /></ButtonIcon> : <ButtonIcon variant='primary' theme={theme} onClick={() => actionClick()}><MdFavorite /></ButtonIcon> 
             }
 
         </figcaption>
