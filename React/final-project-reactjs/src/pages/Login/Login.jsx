@@ -1,9 +1,11 @@
-import React from 'react'
+import { Navigate } from 'react-router-dom';
+import LoginForm from '../../components/LoginForm/LoginForm';
+import { useAuth } from '../../context/AuthProvider';
 
 const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
+  const { user } = useAuth();
 
-export default Login
+  return <>{!user ? <LoginForm /> : <Navigate to="profile" />}</>;
+};
+
+export default Login;
