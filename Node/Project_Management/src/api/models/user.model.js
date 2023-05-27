@@ -5,23 +5,23 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    name: { type: String, require: true },
+    name: { type: String, required: true },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
       validate: [validator.isEmail, 'Email not valid'],
     },
     password: {
       type: String,
-      require: true,
+      required: true,
       validate: [validator.isStrongPassword, 'Email not valid'],
       minlength: [8, 'Min 8 characters'],
     },
-    gender: { type: String, enum: ['male', 'female'], require: true },
-    rol: { type: String, enum: ['admin', 'manager', 'user'], require: true },
+    gender: { type: String, enum: ['male', 'female'], required: true },
+    rol: { type: String, enum: ['admin', 'manager', 'user'], required: true },
     photo: { type: String },
-    confirmationCode: { type: String, require: true },
+    confirmationCode: { type: String, required: true },
     check: { type: Boolean, default: false },
     projects: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },
     tasks: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' },
