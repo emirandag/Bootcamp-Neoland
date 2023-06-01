@@ -23,8 +23,8 @@ const UserSchema = new Schema(
     photo: { type: String },
     confirmationCode: { type: String, required: true },
     check: { type: Boolean, default: false },
-    projects: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },
-    tasks: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' },
+    projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
   },
   {
     timestamps: true,

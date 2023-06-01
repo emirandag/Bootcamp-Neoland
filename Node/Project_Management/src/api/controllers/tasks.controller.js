@@ -11,7 +11,7 @@ const createTask = async (req, res, next) => {
         //Comprobamos si el proyecto existe y está abierto
         const isOpenProject = await Project.findOne({ _id: projectId, isClosed: false})
         
-        console.log(isOpenProject);
+        //console.log(isOpenProject);
         if (!isOpenProject) {
             return res.status(404).json("There isn't open project.")
         } else {

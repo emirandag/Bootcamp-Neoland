@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Project = require('../models/project.model');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
@@ -419,4 +420,54 @@ const deleteUser = async (req, res, next) => {
   }
 }
 
-module.exports = { register, checkNewUser, resendCode, login, forgotPassword, sendPassword, modifyPassword, update, deleteUser };
+
+/**
+ * ----------------------------------- ADD USER TO PROJECT --------------------------------------
+ */
+const addUserProject = async(req, res, next) => {
+  try {
+    const { id } = req.params
+    const { projectId } = req.body
+
+    const findUser = await User.findById(id).populate("projects")
+    const isOpenProject = await Project.findOne({ _id: projectId, isClosed: false})
+
+    if (!isOpenProject) {
+      return res.status(404).json("There isn't open project.")
+    } else {
+
+
+      if (findUser.projects.includes(isOpenProject._id)) {
+        try {
+          //Pusheamos el ID del proyecto en el array de proyectos en el usuario
+          await User.findByIdAndUpdate(id, { $push: { projects: projectId } })
+          //Pusheamos el ID del usuario en el array de usuarios en Projectos
+          await Project.findByIdAndUpdate(projectId, { $push: { users: id } })
+      
+          const testUser = await User.findById(id).populate("projects")
+
+          if (testUser) {
+            return res.status(201).json(
+              {
+                testUser,
+                results: `Added user in the project '${isOpenProject.title}'`
+              }
+            )
+          } else {
+            return res.status(404).json("Error add user in project")
+          }
+          
+        } catch (error) {
+          return res.status(404).json("Error add user")
+        }
+      } else {
+          return res.status(404).json("User exist in project")
+      }
+    }
+
+  } catch (error) {
+    return next(error)
+  }
+}
+
+module.exports = { register, checkNewUser, resendCode, login, forgotPassword, sendPassword, modifyPassword, update, deleteUser, addUserProject };
