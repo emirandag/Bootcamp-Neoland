@@ -107,4 +107,58 @@ const deleteTask = async (req, res, next) => {
 }
 
 
-module.exports = { createTask, updateTask,  deleteTask }
+
+/**
+ * -------------------------- GET ALL TASKS -----------------------------
+ */
+const getAllTasks = async (req, res, next) => {
+    try {
+      const getTasks = await Task.find()
+  
+      if (getTasks) {
+        res.status(200).json(getTasks)
+      } else {
+        res.status(404).json('Error not found the tasks')
+      }
+    } catch (error) {
+      return next(setError(error.code || 500, error.message || 'Failed to list all tasks'));
+    }
+  }
+  
+  
+  /**
+   * -------------------------- GET TASK BY ID -----------------------------
+   */
+  const getTask = async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const getTaskById = await Task.findById(id)
+  
+      if (getTaskById) {
+        res.status(200).json(getTaskById)
+      } else {
+        res.status(404).json('Error the task not exist')
+      }
+    } catch (error) {
+      return next(setError(error.code || 500, error.message || 'Failed to list task'));
+    }
+  }
+  
+  /**
+   * -------------------------- GET OPEN TASKS -----------------------------
+   */
+  const getOpenTasks = async (req, res, next) => {
+    try {
+      const openTasks = await Task.find({ isCompleted: false })
+  
+      if (openTasks) {
+        res.status(200).json(openTasks)
+      } else {
+        res.status(404).json('There arent open projects')
+      }
+    } catch (error) {
+      return next(setError(error.code || 500, error.message || 'Failed to list projects'));
+    }
+  }
+
+module.exports = { createTask, updateTask,  deleteTask, getAllTasks,  getTask, getOpenTasks }

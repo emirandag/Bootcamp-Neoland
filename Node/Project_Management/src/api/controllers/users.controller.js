@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const Project = require('../models/project.model');
+const Task = require('../models/task.model');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
@@ -436,7 +437,6 @@ const addUserProject = async(req, res, next) => {
       return res.status(404).json("There isn't open project.")
     } else {
 
-
       if (findUser.projects.includes(isOpenProject._id)) {
         try {
           //Pusheamos el ID del proyecto en el array de proyectos en el usuario
@@ -470,4 +470,69 @@ const addUserProject = async(req, res, next) => {
   }
 }
 
-module.exports = { register, checkNewUser, resendCode, login, forgotPassword, sendPassword, modifyPassword, update, deleteUser, addUserProject };
+
+const addUserTask = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const { taskId } = req.body
+
+    const foundUser = await User.findById(id)
+    const foundTask = await Task.findById({ _id: taskId})
+
+    if (!foundTask) {
+      return res.status(404).json("The task not exist")
+    } else if (foundTask.isCompleted == true) {
+      return res.status(404).json("The task is not open")
+    } else if (foundTask.assignedTo) {
+      return res.status(404).json("There is already a user in this task")
+    } else {
+
+      if (foundUser) {
+        try {
+          foundTask.assignedTo = foundUser._id
+          await foundTask.save()
+          await User.findByIdAndUpdate(foundUser._id, { $push: { tasks: foundTask._id } })
+          // return res.status(200).json("Add user task Ok")
+          
+          const testUser = await User.findById(foundUser._id).populate("tasks")
+          const testUserTask = testUser.tasks.some(task => task._id == taskId)
+
+          if (testUserTask) {
+            try {
+              return res.status(200).json(
+                {
+                  testUser,
+                  results: `Added user in the task '${foundTask.title}'`
+                }
+              )
+            } catch (error) {
+              return "Error al buscar el usuario"
+            }
+          }
+        } catch (error) {
+          return next(error)
+        }
+      } else {
+        return res.status(404).json("The user not exist")
+      }
+      
+    }
+
+  } catch (error) {
+    return next(error)
+  }
+}
+
+module.exports = { 
+  register, 
+  checkNewUser, 
+  resendCode, 
+  login, 
+  forgotPassword, 
+  sendPassword, 
+  modifyPassword, 
+  update, 
+  deleteUser, 
+  addUserProject, 
+  addUserTask 
+};
