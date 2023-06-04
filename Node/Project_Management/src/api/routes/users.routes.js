@@ -1,7 +1,7 @@
 const express = require('express');
 const { upload } = require('../../middlewares/files.middleware');
 const { register, checkNewUser, resendCode, login, forgotPassword, sendPassword, modifyPassword, update, deleteUser, addUserProject, addUserTask } = require('../controllers/users.controller');
-const { isAuth } = require('../../middlewares/auth.middleware');
+const { isAuth, isAuthManager, isAuthAdmin } = require('../../middlewares/auth.middleware');
 
 const UserRoutes = express.Router();
 
@@ -13,8 +13,8 @@ UserRoutes.get('/forgotpassword', forgotPassword);
 UserRoutes.patch('/changepassword', [isAuth], modifyPassword);
 UserRoutes.patch('/update/update', [isAuth], upload.single('image'), update);
 UserRoutes.delete('/', [isAuth], deleteUser);
-UserRoutes.patch('/adduserproject/:id', addUserProject);
-UserRoutes.patch('/addusertask/:id', addUserTask);
+UserRoutes.patch('/adduserproject/:id', [isAuthManager], addUserProject);
+UserRoutes.patch('/addusertask/:id', [isAuthManager], addUserTask);
 
 // -------REDIRECT --------------------
 UserRoutes.get('/forgotpassword/sendPassword/:id', sendPassword);

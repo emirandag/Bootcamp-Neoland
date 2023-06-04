@@ -201,7 +201,7 @@ const login = async (req, res, next) => {
         })
       } else {
         
-        return res.status(404).json('Password invalid')
+        return res.status(401).json('Password invalid')
       }      
     }
   } catch (error) {
@@ -409,13 +409,22 @@ const update = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const { _id } = req.user
+    //console.log(req.user);
     await User.findByIdAndDelete(_id)
+
+    await Project.updateMany({ users: _id }, { $pull: { users: _id } })
+
+    await Task.updateMany({ assignedTo: _id }, { $unset: { assignedTo: 1 } })
+
     if (await User.findById(_id)) {
       return res.status(404).json("Don't delete")
     } else {
       deleteImgCloudinary(req.user.photo)
       return res.status(200).json('Ok delete')
     }
+
+
+
   } catch (error) {
     return next(error)
   }
@@ -437,7 +446,7 @@ const addUserProject = async(req, res, next) => {
       return res.status(404).json("There isn't open project.")
     } else {
 
-      if (findUser.projects.includes(isOpenProject._id)) {
+      if (!findUser.projects.includes(isOpenProject._id)) {
         try {
           //Pusheamos el ID del proyecto en el array de proyectos en el usuario
           await User.findByIdAndUpdate(id, { $push: { projects: projectId } })

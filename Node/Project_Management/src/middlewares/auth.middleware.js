@@ -20,6 +20,30 @@ const isAuth = async (req, res, next) => {
   }
 };
 
+
+
+const isAuthManager = async (req, res, next) => {
+  // le quitamos el prefijo de bearer al token para que podamos pasarlo a verificarlo
+  const token = req.headers.authorization?.replace('Bearer ', '');
+
+  if (!token) {
+    return next(new Error('Unauthorized'));
+  }
+  try {
+    // ---> decodificamos el token y sacomos el id y email que es con lo que hemos creado el token
+    const decoded = verifyToken(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id);
+    if (req.user.rol !== 'manager') {
+      return next(new Error('Unauthorized, not manager'));
+    }
+    next();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+
+
 const isAuthAdmin = async (req, res, next) => {
   // le quitamos el prefijo de bearer al token para que podamos pasarlo a verificarlo
   const token = req.headers.authorization?.replace('Bearer ', '');
@@ -42,5 +66,6 @@ const isAuthAdmin = async (req, res, next) => {
 
 module.exports = {
   isAuth,
+  isAuthManager,
   isAuthAdmin,
 };
