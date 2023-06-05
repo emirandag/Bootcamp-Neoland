@@ -532,6 +532,44 @@ const addUserTask = async (req, res, next) => {
   }
 }
 
+
+/**
+ * -------------------------- GET ALL USERS -----------------------------
+ */
+const getAllUsers = async (req, res, next) => {
+  try {
+    const getUsers = await User.find()
+
+    if (getUsers) {
+      res.status(200).json(getUsers)
+    } else {
+      res.status(404).json('Error not found the users')
+    }
+  } catch (error) {
+    return next(setError(error.code || 500, error.message || 'Failed to list all users'));
+  }
+}
+
+
+
+/**
+ * -------------------------- GET USER BY ID -----------------------------
+ */
+const getUser = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const getUserById = await User.findById(id)
+
+    if (getUserById) {
+      res.status(200).json(getUserById)
+    } else {
+      res.status(404).json('Error the project not exist')
+    }
+  } catch (error) {
+    return next(setError(error.code || 500, error.message || 'Failed to list project'));
+  }
+}
+
 module.exports = { 
   register, 
   checkNewUser, 
@@ -543,5 +581,7 @@ module.exports = {
   update, 
   deleteUser, 
   addUserProject, 
-  addUserTask 
+  addUserTask,
+  getAllUsers,
+  getUser
 };

@@ -1,6 +1,7 @@
 const Project = require("../models/project.model")
 const Task = require("../models/task.model")
 const setError = require('../../helpers/handle-error');
+const User = require("../models/user.model");
 
 /**
  * ----------------------- CREATE PROJECT -----------------------
@@ -62,10 +63,12 @@ const updateProject = async (req, res, next) => {
         );
     } else {
       try {
+        // Buscamos por ID el proyecto y cambiamos el estado del proyecto a cerrado.
         await Project.findByIdAndUpdate(id, { isClosed: true });
-        const testUpdateProject = await Project.findById(id).populate('tasks');
 
         // Hacemos un test y comprobamos si el proyecto ya está cerrado
+        const testUpdateProject = await Project.findById(id).populate('tasks');
+
         if (testUpdateProject) {
           return res.status(201).json({
             testUpdateProject,
@@ -95,11 +98,17 @@ const deleteProject = async (req, res, next) => {
         //Recuperamos el ID que ponemos por parámetro
         const { id } = req.params
 
+
         const projectById = await Project.findByIdAndDelete(id)
+
+        // Borramos todas las tareas asociadas a ese proyecto, porque no pueden haber tareas sin proyecto asignado
         await Task.deleteMany({ project: id })
 
+        // Actualizamos todos los usuarios que tengan asignado el proyecto y borramos el proyecto de estos usuarios
+        await User.updateMany({ projects: id }, { $pull: { projects: id } })
+       
         if (projectById) {
-            res.status(200).json(projectById)
+            res.status(200).json("The project was deleted")
             
         } else {
             res.status(404).json('Error delete project')

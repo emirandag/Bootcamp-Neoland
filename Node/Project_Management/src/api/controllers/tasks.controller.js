@@ -1,5 +1,6 @@
 const Task = require("../models/task.model")
 const Project = require("../models/project.model")
+const User = require("../models/user.model")
 const setError = require('../../helpers/handle-error');
 
 const createTask = async (req, res, next) => {
@@ -88,12 +89,14 @@ const deleteTask = async (req, res, next) => {
         //Buscamos la tarea por ID y la eliminamos
         const taskById = await Task.findByIdAndDelete(id)
 
-        //console.log(taskById.project);
         // De la tarea recuperamos el projecto(ID) y actualizamos el proyecto. 
+        const projectId = taskById.project
+        const userId = taskById.assignedTo
         // Con el $pull eliminamos de un array existente la instancia o instancias de un valor que coinciden con una condición específica.
         // En este caso, eliminamos la tarea dentro del array de tareas en la colección Project
-        const projectId = taskById.project
         await Project.findByIdAndUpdate(projectId, { $pull: { tasks: id } })
+        // Actualizamos todos los usuarios que ten
+        await User.findByIdAndUpdate(userId, { $pull: { tasks: id } })
 
         if (taskById) {
             return res.status(200).json(taskById)
