@@ -9,12 +9,15 @@ const createTask = async (req, res, next) => {
         
         const { title, projectId } = req.body
 
-        //Comprobamos si el proyecto existe y está abierto
-        const isOpenProject = await Project.findOne({ _id: projectId, isClosed: false})
+        // Buscamos el proyecto por el ID que hemos desestructurado por el body
+        const foundProject = await Project.findById(projectId)
+        //const isOpenProject = await Project.findOne({ _id: projectId, isClosed: false})
         
-        //console.log(isOpenProject);
-        if (!isOpenProject) {
-            return res.status(404).json("There isn't open project.")
+
+        if (!foundProject) { // Comprobamos si el proyecto existe
+            return res.status(404).json("The project not exist")
+        } else if (foundProject.isClosed == true) { // Comprobamos is el proyecto está abierto. No se puede crear una tarea asignada a un proyecto cerrado.
+            return res.status(404).json("The project is not open")
         } else {
             // Si existe el proyecto y está abierto, creamos la tarea
             const newTask = new Task({
@@ -25,24 +28,38 @@ const createTask = async (req, res, next) => {
         
             //Guardamos la tarea en la base de datos
             await newTask.save()
-            let updateProject
-            if (newTask) {
-                //Pusheamos el ID de la tarea en el array de tareas en Projectos
-                isOpenProject.tasks.push(newTask._id)
 
-                // Actualizamos el proyecto
-                updateProject = await Project.findByIdAndUpdate(
-                    projectId,
-                    isOpenProject
-                );
-                return res.status(201).json(
-                    {
-                        newTask,
-                        updateProject: await Project.findById(projectId).populate("tasks")
+            // Comprobamos si la tarea existe
+            if (newTask) {
+        
+                try {
+                    // Si existe, pusheamos el ID de la tarea en el array de tareas en Projectos
+                    foundProject.tasks.push(newTask._id)
+                    // Actualizamos el proyecto
+                    await Project.findByIdAndUpdate(projectId, foundProject);
+
+                    const updateProject = await Project.findById(projectId).populate("tasks")
+
+                    // Comprobamos si la tarea se ha actualizado en el array de tareas en el proyecto
+                    if (updateProject.tasks.toString().includes(newTask._id)) {
+
+                        return res.status(201).json(
+                            {
+                                newTask,
+                                updateProject,
+                                result: `The task '${newTask.title}' has been created in the project '${updateProject.title}`
+                            }
+                        )
+                    } else {
+                        return res.status(404).json('The task is not in the project')
                     }
-                )
+                    
+                } catch (error) {
+                    return next(setError(error.code || 500, error.message || 'Failed to push task in the project'));
+                }                
+                
             } else {
-                return res.status(404).json("Error create task")
+                return res.status(404).json("Error to create task")
             }
             
         }
@@ -63,11 +80,17 @@ const updateTask = async (req, res, next) => {
         //Recuperamos el ID de la tarea que introducimos por parámetro
         const { id } = req.params
 
-        const updateTaskById = await Task.findByIdAndUpdate(id, { isCompleted: true })
+        // Buscamos y actualizamos la tarea
+        let foundTask = await Task.findById(id) 
+        
+        foundTask.isCompleted == false ? await Task.findByIdAndUpdate(id, { isCompleted: true }) : await Task.findByIdAndUpdate(id, { isCompleted: false })
+        //const updateTaskById = await Task.findByIdAndUpdate(id, { isCompleted: true })
 
-        if (updateTaskById) {
+        if (foundTask) {
             const testUpdateTask = await Task.findById(id)
-            return res.status(200).json({testUpdateTask, result: `Updated task. The task '${testUpdateTask.title}' is completed.` })
+            return testUpdateTask.isCompleted == true ?
+            res.status(200).json({testUpdateTask, result: `Updated task. The task '${testUpdateTask.title}' is completed.` }) :
+            res.status(200).json({testUpdateTask, result: `Updated task. The task '${testUpdateTask.title}' is not completed.` })
         } else {
             return res.status(404).json('Error update task')
         }
