@@ -356,6 +356,8 @@ const update = async (req, res, next) => {
     patchUser.confirmationCode = req.user.confirmationCode
     patchUser.check = req.user.check
     patchUser.email = req.user.email
+    patchUser.projects = req.user.projects
+    patchUser.tasks = req.user.tasks
 
     // Actualizamos en la base de datos con el ID
     await User.findByIdAndUpdate(req.user._id, patchUser)
@@ -488,41 +490,42 @@ const addUserTask = async (req, res, next) => {
     const foundUser = await User.findById(id)
     const foundTask = await Task.findById({ _id: taskId})
 
-    if (!foundTask) {
+
+    if (!foundTask) { // Validamos si la tarea existe
       return res.status(404).json("The task not exist")
-    } else if (foundTask.isCompleted == true) {
+    } else if (foundTask.isCompleted == true) { // Validamos si la tarea está completada
       return res.status(404).json("The task is not open")
-    } else if (foundTask.assignedTo) {
+    } else if (foundTask.assignedTo) { // Comprobamos si la tarea ya está asignada a un usuario
       return res.status(404).json("There is already a user in this task")
     } else {
-
-      if (foundUser) {
+      if (!foundUser) { // Validamos si el usuario existe o no
+        return res.status(404).json("The user not exist")
+      } else if (!foundUser.projects.includes(foundTask.project)) { // Comprobamos si el usuario está dentro de los usuarios del proyecto asociado a la tarea.
+        return res.status(404).json("The user is not in the project associated with the task")
+      } else {
         try {
           foundTask.assignedTo = foundUser._id
           await foundTask.save()
           await User.findByIdAndUpdate(foundUser._id, { $push: { tasks: foundTask._id } })
-          // return res.status(200).json("Add user task Ok")
-          
-          const testUser = await User.findById(foundUser._id).populate("tasks")
-          const testUserTask = testUser.tasks.some(task => task._id == taskId)
+          try {
+            const testUser = await User.findById(foundUser._id).populate("tasks")
+            const testUserTask = testUser.tasks.some(task => task._id == taskId)
 
-          if (testUserTask) {
-            try {
-              return res.status(200).json(
-                {
-                  testUser,
-                  results: `Added user in the task '${foundTask.title}'`
-                }
-              )
-            } catch (error) {
-              return "Error al buscar el usuario"
+              if (testUserTask) {
+            
+                return res.status(200).json(
+                  {
+                    testUser,
+                    results: `Added user '${testUser.email}' in the task '${foundTask.title}'`
+                  }
+                )
             }
+          } catch (error) {
+            return "Error al buscar el usuario"
           }
         } catch (error) {
           return next(error)
         }
-      } else {
-        return res.status(404).json("The user not exist")
       }
       
     }
@@ -538,7 +541,7 @@ const addUserTask = async (req, res, next) => {
  */
 const getAllUsers = async (req, res, next) => {
   try {
-    const getUsers = await User.find()
+    const getUsers = await User.find().populate("tasks")
 
     if (getUsers) {
       res.status(200).json(getUsers)
@@ -558,7 +561,7 @@ const getAllUsers = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const { id } = req.params
-    const getUserById = await User.findById(id)
+    const getUserById = await User.findById(id).populate("tasks")
 
     if (getUserById) {
       res.status(200).json(getUserById)
@@ -569,6 +572,88 @@ const getUser = async (req, res, next) => {
     return next(setError(error.code || 500, error.message || 'Failed to list project'));
   }
 }
+
+
+
+/**
+ * ---------------------------- CHANGE EMAIL --------------------------------
+ */
+const changeEmail = async (req, res, next) => {
+  try {
+    // Traemos el ID de los params
+    const { id } = req.params
+
+    // Nos traemos el email del body
+    const { email, newEmail } = req.body
+    console.log(req.body);
+    // Traemos el usuario correspondiente al usuario
+    const foundUser = await User.findOne({ _id: id }, { email })
+    console.log(foundUser);
+    if (!foundUser) {
+      return res.status(404).json('The email is not correct')
+    } else {
+      try {
+        await User.findByIdAndUpdate(id, { email: newEmail })
+
+        const updateEmailUser = await User.findById(id)
+
+        if (updateEmailUser.email == newEmail) {
+          try {
+
+            const email = process.env.NODEMAILER_EMAIL;
+            const password = process.env.NODEMAILER_PASSWORD;
+            const transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: email,
+                pass: password,
+              },
+            });
+
+            const mailOptions = {
+              from: email,
+              to: updateEmailUser.email,
+              subject: 'Code confirmation',
+              text: `Your code is ${updateEmailUser.confirmationCode}`,
+            };
+      
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('Email sent: ' + info.response);
+              }
+            });
+
+            await updateEmailUser.updateOne({ check: false })
+            const testUpdateUserEmail = await User.findOne({ email: updateEmailUser.email }) 
+
+            if (testUpdateUserEmail) {
+              res.status(200).json(
+                {
+                  testUpdateUserEmail,
+                  confirmationCode: updateEmailUser.confirmationCode,
+                  result: 'The email the user is updated'
+                }
+              )
+            }
+          } catch (error) {
+            es.status(404).json("Error to sent the email")     
+          }
+        } else {
+          res.status(404).json("The email is not updated")        
+        }
+      } catch (error) {
+        return next(setError(error.code || 500, error.message || 'Error to update the email'));
+      }
+      
+    }
+    
+  } catch (error) {
+    return next(setError(error.code || 500, error.message || 'General error to change email'));
+  }
+}
+
 
 module.exports = { 
   register, 
@@ -583,5 +668,6 @@ module.exports = {
   addUserProject, 
   addUserTask,
   getAllUsers,
-  getUser
+  getUser,
+  changeEmail
 };

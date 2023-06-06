@@ -13,7 +13,8 @@ const {
     addUserProject, 
     addUserTask,
     getAllUsers,
-    getUser
+    getUser,
+    changeEmail
 } = require('../controllers/users.controller');
 const { isAuth, isAuthManager, isAuthAdmin } = require('../../middlewares/auth.middleware');
 
@@ -31,6 +32,7 @@ UserRoutes.patch('/adduserproject/:id', [isAuthManager], addUserProject);
 UserRoutes.patch('/addusertask/:id', [isAuthManager], addUserTask);
 UserRoutes.get("/", getAllUsers)
 UserRoutes.get("/:id", getUser)
+UserRoutes.patch("/changeemail/:id", changeEmail)
 
 // -------REDIRECT --------------------
 UserRoutes.get('/forgotpassword/sendPassword/:id', sendPassword);

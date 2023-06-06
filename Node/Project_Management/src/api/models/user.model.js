@@ -15,7 +15,7 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
-      validate: [validator.isStrongPassword, 'Email not valid'],
+      validate: [validator.isStrongPassword, 'Password not valid'],
       minlength: [8, 'Min 8 characters'],
     },
     gender: { type: String, enum: ['male', 'female'], required: true },
@@ -34,6 +34,7 @@ const UserSchema = new Schema(
 UserSchema.pre('save', async function (next) {
   try {
     this.password = await bcrypt.hash(this.password, 10);
+    next()
   } catch (error) {
     next('Error hashing password', error);
   }

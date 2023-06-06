@@ -125,7 +125,7 @@ const deleteProject = async (req, res, next) => {
  */
 const getAllProjects = async (req, res, next) => {
   try {
-    const getProjects = await Project.find()
+    const getProjects = await Project.find().populate("tasks")
 
     if (getProjects) {
       res.status(200).json(getProjects)

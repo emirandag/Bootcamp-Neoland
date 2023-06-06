@@ -118,7 +118,7 @@ const deleteTask = async (req, res, next) => {
         // Con el $pull eliminamos de un array existente la instancia o instancias de un valor que coinciden con una condición específica.
         // En este caso, eliminamos la tarea dentro del array de tareas en la colección Project
         await Project.findByIdAndUpdate(projectId, { $pull: { tasks: id } })
-        // Actualizamos todos los usuarios que ten
+        // Actualizamos todos los usuarios que tenga asociado 
         await User.findByIdAndUpdate(userId, { $pull: { tasks: id } })
 
         if (taskById) {
