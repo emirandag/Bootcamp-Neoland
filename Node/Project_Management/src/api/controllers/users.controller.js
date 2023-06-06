@@ -8,6 +8,7 @@ const setError = require('../../helpers/handle-error');
 const { deleteImgCloudinary } = require('../../middlewares/files.middleware');
 const { generateToken } = require('../../utils/token');
 const randomPassword = require('../../utils/randomPassword');
+const sendMailNodemailer = require('../../utils/sendMailNodemailer')
 dotenv.config();
 
 /**
@@ -600,30 +601,35 @@ const changeEmail = async (req, res, next) => {
         if (updateEmailUser.email == newEmail) {
           try {
 
-            const email = process.env.NODEMAILER_EMAIL;
-            const password = process.env.NODEMAILER_PASSWORD;
-            const transporter = nodemailer.createTransport({
-              service: 'gmail',
-              auth: {
-                user: email,
-                pass: password,
-              },
-            });
+            // const email = process.env.NODEMAILER_EMAIL;
+            // const password = process.env.NODEMAILER_PASSWORD;
+            // const transporter = nodemailer.createTransport({
+            //   service: 'gmail',
+            //   auth: {
+            //     user: email,
+            //     pass: password,
+            //   },
+            // });
 
-            const mailOptions = {
-              from: email,
-              to: updateEmailUser.email,
+            // const mailOptions = {
+            //   from: email,
+            //   to: updateEmailUser.email,
+            //   subject: 'Code confirmation',
+            //   text: `Your code is ${updateEmailUser.confirmationCode}`,
+            // };
+      
+            // transporter.sendMail(mailOptions, (error, info) => {
+            //   if (error) {
+            //     console.log(error);
+            //   } else {
+            //     console.log('Email sent: ' + info.response);
+            //   }
+            // });
+            sendMailNodemailer({
+              userEmail: updateEmailUser.email,
               subject: 'Code confirmation',
               text: `Your code is ${updateEmailUser.confirmationCode}`,
-            };
-      
-            transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log('Email sent: ' + info.response);
-              }
-            });
+            })
 
             await updateEmailUser.updateOne({ check: false })
             const testUpdateUserEmail = await User.findOne({ email: updateEmailUser.email }) 
