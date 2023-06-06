@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const sendMailNodemailer = (userEmail, subject, text) => {
+const sendMailNodemailer = (options) => {
   const email = process.env.NODEMAILER_EMAIL;
   const password = process.env.NODEMAILER_PASSWORD;
   const transporter = nodemailer.createTransport({
@@ -13,9 +13,9 @@ const sendMailNodemailer = (userEmail, subject, text) => {
 
   const mailOptions = {
     from: email,
-    to: userEmail,
-    subject: subject,
-    text: text,
+    to: options.userEmail,
+    subject: options.subject,
+    text: options.text,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

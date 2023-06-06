@@ -132,36 +132,47 @@ const checkNewUser = async (req, res, next) => {
 const resendCode = async (req, res, next) => {
   try {
     //Configuramos NODEMAILER 
-    const email = process.env.NODEMAILER_EMAIL
-    const password = process.env.NODEMAILER_PASSWORD
+    // const email = process.env.NODEMAILER_EMAIL
+    // const password = process.env.NODEMAILER_PASSWORD
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: email,
-        pass: password
-      }
-    })
+    // const transporter = nodemailer.createTransport({
+    //   service: 'gmail',
+    //   auth: {
+    //     user: email,
+    //     pass: password
+    //   }
+    // })
 
     const userExists = await User.findOne({ email: req.body.email })
 
     if (userExists) {
+      // const mailOptions = {
+      //   from: email,
+      //   to: req.body.email,
+      //   subject: 'Confirmation code',
+      //   text: `tu codigo es ${userExists.confirmationCode}`
+      // }
+
+      // transporter.sendMail(mailOptions, (error, info) => {
+      //   if (error) {
+      //     console.log(error);
+      //   } else {
+      //     console.log('Email sent: ' + info.response);
+      //     return res.status(200).json({
+      //       resend: true
+      //     })
+      //   }
+      // })
+
       const mailOptions = {
-        from: email,
-        to: req.body.email,
+        userEmail: req.body.email,
         subject: 'Confirmation code',
         text: `tu codigo es ${userExists.confirmationCode}`
       }
+      sendMailNodemailer(mailOptions)
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-          return res.status(200).json({
-            resend: true
-          })
-        }
+      return res.status(200).json({
+        resend: true
       })
     } else {
       return res.status(404).json('User not found')
@@ -625,11 +636,12 @@ const changeEmail = async (req, res, next) => {
             //     console.log('Email sent: ' + info.response);
             //   }
             // });
-            sendMailNodemailer({
+            const mailOptions = {
               userEmail: updateEmailUser.email,
               subject: 'Code confirmation',
               text: `Your code is ${updateEmailUser.confirmationCode}`,
-            })
+            }
+            sendMailNodemailer(mailOptions)
 
             await updateEmailUser.updateOne({ check: false })
             const testUpdateUserEmail = await User.findOne({ email: updateEmailUser.email }) 
