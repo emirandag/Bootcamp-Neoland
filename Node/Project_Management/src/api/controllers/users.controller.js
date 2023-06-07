@@ -590,85 +590,138 @@ const getUser = async (req, res, next) => {
 /**
  * ---------------------------- CHANGE EMAIL --------------------------------
  */
+// const changeEmail = async (req, res, next) => {
+//   try {
+//     // Traemos el ID de los params
+//     const { id } = req.params
+
+//     // Nos traemos el email del body
+//     const { email, newEmail } = req.body
+//     console.log(req.body);
+//     // Traemos el usuario correspondiente al usuario
+//     const foundUser = await User.findOne({ _id: id }, { email })
+//     console.log(foundUser);
+//     if (!foundUser) {
+//       return res.status(404).json('The email is not correct')
+//     } else {
+//       try {
+//         await User.findByIdAndUpdate(id, { email: newEmail })
+
+//         const updateEmailUser = await User.findById(id)
+
+//         if (updateEmailUser.email == newEmail) {
+//           try {
+
+//             const mailOptions = {
+//               userEmail: updateEmailUser.email,
+//               subject: 'Code confirmation',
+//               text: `Your code is ${updateEmailUser.confirmationCode}`,
+//             }
+//             sendMailNodemailer(mailOptions)
+
+//             //await updateEmailUser.updateOne({ check: false })
+//             const testUpdateUserEmail = await User.findOne({ email: updateEmailUser.email }) 
+
+//             if (testUpdateUserEmail) {
+//               res.status(200).json(
+//                 {
+//                   testUpdateUserEmail,
+//                   confirmationCode: updateEmailUser.confirmationCode,
+//                   result: 'The email the user is updated'
+//                 }
+//               )
+//             }
+//           } catch (error) {
+//             es.status(404).json("Error to sent the email")     
+//           }
+//         } else {
+//           res.status(404).json("The email is not updated")        
+//         }
+//       } catch (error) {
+//         return next(setError(error.code || 500, error.message || 'Error to update the email'));
+//       }
+      
+//     }
+    
+//   } catch (error) {
+//     return next(setError(error.code || 500, error.message || 'General error to change email'));
+//   }
+// }
+
 const changeEmail = async (req, res, next) => {
   try {
     // Traemos el ID de los params
-    const { id } = req.params
+    const { id } = req.params;
 
     // Nos traemos el email del body
-    const { email, newEmail } = req.body
-    console.log(req.body);
+    const { email, newEmail } = req.body;
+    //console.log(req.body);
     // Traemos el usuario correspondiente al usuario
-    const foundUser = await User.findOne({ _id: id }, { email })
-    console.log(foundUser);
-    if (!foundUser) {
-      return res.status(404).json('The email is not correct')
+    const foundUser = await User.findById(id);
+    //console.log(foundUser);
+    if (foundUser.email != email) {
+      return res.status(404).json('The email is not correct');
+    } else {
+      const mailOptions = {
+        userEmail: newEmail,
+        subject: 'Code confirmation',
+        text: `Your code is ${foundUser.confirmationCode}`,
+      };
+      sendMailNodemailer(mailOptions);
+
+      res.status(200).json(`The confirmation code has been sent to the email ${newEmail}`)
+    }
+  } catch (error) {
+    return next(
+      setError(
+        error.code || 500,
+        error.message || 'General error to sent code to email'
+      )
+    );
+  }
+}; 
+
+
+const checkNewEmail = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const { newEmail, confirmationCode } = req.body
+console.log(req.body);
+    const foundUser = await User.findById(id)
+
+    if (foundUser.confirmationCode != confirmationCode) {
+      return res.status(404).json('The confirmation code is not correct')
     } else {
       try {
-        await User.findByIdAndUpdate(id, { email: newEmail })
+        await foundUser.updateOne({ email: newEmail })
 
-        const updateEmailUser = await User.findById(id)
-
-        if (updateEmailUser.email == newEmail) {
-          try {
-
-            // const email = process.env.NODEMAILER_EMAIL;
-            // const password = process.env.NODEMAILER_PASSWORD;
-            // const transporter = nodemailer.createTransport({
-            //   service: 'gmail',
-            //   auth: {
-            //     user: email,
-            //     pass: password,
-            //   },
-            // });
-
-            // const mailOptions = {
-            //   from: email,
-            //   to: updateEmailUser.email,
-            //   subject: 'Code confirmation',
-            //   text: `Your code is ${updateEmailUser.confirmationCode}`,
-            // };
-      
-            // transporter.sendMail(mailOptions, (error, info) => {
-            //   if (error) {
-            //     console.log(error);
-            //   } else {
-            //     console.log('Email sent: ' + info.response);
-            //   }
-            // });
-            const mailOptions = {
-              userEmail: updateEmailUser.email,
-              subject: 'Code confirmation',
-              text: `Your code is ${updateEmailUser.confirmationCode}`,
-            }
-            sendMailNodemailer(mailOptions)
-
-            await updateEmailUser.updateOne({ check: false })
-            const testUpdateUserEmail = await User.findOne({ email: updateEmailUser.email }) 
-
-            if (testUpdateUserEmail) {
-              res.status(200).json(
-                {
-                  testUpdateUserEmail,
-                  confirmationCode: updateEmailUser.confirmationCode,
-                  result: 'The email the user is updated'
-                }
-              )
-            }
-          } catch (error) {
-            es.status(404).json("Error to sent the email")     
-          }
+        const testUpdateEmailUser = await User.findById(id)
+        console.log(testUpdateEmailUser);
+        if (testUpdateEmailUser.email == newEmail) {
+          return res.status(200).json({
+            testUpdateEmailUser,
+            newEmail,
+            result: `The email has been to ${testUpdateEmailUser.email}`
+          })
         } else {
-          res.status(404).json("The email is not updated")        
+          return res.status(404).json('The email is not updated')
         }
       } catch (error) {
-        return next(setError(error.code || 500, error.message || 'Error to update the email'));
+        return next(
+          setError(
+            error.code || 500,
+            error.message || 'Error to change email'
+          )
+        );
       }
-      
     }
-    
   } catch (error) {
-    return next(setError(error.code || 500, error.message || 'General error to change email'));
+    return next(
+      setError(
+        error.code || 500,
+        error.message || 'General error to check email'
+      )
+    );
   }
 }
 
@@ -687,5 +740,6 @@ module.exports = {
   addUserTask,
   getAllUsers,
   getUser,
-  changeEmail
+  changeEmail,
+  checkNewEmail
 };
