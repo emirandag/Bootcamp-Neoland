@@ -7,8 +7,8 @@ const ProjectRoutes = express.Router();
 ProjectRoutes.post("/createproject", [isAuthManager], createProject)
 ProjectRoutes.patch("/updateproject/:id", [isAuthManager], updateProject)
 ProjectRoutes.delete("/deleteproject/:id", [isAuthManager], deleteProject)
-ProjectRoutes.get("/", getAllProjects)
-ProjectRoutes.get("/:id", getProject)
-ProjectRoutes.get("/openprojects/list", getOpenProjects)
+ProjectRoutes.get("/", [isAuthManager, isAuthAdmin], getAllProjects)
+ProjectRoutes.get("/:id", [isAuthManager, isAuthAdmin], getProject)
+ProjectRoutes.get("/openprojects/list", [isAuthManager, isAuthAdmin], getOpenProjects)
 
 module.exports = ProjectRoutes

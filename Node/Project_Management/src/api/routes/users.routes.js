@@ -30,9 +30,9 @@ UserRoutes.patch('/update/update', [isAuth], upload.single('image'), update);
 UserRoutes.delete('/', [isAuth], deleteUser);
 UserRoutes.patch('/adduserproject/:id', [isAuthManager], addUserProject);
 UserRoutes.patch('/addusertask/:id', [isAuthManager], addUserTask);
-UserRoutes.get("/", getAllUsers)
-UserRoutes.get("/:id", getUser)
-UserRoutes.patch("/changeemail/:id", changeEmail)
+UserRoutes.get("/", [isAuthManager, isAuthAdmin], getAllUsers)
+UserRoutes.get("/:id", [isAuthManager, isAuthAdmin], getUser)
+UserRoutes.patch("/changeemail/:id", [isAuth], changeEmail)
 
 // -------REDIRECT --------------------
 UserRoutes.get('/forgotpassword/sendPassword/:id', sendPassword);
