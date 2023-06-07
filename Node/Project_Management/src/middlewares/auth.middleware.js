@@ -33,8 +33,8 @@ const isAuthManager = async (req, res, next) => {
     // ---> decodificamos el token y sacomos el id y email que es con lo que hemos creado el token
     const decoded = verifyToken(token, process.env.JWT_SECRET);
     req.user = await User.findById(decoded.id);
-    if (req.user.rol !== 'manager') {
-      return next(new Error('Unauthorized, not manager'));
+    if (req.user.rol === 'user') {
+      return next(new Error('Unauthorized, not manager or admin'));
     }
     next();
   } catch (error) {
