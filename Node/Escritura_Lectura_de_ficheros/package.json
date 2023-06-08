@@ -1,0 +1,20 @@
+{
+  "name": "escritura_lectura_de_ficheros",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "write": "node write.js",
+    "read": "node read.js",
+    "jsonToCsv": "node jsonToCsv.js",
+    "countWords": "node countWords.js",
+    "inquirer": "node inquirer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.1.5"
+  }
+}
