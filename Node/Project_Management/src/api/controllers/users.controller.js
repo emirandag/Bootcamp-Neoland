@@ -651,25 +651,50 @@ const getUser = async (req, res, next) => {
 const changeEmail = async (req, res, next) => {
   try {
     // Traemos el ID de los params
-    const { id } = req.params;
+    const { _id } = req.user
 
     // Nos traemos el email del body
     const { email, newEmail } = req.body;
     //console.log(req.body);
     // Traemos el usuario correspondiente al usuario
-    const foundUser = await User.findById(id);
+    const foundUser = await User.findById(_id);
     //console.log(foundUser);
     if (foundUser.email != email) {
       return res.status(404).json('The email is not correct');
     } else {
-      const mailOptions = {
-        userEmail: newEmail,
-        subject: 'Code confirmation',
-        text: `Your code is ${foundUser.confirmationCode}`,
-      };
-      sendMailNodemailer(mailOptions);
+      try {
+        const newCode = Math.floor(
+          Math.random() * (999999 - 100000) + 100000
+        );
+  
+        await foundUser.updateOne({ confirmationCode: newCode })
 
-      res.status(200).json(`The confirmation code has been sent to the email ${newEmail}`)
+        const updateUserCode = await User.findById(_id)
+
+        if (updateUserCode.confirmationCode == newCode) {
+          const mailOptions = {
+            userEmail: newEmail,
+            subject: 'Code confirmation from change email address',
+            text: `Your code is ${newCode}`,
+          };
+          sendMailNodemailer(mailOptions);
+
+          res.status(200).json({
+            updateUserCode,
+            confirmationCode: newCode,
+            message: `The confirmation code has been sent to the email ${newEmail}`
+          })
+        } else {
+          res.status(404).json("The code not has been updated")
+        }   
+      } catch (error) {
+        return next(
+          setError(
+            error.code || 500,
+            error.message || 'General error to update confirmation code'
+          )
+        );
+      }
     }
   } catch (error) {
     return next(
@@ -684,10 +709,10 @@ const changeEmail = async (req, res, next) => {
 
 const checkNewEmail = async (req, res, next) => {
   try {
-    const { id } = req.params
+    const { _id } = req.user
     const { newEmail, confirmationCode } = req.body
-console.log(req.body);
-    const foundUser = await User.findById(id)
+//console.log(req.body);
+    const foundUser = await User.findById(_id )
 
     if (foundUser.confirmationCode != confirmationCode) {
       return res.status(404).json('The confirmation code is not correct')
@@ -695,13 +720,13 @@ console.log(req.body);
       try {
         await foundUser.updateOne({ email: newEmail })
 
-        const testUpdateEmailUser = await User.findById(id)
+        const testUpdateEmailUser = await User.findById(_id)
         console.log(testUpdateEmailUser);
         if (testUpdateEmailUser.email == newEmail) {
           return res.status(200).json({
             testUpdateEmailUser,
             newEmail,
-            result: `The email has been to ${testUpdateEmailUser.email}`
+            message: `The email has been updated to ${testUpdateEmailUser.email}`
           })
         } else {
           return res.status(404).json('The email is not updated')

@@ -33,8 +33,8 @@ UserRoutes.patch('/adduserproject/:id', [isAuthManager], addUserProject);
 UserRoutes.patch('/addusertask/:id', [isAuthManager], addUserTask);
 UserRoutes.get("/", [isAuthManager], getAllUsers)
 UserRoutes.get("/:id", [isAuthManager], getUser)
-UserRoutes.post("/changeemail/:id", [isAuth], changeEmail)
-UserRoutes.patch("/checkemail/:id", [isAuth], checkNewEmail)
+UserRoutes.post("/changeemail", [isAuth], changeEmail)
+UserRoutes.patch("/checkemail", [isAuth], checkNewEmail)
 
 // -------REDIRECT --------------------
 UserRoutes.get('/forgotpassword/sendPassword/:id', sendPassword);
