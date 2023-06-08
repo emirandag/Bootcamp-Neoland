@@ -51,31 +51,35 @@ const register = async (req, res, next) => {
       deleteImgCloudinary(catchImg);
       return next(setError(409, 'This user already exist'));
     } else {
-      const createUser = await newUser.save();
-      createUser.password = null;
+      try {
+        const createUser = await newUser.save();
+        createUser.password = null;
 
-      const mailOptions = {
-        from: email,
-        to: req.body.email,
-        subject: 'Code confirmation',
-        text: `Your code is ${confirmationCode}`,
-      };
+        const mailOptions = {
+          from: email,
+          to: req.body.email,
+          subject: 'Code confirmation',
+          text: `Your code is ${confirmationCode}`,
+        };
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
 
-      return res.status(201).json({
-        user: createUser,
-        confirmationCode: confirmationCode,
-      });
+        return res.status(201).json({
+          user: createUser,
+          confirmationCode: confirmationCode,
+        });
+      } catch (error) {
+        return res.status(404).json(error.message);
+      }
     }
   } catch (error) {
-      deleteImgCloudinary(catchImg);
+    deleteImgCloudinary(catchImg);
     return next(
       setError(error.code || 500, error.message || 'failed create user')
     );
@@ -99,7 +103,8 @@ const checkNewUser = async (req, res, next) => {
       //Comparamos el código del body y del userExists
 
       if (confirmationCode === userExists.confirmationCode) {
-        //Si existe cambiamos la propiedad check a true
+        try {
+          //Si existe cambiamos la propiedad check a true
         await userExists.updateOne({ check: true })
         //Testeamos que el usuario se haya actualizado correctamente
         const updateUser = await User.findOne({ email })
@@ -107,8 +112,13 @@ const checkNewUser = async (req, res, next) => {
         return res.status(200).json({
           testCheckOk: updateUser.check == true ? true : false
         })
+        } catch (error) {
+          return res.status(404).json(error.message)
+        }
+        
       } else {
-        // En caso de equivocarse con el código lo borramos de la base de datos y se lo envía al registro
+        try {
+                  // En caso de equivocarse con el código lo borramos de la base de datos y se lo envía al registro
         await User.findByIdAndDelete(userExists._id)
 
         //Borramos la imagen
@@ -119,6 +129,10 @@ const checkNewUser = async (req, res, next) => {
           check: false,
           delete: (await User.findUserById(userExists._id)) ? 'error delete user' : 'Ok - user deleted'
         })
+        } catch (error) {
+          return res.status(404).json(error.message)
+        }
+
       }
     }
   } catch (error) {
@@ -230,109 +244,119 @@ const login = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
   try {
     // Recuperamos el email del body
-    const { email } = req.body
+    const { email } = req.body;
 
     //Verificamos si el usuario está registrado en la base de datos
-    const userDb = await User.findOne({ email })
+    const userDb = await User.findOne({ email });
     if (userDb) {
       //si el usuario existe hacemos redirect al otro controlador
-      return res.redirect(`http://localhost:8080/api/v1/users/forgotpassword/sendPassword/${userDb._id}`)
+      return res.redirect(
+        `http://localhost:8080/api/v1/users/forgotpassword/sendPassword/${userDb._id}`
+      );
     } else {
-      return res.status(404).json('User not register')
+      return res.status(404).json('User not register');
     }
   } catch (error) {
-    return next(error)
+    return next(error);
   }
-}
+};
 
 const sendPassword = async (req, res, next) => {
   try {
     // Recibimos el ID por parámetro
-    const { id } = req.params
-    const userDb = await User.findById(id)
+    const { id } = req.params;
+    const userDb = await User.findById(id);
 
     //Configuramos el envío del correo electrónico
-    const email = process.env.NODEMAILER_EMAIL
-    const password = process.env.NODEMAILER_PASSWORD
+    const email = process.env.NODEMAILER_EMAIL;
+    const password = process.env.NODEMAILER_PASSWORD;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: email,
-        pass: password
-      }
-    })
+        pass: password,
+      },
+    });
 
     //generamos una contraseña random
-    let passwordSecure = randomPassword()
+    let passwordSecure = randomPassword();
 
     const mailOptions = {
       from: email,
       to: userDb.email,
       subject: '-----',
-      text: `User: ${userDb.name}. Your new code login is ${passwordSecure} Hemos enviado esto porque tenemos una solicitud de cambio de contraseña, si no has sido ponte en contacto con nosotros, gracias.`
-    }
+      text: `User: ${userDb.name}. Your new code login is ${passwordSecure} Hemos enviado esto porque tenemos una solicitud de cambio de contraseña, si no has sido ponte en contacto con nosotros, gracias.`,
+    };
 
     //enviamos el correo y dentro de envío gestionamos el guardado de la nueva contraseña
     transporter.sendMail(mailOptions, async (error) => {
       if (error) {
         console.log(error);
 
-        return res.status(404).json("Don't sent email and don't upsate user")
-
+        return res.status(404).json("Don't sent email and don't upsate user");
       } else {
         //encriptamos la contraseña que se ha generado arriba
-        const newPasswordHash = bcrypt.hashSync(passwordSecure, 10)
+        const newPasswordHash = bcrypt.hashSync(passwordSecure, 10);
 
-        //Una vez hasheada la contraseña la actualizamos en la base de datos
-        await User.findByIdAndUpdate(id, { password: newPasswordHash })
+        try {
+          //Una vez hasheada la contraseña la actualizamos en la base de datos
+          await User.findByIdAndUpdate(id, { password: newPasswordHash });
 
-        //Testeamos que se ha hecho correctamente
-        const updateUser = await User.findById(id)
+          //Testeamos que se ha hecho correctamente
+          const updateUser = await User.findById(id);
 
-        if (bcrypt.compareSync(passwordSecure, updateUser.password)) {
-          res.status(200).json({
-            updateUser: true,
-            sendPassword: true
-          })
-        } else {
-          // Si no son iguales, enviamos al front que el usuario no se ha actualizado
-          // aunque si ha recibido un correo con la contraseña que no es válida
-          return res.status(404).json({
-            updateUser: false,
-            sendPassword: true
-          })
+          if (bcrypt.compareSync(passwordSecure, updateUser.password)) {
+            res.status(200).json({
+              updateUser: true,
+              sendPassword: true,
+            });
+          } else {
+            // Si no son iguales, enviamos al front que el usuario no se ha actualizado
+            // aunque si ha recibido un correo con la contraseña que no es válida
+            return res.status(404).json({
+              updateUser: false,
+              sendPassword: true,
+            });
+          }
+        } catch (error) {
+          return res.status(404).json(error.message);
         }
       }
-    })
+    });
   } catch (error) {
-    return next(error)
+    return next(error);
   }
-}
+};
 
 /**
  * ------------------------- Cambio de contraseña estando logueado ----------------------------------------------
  */
-const modifyPassword = async(req, res, next) => {
+const modifyPassword = async (req, res, next) => {
   try {
-    const { password, newPassword } = req.body
+    const { password, newPassword } = req.body;
 
-    const { _id } = req.user
+    const { _id } = req.user;
 
     if (bcrypt.compareSync(password, req.user.password)) {
-      const newPasswordHash = bcrypt.hashSync(newPassword, 10)
-      await User.findByIdAndUpdate(_id, { password: newPasswordHash })
+      const newPasswordHash = bcrypt.hashSync(newPassword, 10);
 
-      const updateUser = await User.findById(_id)
+      try {
+        await User.findByIdAndUpdate(_id, { password: newPasswordHash });
 
-      if (bcrypt.compareSync(newPassword, updateUser.password)) {
-        return res.status(200).json({
-          updateUser: true
-        })
-      } else {
-        return res.status(404).json({
-          updateUser: false
-        })
+        const updateUser = await User.findById(_id);
+
+        if (bcrypt.compareSync(newPassword, updateUser.password)) {
+          return res.status(200).json({
+            updateUser: true,
+          });
+        } else {
+          return res.status(404).json({
+            updateUser: false,
+          });
+        }
+      } catch (error) {
+        return res.status(404).json(error.message);
       }
     } else {
       return res.status(404).json('password not match');
@@ -340,81 +364,85 @@ const modifyPassword = async(req, res, next) => {
   } catch (error) {
     return next(error);
   }
-}
+};
 
 
 /**
  * ----------------------------- UPDATE USER ---------------------------------
  */
 const update = async (req, res, next) => {
-  let catchImg = req.file?.path
+  let catchImg = req.file?.path;
 
   try {
     // actualizamos los indexes de los elementos unicos por si han modificado
-    await User.syncIndexes()
+    await User.syncIndexes();
 
     //Instanciamos un nuevo modelo de usuario
-    const patchUser = new User(req.body)
+    const patchUser = new User(req.body);
 
-     // si tenemos el file le metemos el path de cloudinary
-     if (req.file) {
-      patchUser.photo = req.file.path
-     }
+    // si tenemos el file le metemos el path de cloudinary
+    if (req.file) {
+      patchUser.photo = req.file.path;
+    }
 
     // estas cosas no quiero que me cambien por lo cual lo cojo del req.user gracias a que esto es con auth
-    patchUser._id = req.user._id
-    patchUser.password = req.user.password
-    patchUser.rol = req.user.rol
-    patchUser.confirmationCode = req.user.confirmationCode
-    patchUser.check = req.user.check
-    patchUser.email = req.user.email
-    patchUser.projects = req.user.projects
-    patchUser.tasks = req.user.tasks
+    patchUser._id = req.user._id;
+    patchUser.password = req.user.password;
+    patchUser.rol = req.user.rol;
+    patchUser.confirmationCode = req.user.confirmationCode;
+    patchUser.check = req.user.check;
+    patchUser.email = req.user.email;
+    patchUser.projects = req.user.projects;
+    patchUser.tasks = req.user.tasks;
 
-    // Actualizamos en la base de datos con el ID
-    await User.findByIdAndUpdate(req.user._id, patchUser)
+    try {
+      // Actualizamos en la base de datos con el ID
+      await User.findByIdAndUpdate(req.user._id, patchUser);
 
-    // Borramos en Cloudinary la imagen antigua
-    if (req.file) {
-      deleteImgCloudinary(req.user.photo)
-    }
-
-    // Hacemos test en runtime
-    // Buscamos el usuario actualizado
-    const updateUser = await User.findById(req.user._id)
-
-    // Cogemos las keys del body
-    const updateKeys = Object.keys(req.body)
-
-    //Guardamos los test en una variable
-    const testUpdate = []
-
-    updateKeys.forEach((item) => {
-      if (updateUser[item] == req.body[item]) {
-        testUpdate.push({
-          [item]: true
-        })
-      } else {
-        testUpdate.push({
-          [item]: false
-        })
+      // Borramos en Cloudinary la imagen antigua
+      if (req.file) {
+        deleteImgCloudinary(req.user.photo);
       }
-    })
 
-    if (req.file) {
-      updateUser.photo == req.file.path
-      ? testUpdate.push({ file: true })
-      : testUpdate.push({ file: false })
+      // Hacemos test en runtime
+      // Buscamos el usuario actualizado
+      const updateUser = await User.findById(req.user._id);
+
+      // Cogemos las keys del body
+      const updateKeys = Object.keys(req.body);
+
+      //Guardamos los test en una variable
+      const testUpdate = [];
+
+      updateKeys.forEach((item) => {
+        if (updateUser[item] == req.body[item]) {
+          testUpdate.push({
+            [item]: true,
+          });
+        } else {
+          testUpdate.push({
+            [item]: false,
+          });
+        }
+      });
+
+      if (req.file) {
+        updateUser.photo == req.file.path
+          ? testUpdate.push({ file: true })
+          : testUpdate.push({ file: false });
+      }
+
+      return res.status(200).json({
+        testUpdate,
+      });
+    } catch (error) {
+      return res.status(404).json(error.message);
     }
-
-    return res.status(200).json({
-      testUpdate
-    })
   } catch (error) {
-    deleteImgCloudinary(catchImg)
-    return next(error)
+    deleteImgCloudinary(catchImg);
+    return next(error);
   }
-}
+};
 
 
 /**
@@ -422,27 +450,39 @@ const update = async (req, res, next) => {
  */
 const deleteUser = async (req, res, next) => {
   try {
-    const { _id } = req.user
-    //console.log(req.user);
-    await User.findByIdAndDelete(_id)
+    const { _id } = req.user;
 
-    await Project.updateMany({ users: _id }, { $pull: { users: _id } })
+    try {
+      await User.findByIdAndDelete(_id);
 
-    await Task.updateMany({ assignedTo: _id }, { $unset: { assignedTo: 1 } })
+      try {
+        await Project.updateMany({ users: _id }, { $pull: { users: _id } });
 
-    if (await User.findById(_id)) {
-      return res.status(404).json("Don't delete")
-    } else {
-      deleteImgCloudinary(req.user.photo)
-      return res.status(200).json('Ok delete')
+        try {
+          await Task.updateMany(
+            { assignedTo: _id },
+            { $unset: { assignedTo: 1 } }
+          );
+
+          if (await User.findById(_id)) {
+            return res.status(404).json("Don't delete");
+          } else {
+            deleteImgCloudinary(req.user.photo);
+            return res.status(200).json('Ok delete');
+          }
+        } catch (error) {
+          return res.status(404).json(error.message);
+        }
+      } catch (error) {
+        return res.status(404).json(error.message);
+      }
+    } catch (error) {
+      return res.status(404).json(error.message);
     }
-
-
-
   } catch (error) {
-    return next(error)
+    return next(error);
   }
-}
+};
 
 
 /**
