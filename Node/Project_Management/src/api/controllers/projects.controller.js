@@ -16,14 +16,18 @@ const createProject = async (req, res, next) => {
         //Creamos un nuevo proyecto instanciando el modelo Project
         const postProject = new Project(newProject)
 
-        const savedProject = await postProject.save()
+        try {
+          const savedProject = await postProject.save()
 
-        if (savedProject) {
-            return res.status(201).json(savedProject)
-        } else {
-            return res.status(404).json('Error create Project')
+          if (savedProject) {
+              return res.status(201).json(savedProject)
+          } else {
+              return res.status(404).json('Error create Project')
+          }
+        } catch (error) {
+          return res.status(404).json(error.message)
         }
-    
+
     } catch (error) {
         return next(
             setError(error.code || 500, error.message || 'Failed to create project')
@@ -75,7 +79,7 @@ const updateProject = async (req, res, next) => {
             result: `Updated project. The project '${testUpdateProject.title}' is closed.`,
           });
         } else {
-          return res.status(404).json('The project is not updated.');
+          return res.status(404).json(error.message);
         }
       } catch (error) {
         return res.status(404).json('Error update project"');
@@ -98,23 +102,35 @@ const deleteProject = async (req, res, next) => {
         //Recuperamos el ID que ponemos por parámetro
         const { id } = req.params
 
+        try {
+          await Project.findByIdAndDelete(id)
+        } catch (error) {
+          return res.status(404).json(error.message)
+        }
+        
 
-        const projectById = await Project.findByIdAndDelete(id)
-
-        // Borramos todas las tareas asociadas a ese proyecto, porque no pueden haber tareas sin proyecto asignado
-        await Task.deleteMany({ project: id })
-
-        // Actualizamos todos los usuarios que tengan asignado el proyecto y borramos el proyecto de estos usuarios
-        await User.updateMany({ projects: id }, { $pull: { projects: id } })
-       
-        if (projectById) {
+        try {
+          // Borramos todas las tareas asociadas a ese proyecto, porque no pueden haber tareas sin proyecto asignado
+          await Task.deleteMany({ project: id })
+        } catch (error) {
+          return res.status(404).json(error.message)
+        }
+        
+        try {
+          // Actualizamos todos los usuarios que tengan asignado el proyecto y borramos el proyecto de estos usuarios
+          await User.updateMany({ projects: id }, { $pull: { projects: id } })
+        } catch (error) {
+          return res.status(404).json(error.message)
+        }
+        
+        const isDeletedProject = await Project.findById(id) 
+        if (!isDeletedProject) {
             res.status(200).json("The project was deleted")
-            
         } else {
             res.status(404).json('Error delete project')
         }
     } catch (error) {
-        return next(setError(error.code || 500, error.message || 'Failed to delete project'));
+        return next(setError(error.code || 500, error.message || 'General error to delete project'));
     }
 }
 
@@ -133,7 +149,7 @@ const getAllProjects = async (req, res, next) => {
       res.status(404).json('Error not found the projects')
     }
   } catch (error) {
-    return next(setError(error.code || 500, error.message || 'Failed to list all projects'));
+    return next(setError(error.code || 500, error.message || 'General error to list all projects'));
   }
 }
 
@@ -152,7 +168,7 @@ const getProject = async (req, res, next) => {
       res.status(404).json('Error the project not exist')
     }
   } catch (error) {
-    return next(setError(error.code || 500, error.message || 'Failed to list project'));
+    return next(setError(error.code || 500, error.message || 'General error to list project'));
   }
 }
 
@@ -169,8 +185,15 @@ const getOpenProjects = async (req, res, next) => {
       res.status(404).json('There arent open projects')
     }
   } catch (error) {
-    return next(setError(error.code || 500, error.message || 'Failed to list projects'));
+    return next(setError(error.code || 500, error.message || 'General error to list open projects'));
   }
 }
 
-module.exports = { createProject, updateProject, deleteProject, getAllProjects, getProject, getOpenProjects }
+module.exports = { 
+  createProject, 
+  updateProject, 
+  deleteProject, 
+  getAllProjects, 
+  getProject, 
+  getOpenProjects 
+}

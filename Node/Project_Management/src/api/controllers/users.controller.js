@@ -503,7 +503,6 @@ const addUserProject = async(req, res, next) => {
       if (!findUser.projects.includes(isOpenProject._id)) {
         try {
           //Pusheamos el ID del proyecto en el array de proyectos en el usuario
-          await User.findByIdAndUpdate(id, { $push: { projects: projectId } })
           //Pusheamos el ID del usuario en el array de usuarios en Projectos
           await Project.findByIdAndUpdate(projectId, { $push: { users: id } })
       
@@ -533,7 +532,9 @@ const addUserProject = async(req, res, next) => {
   }
 }
 
-
+/**
+ * ------------------------------ ADD USER TO TASK --------------------------------------
+ */
 const addUserTask = async (req, res, next) => {
   try {
     const { id } = req.params
@@ -578,10 +579,8 @@ const addUserTask = async (req, res, next) => {
         } catch (error) {
           return next(error)
         }
-      }
-      
+      } 
     }
-
   } catch (error) {
     return next(error)
   }
@@ -688,6 +687,9 @@ const getUser = async (req, res, next) => {
 //   }
 // }
 
+/**
+ * ---------------------------------- CHANGE EMAIL ----------------------------------------
+ */
 const changeEmail = async (req, res, next) => {
   try {
     // Traemos el ID de los params
@@ -695,18 +697,20 @@ const changeEmail = async (req, res, next) => {
 
     // Nos traemos el email del body
     const { email, newEmail } = req.body;
-    //console.log(req.body);
+
     // Traemos el usuario correspondiente al usuario
     const foundUser = await User.findById(_id);
     //console.log(foundUser);
     if (foundUser.email != email) {
       return res.status(404).json('The email is not correct');
     } else {
+
+      const newCode = Math.floor(
+        Math.random() * (999999 - 100000) + 100000
+      );
+
       try {
-        const newCode = Math.floor(
-          Math.random() * (999999 - 100000) + 100000
-        );
-  
+
         await foundUser.updateOne({ confirmationCode: newCode })
 
         const updateUserCode = await User.findById(_id)
@@ -747,11 +751,14 @@ const changeEmail = async (req, res, next) => {
 }; 
 
 
+/**
+ * ---------------------------- CHECK NEW EMAIL -------------------------------
+ */
 const checkNewEmail = async (req, res, next) => {
   try {
     const { _id } = req.user
     const { newEmail, confirmationCode } = req.body
-//console.log(req.body);
+
     const foundUser = await User.findById(_id )
 
     if (foundUser.confirmationCode != confirmationCode) {
@@ -761,7 +768,7 @@ const checkNewEmail = async (req, res, next) => {
         await foundUser.updateOne({ email: newEmail })
 
         const testUpdateEmailUser = await User.findById(_id)
-        console.log(testUpdateEmailUser);
+
         if (testUpdateEmailUser.email == newEmail) {
           return res.status(200).json({
             testUpdateEmailUser,
