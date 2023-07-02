@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react'
 
 import { registerUser } from '../services/API_user/user.service'
 import Uploadfile from '../components/Uploadfile'
-import { Navigate } from 'react-router-dom'
-import useUserError from '../hooks/useUserError'
+import { Link, Navigate } from 'react-router-dom'
+import { useRegisterError } from '../hooks'
+import { useAuth } from '../context/authContext'
 
-const Register = () => {
+export const Register = () => {
+    const { allUser, setAllUser, bridgeData } =useAuth()
     const { register, handleSubmit } = useForm()
     const [res, setRes] = useState({})
     const [registerOk, setRegisterOk] = useState(false);
@@ -27,7 +29,7 @@ const Register = () => {
       setRes(await registerUser(customFormData));
       setSend(false);
 
-      //! me llamo al servicio
+      // llamo al servicio
     } else {
       const customFormData = {
         ...formData,
@@ -37,17 +39,18 @@ const Register = () => {
       setRes(await registerUser(customFormData));
       setSend(false);
 
-      ///! me llamo al servicio
     }
   };
 
         useEffect(() => {
           //console.log(res);
-          useUserError(res, setRegisterOk);
-          //console.log('Ha sido registrado? ->'+registerOk);
-          //setRegisterOk(() => true)
+          useRegisterError(res, setRegisterOk, setRes, setAllUser);
+          if (res?.status == 200) bridgeData("ALLUSER")
         }, [res]);
 
+        /**
+         * -------- Estados de navegación ---------
+         */
         if (registerOk) {
           return <Navigate to="/checkCode" />;
         }
@@ -182,5 +185,3 @@ const Register = () => {
     </>
   )
 }
-
-export default Register

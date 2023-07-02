@@ -1,0 +1,7 @@
+export * from "./CheckCode"
+export * from "./Dashboard"
+export * from "./Details"
+export * from "./Gallery"
+export * from "./Home"
+export * from "./Login"
+export * from "./Register"

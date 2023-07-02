@@ -20,4 +20,9 @@ export const loginUser = async (formData) => {
   .then((res) => res)
   .catch((error) => error)
 }
-  
+
+export const forgotPasswordUser = async (formData) => {
+  return APIuser.patch("/users/forgotpassword", formData)
+    .then((res) => res)
+    .catch((error) => error);
+};
