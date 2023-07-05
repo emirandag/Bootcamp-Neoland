@@ -4,6 +4,7 @@ import { checkCodeConfirmationUser } from "../services/API_user/user.service"
 import { useEffect, useState } from "react"
 import { useAutoLogin, useCheckCodeError } from "../hooks"
 import { Navigate } from "react-router-dom"
+import { ButtonResend } from "../components"
 
 
 export const CheckCode = () => {
@@ -110,7 +111,7 @@ export const CheckCode = () => {
         </div>
       </form>
       <div className="btn_container">
-        {/* <ButtonReSend setReloadPageError={setReloadPageError} /> */}
+        <ButtonResend setReloadPageError={setReloadPageError} />
       </div>
       <p className="bottom-text">
         <small>

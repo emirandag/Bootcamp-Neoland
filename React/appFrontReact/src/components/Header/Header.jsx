@@ -1,9 +1,9 @@
 import './Header.css'
 import React from 'react'
 import useResize from '../../hooks/useResize'
-import Nav from '../Nav/Nav'
+import { Nav } from '../Nav/Nav'
 
-const Header = () => {
+export const Header = () => {
     const { ancho } = useResize()
     return (
         <header className='header'>
@@ -21,5 +21,3 @@ const Header = () => {
         </header>
     )
 }
-
-export default Header
