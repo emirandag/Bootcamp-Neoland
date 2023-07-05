@@ -10,7 +10,7 @@ export const registerUser = async (formData) => {
 }
 
 export const checkCodeConfirmationUser = async (formData) => {
-    return APIuser.post("/users/check", formData)
+    return APIuser.post("/users/checkuser", formData)
       .then((res) => res)
       .catch((error) => error);
   };
@@ -20,6 +20,12 @@ export const loginUser = async (formData) => {
   .then((res) => res)
   .catch((error) => error)
 }
+
+export const autoLoginUser = async (formData) => {
+  return APIuser.post("/users/login/autologin", formData)
+    .then((res) => res)
+    .catch((error) => error);
+};
 
 export const forgotPasswordUser = async (formData) => {
   return APIuser.patch("/users/forgotpassword", formData)

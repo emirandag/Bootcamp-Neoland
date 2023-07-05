@@ -1,9 +1,7 @@
 import { useForm } from 'react-hook-form'
-
 import { useEffect, useState } from 'react'
-
-import { registerUser } from '../services/API_user/user.service'
 import Uploadfile from '../components/Uploadfile'
+import { registerUser } from '../services/API_user/user.service'
 import { Link, Navigate } from 'react-router-dom'
 import { useRegisterError } from '../hooks'
 import { useAuth } from '../context/authContext'
@@ -12,8 +10,9 @@ export const Register = () => {
     const { allUser, setAllUser, bridgeData } =useAuth()
     const { register, handleSubmit } = useForm()
     const [res, setRes] = useState({})
-    const [registerOk, setRegisterOk] = useState(false);
     const [send, setSend] = useState(false)
+    const [registerOk, setRegisterOk] = useState(false);
+   
 
   const formSubmit = async (formData) => {
     const inputFile = document.getElementById('file-upload').files
@@ -23,7 +22,7 @@ export const Register = () => {
 
       const customFormData = {
         ...formData,
-        image: inputFile[0]
+        photo: inputFile[0]
       }
       setSend(true);
       setRes(await registerUser(customFormData));
@@ -45,7 +44,7 @@ export const Register = () => {
         useEffect(() => {
           //console.log(res);
           useRegisterError(res, setRegisterOk, setRes, setAllUser);
-          if (res?.status == 200) bridgeData("ALLUSER")
+          if (res?.status == 201) bridgeData("ALLUSER")
         }, [res]);
 
         /**

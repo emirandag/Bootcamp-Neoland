@@ -17,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/checkCode' element={<CheckCode />} />
           <Route path='/gallery' element={
             <Protected>
               <Gallery />

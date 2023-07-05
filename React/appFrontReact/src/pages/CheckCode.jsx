@@ -1,9 +1,8 @@
-import { useState } from "react"
 import { useAuth } from "../context/authContext"
 import { useForm } from "react-hook-form"
 import { checkCodeConfirmationUser } from "../services/API_user/user.service"
-import { useEffect } from "react"
-import { useCheckCodeError } from "../hooks"
+import { useEffect, useState } from "react"
+import { useAutoLogin, useCheckCodeError } from "../hooks"
 import { Navigate } from "react-router-dom"
 
 
@@ -19,11 +18,13 @@ export const CheckCode = () => {
   /**
    * Función que gestiona los submit de los formularios
    */
-  const forSubmit = async (formData) => {
+  const formSubmit = async (formData) => {
+    //console.log(formData.confirmationCode);
     const userLocal = localStorage.getItem("user")
 
     if (userLocal == null) {
       // Este usuario viene del registro por lo que no se ha logueado
+      console.log("AllUser -> "+allUser.data.user.email);
       const customFormData = {
         email: allUser.data.user.email,
         confirmationCode: parseInt(formData.confirmationCode)
@@ -60,7 +61,8 @@ export const CheckCode = () => {
   if (checkOk) {
     if (!localStorage.getItem("user")) {
       //autologin
-      setCheckOk(allUser, userLogin, setCheckOk)
+      setCheckOk(() => false)
+      useAutoLogin(allUser, userLogin, setCheckOk);
     } else {
       return <Navigate to="/dashboard" />
     }
@@ -108,7 +110,7 @@ export const CheckCode = () => {
         </div>
       </form>
       <div className="btn_container">
-        <ButtonReSend setReloadPageError={setReloadPageError} />
+        {/* <ButtonReSend setReloadPageError={setReloadPageError} /> */}
       </div>
       <p className="bottom-text">
         <small>

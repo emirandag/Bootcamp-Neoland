@@ -1,9 +1,10 @@
 import Swal from "sweetalert2/dist/sweetalert2.all.js";
 
-export const useRegisterError = (res, setRegisterOk) => {
+export const useRegisterError = (res, setRegisterOk, setRes, setAllUser) => {
   // 200 --->  respuesta ok register ok
   if (res?.status == 201) {
-    localStorage.setItem("data", JSON.stringify(res))
+    const dataToString = JSON.stringify(res);
+    localStorage.setItem("data", dataToString)
     setRegisterOk(() => true)
     
     Swal.fire({
