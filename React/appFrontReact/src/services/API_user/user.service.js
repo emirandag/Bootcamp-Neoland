@@ -32,3 +32,39 @@ export const forgotPasswordUser = async (formData) => {
     .then((res) => res)
     .catch((error) => error);
 };
+
+export const changePasswordUser = async (formData) => {
+  return APIuser.patch("/users/changepassword", formData, {
+    headers: {
+      Authorization: `Bearer ${updateToken()}`
+    }
+  })
+    .then((res) => res)
+    .catch((error) => error)
+}
+
+export const updateUser = async (formData) => {
+  return APIuser.patch("/users/update/update", formData, {
+    headers: {
+      Authorization: `Bearer ${updateToken()}`
+    }
+  })
+    .then((res) => res)
+    .catch((error) => error);
+}
+
+export const deleteUser = async () => {
+  return APIuser.delete("/users/", {
+    headers: {
+      Authorization: `Bearer ${updateToken()}`
+    }
+  })
+    .then((res) => res)
+    .catch((error) => error)
+}
+
+export const resendCodeConfirmationUser = async (formData) => {
+  return APIuser.post("/users/resendcode", formData)
+    .then((res) => res)
+    .catch((error) => error)
+}
