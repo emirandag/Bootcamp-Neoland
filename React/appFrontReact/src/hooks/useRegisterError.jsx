@@ -1,6 +1,7 @@
 import Swal from "sweetalert2/dist/sweetalert2.all.js";
 
 export const useRegisterError = (res, setRegisterOk, setRes, setAllUser) => {
+  console.log(res);
   // 200 --->  respuesta ok register ok
   if (res?.status == 201) {
     const dataToString = JSON.stringify(res);

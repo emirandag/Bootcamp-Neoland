@@ -83,11 +83,24 @@ export const Login = () => {
               disabled={send}
               style={{ background: send ? "#49c1a388" : "#49c1a2" }}
             >
-              Login
+              {send ? "Cargando ....." : "Login"}
             </button>
           </div>
+          <p className="bottom-text">
+            <small>
+              Have you forgotten the password?
+              <Link to="/forgotpassword" className="anchorCustom">
+                Change password
+              </Link>
+            </small>
+          </p>
           </form>
           </div>
+          <div className="footerForm">
+        <p className="parrafoLogin">
+          Are you not registered? <Link to="/register">Register Here</Link>
+        </p>
+      </div>
           </>
   )
 }

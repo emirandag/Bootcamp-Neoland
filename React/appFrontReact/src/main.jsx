@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Dashboard, Home, Gallery, Details, CheckCode, Register, Login } from './pages'
+import { Dashboard, Home, Gallery, Details, CheckCode, Register, Login, ForgotPassword } from './pages'
 import Protected from './components/Protected/Protected.jsx'
 import { AuthContextProvider } from './context/authContext.jsx'
 
@@ -28,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             </Protected>
             } />
             <Route path='/checkCode' element={<CheckCode />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
         </Route>
       </Routes>
       </AuthContextProvider>

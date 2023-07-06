@@ -7,7 +7,7 @@ import { useRegisterError } from '../hooks'
 import { useAuth } from '../context/authContext'
 
 export const Register = () => {
-    const { allUser, setAllUser, bridgeData } =useAuth()
+    const { allUser, setAllUser, bridgeData } = useAuth()
     const { register, handleSubmit } = useForm()
     const [res, setRes] = useState({})
     const [send, setSend] = useState(false)
