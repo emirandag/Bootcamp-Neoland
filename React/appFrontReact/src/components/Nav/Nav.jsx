@@ -11,6 +11,7 @@ export const Nav = () => {
         <NavLink to='/register'><button className='btn-nav'>REGISTER</button></NavLink>
         <NavLink to='/gallery'><button className='btn-nav'>GALLERY</button></NavLink>
         <NavLink to='/details'><button className='btn-nav'>DETAILS</button></NavLink>
+        <NavLink to='/profile'><button className='btn-nav'>PROFILE</button></NavLink>
     </nav>
   )
 }
