@@ -5,6 +5,7 @@ const {
     checkNewUser, 
     resendCode, 
     login, 
+    autoLogin,
     forgotPassword, 
     sendPassword, 
     modifyPassword, 
@@ -25,7 +26,8 @@ UserRoutes.post('/register', upload.single('photo'), register);
 UserRoutes.post('/checkuser', checkNewUser);
 UserRoutes.post('/resendcode', resendCode);
 UserRoutes.post('/login', login);
-UserRoutes.get('/forgotpassword', forgotPassword);
+UserRoutes.post('/login/autologin', autoLogin);
+UserRoutes.post('/forgotpassword', forgotPassword);
 UserRoutes.patch('/changepassword', [isAuth], modifyPassword);
 UserRoutes.patch('/update/update', [isAuth], upload.single('image'), update);
 UserRoutes.delete('/', [isAuth], deleteUser);
@@ -37,6 +39,6 @@ UserRoutes.post("/changeemail", [isAuth], changeEmail)
 UserRoutes.patch("/checkemail", [isAuth], checkNewEmail)
 
 // -------REDIRECT --------------------
-UserRoutes.get('/forgotpassword/sendPassword/:id', sendPassword);
+UserRoutes.post('/forgotpassword/sendPassword/:id', sendPassword);
 
 module.exports = UserRoutes;

@@ -94,6 +94,7 @@ const checkNewUser = async (req, res, next) => {
   try {
     //traer del body el email y codigo de confirmación
     const { email, confirmationCode } = req.body
+    console.log(req.body);
 
     //Comprovar que el usuario exista, porque si no existe no se puede hacer ninguna verificación
     const userExists = await User.findOne({ email })
@@ -219,21 +220,53 @@ const login = async (req, res, next) => {
 
         //devolvemos el usuario y el token
         return res.status(200).json({
-          user: {
-            email,
-            _id: user._id
-          },
+          user,
           token
         })
       } else {
         
-        return res.status(401).json('Password invalid')
+        return res.status(404).json('Password invalid')
       }      
     }
   } catch (error) {
     return next(
     setError(500 || error.code, 'General error login' || error.message)
     )
+  }
+}
+
+
+
+const autoLogin = async (req, res, next) => {
+  try {
+    // Recuperamos el email y password del body
+    const { email, password } = req.body
+
+    // Buscamos el usuario en la base de datos
+    const user = await User.findOne({ email })
+
+    // Comprobamos si hay o no usuario
+    if (!user) {
+      return res.status(404).json('User not found')
+    } else {
+      // Comparamos la contraseña introducida por el body y la existente en la base de datos
+      const passwordMatch = await bcrypt.compare(password, user.password)
+
+      if (passwordMatch) {
+        // Si es igual, generamos un token
+        const token = generateToken(user._id, email)
+
+        // Devolvemos el usuario y el token
+        return res.status(200).json({
+          user,
+          token
+        })
+      } else {
+        return res.status(404).json('Invalid password')
+      }      
+    }
+  } catch (error) {
+    return next(setError(500 || error.code, 'General error login' || error.message))
   }
 }
 
@@ -245,13 +278,13 @@ const forgotPassword = async (req, res, next) => {
   try {
     // Recuperamos el email del body
     const { email } = req.body;
+    console.log(req.body);
 
     //Verificamos si el usuario está registrado en la base de datos
     const userDb = await User.findOne({ email });
     if (userDb) {
       //si el usuario existe hacemos redirect al otro controlador
-      return res.redirect(
-        `http://localhost:8080/api/v1/users/forgotpassword/sendPassword/${userDb._id}`
+      return res.redirect(307, `http://localhost:8080/api/v1/users/forgotpassword/sendPassword/${userDb._id}`
       );
     } else {
       return res.status(404).json('User not register');
@@ -265,6 +298,7 @@ const sendPassword = async (req, res, next) => {
   try {
     // Recibimos el ID por parámetro
     const { id } = req.params;
+    console.log(req.params);
     const userDb = await User.findById(id);
 
     //Configuramos el envío del correo electrónico
@@ -803,6 +837,7 @@ module.exports = {
   checkNewUser, 
   resendCode, 
   login, 
+  autoLogin,
   forgotPassword, 
   sendPassword, 
   modifyPassword, 

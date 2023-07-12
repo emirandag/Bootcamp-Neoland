@@ -21,7 +21,7 @@ const UserSchema = new Schema(
     gender: { type: String, enum: ['male', 'female'], required: true },
     rol: { type: String, enum: ['admin', 'manager', 'user'], required: true },
     photo: { type: String },
-    confirmationCode: { type: String, required: true },
+    confirmationCode: { type: Number, required: true },
     check: { type: Boolean, default: false },
     projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
     tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
