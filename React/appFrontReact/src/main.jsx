@@ -4,8 +4,8 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard, Home, Gallery, Details, CheckCode, Register, Login, ForgotPassword, Profile } from './pages'
-import Protected from './components/Protected/Protected.jsx'
 import { AuthContextProvider } from './context/authContext.jsx'
+import { Protected, ProtectedCheckChildren } from './components/index.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -14,10 +14,19 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<Home />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard' element={
+            <Protected>
+              <Dashboard />    
+            </Protected>
+          } />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/checkCode' element={<CheckCode />} />
+          <Route path='/checkCode' element={
+          <ProtectedCheckChildren>
+            <CheckCode />
+          </ProtectedCheckChildren>
+          
+          } />
           <Route path='/gallery' element={
             <Protected>
               <Gallery />

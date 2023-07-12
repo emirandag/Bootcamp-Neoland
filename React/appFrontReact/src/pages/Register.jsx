@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
-import Uploadfile from '../components/Uploadfile'
+
 import { registerUser } from '../services/API_user/user.service'
 import { Link, Navigate } from 'react-router-dom'
 import { useRegisterError } from '../hooks'
 import { useAuth } from '../context/authContext'
+import { Uploadfile } from '../components'
 
 export const Register = () => {
     const { allUser, setAllUser, bridgeData } = useAuth()

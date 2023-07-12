@@ -4,7 +4,8 @@ import { useAuth } from "../../context/authContext"
 import { useEffect, useState } from "react"
 import { updateUser } from "../../services/API_user/user.service";
 import { useUpdateUserError } from "../../hooks";
-import Uploadfile from "../Uploadfile";
+import { Uploadfile } from "../Uploadfile";
+import { FigureUser } from "../FigureUser";
 
 export const FormProfile = () => {
   const { user, setUser, logout } = useAuth()
@@ -64,7 +65,7 @@ export const FormProfile = () => {
     <>
       <div className="containerProfile">
         <div className="containerDataNoChange">
-          {/* <FigureUser user={user} /> */}
+          <FigureUser user={user} />
         </div>
         <div className="form-wrap formProfile">
           <h1>Change your data profile ♻</h1>
