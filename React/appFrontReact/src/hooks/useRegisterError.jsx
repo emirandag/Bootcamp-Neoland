@@ -18,7 +18,7 @@ export const useRegisterError = (res, setRegisterOk, setRes, setAllUser) => {
   }
 
   // res --> 409 --> Usuario ya registrado
-  if (res?.response?.status == 409) {
+  if (res?.response?.status === 409) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -27,6 +27,18 @@ export const useRegisterError = (res, setRegisterOk, setRes, setAllUser) => {
       timer: 1500,
     });
     setRes({})
+  }
+
+  // La contraseña no esta en el formato correcto
+  if (res?.response?.data?.includes("User validation failed: password: Password not valid")) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Min 8 characters, 1 upper case, 1 lower case and a special character ❎",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    setRes({});
   }
 
   // -------- 404 - error resend code -----------

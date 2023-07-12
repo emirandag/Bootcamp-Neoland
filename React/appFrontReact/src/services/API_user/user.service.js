@@ -28,7 +28,7 @@ export const autoLoginUser = async (formData) => {
 };
 
 export const forgotPasswordUser = async (formData) => {
-  return APIuser.patch("/users/forgotpassword", formData)
+  return APIuser.post("/users/forgotpassword", formData)
     .then((res) => res)
     .catch((error) => error);
 };
@@ -45,6 +45,7 @@ export const changePasswordUser = async (formData) => {
 
 export const updateUser = async (formData) => {
   return APIuser.patch("/users/update/update", formData, {
+    "Content-Type": "multipart/form-data",
     headers: {
       Authorization: `Bearer ${updateToken()}`
     }
