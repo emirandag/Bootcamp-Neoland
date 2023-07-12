@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ChangePassword, FormProfile } from "../components"
 import { useAuth } from "../context/authContext"
+import { useDeleteUserError } from "../hooks"
 export const Profile = () => {
     const [changeRender, setChangeRender] = useState(true)
     const { setUser } = useAuth()
@@ -24,7 +25,7 @@ export const Profile = () => {
         src="https://res.cloudinary.com/dq186ej4c/image/upload/v1686140226/eliminar_user_rmwoeg.png"
         alt="user delete button"
         className="iconNav iconDeleteUser"
-        onClick={() => useDeleteUser(setUser)}
+        onClick={() => useDeleteUserError(setUser)}
       />
     </div>
     <div className="fluidContainerProfile">
